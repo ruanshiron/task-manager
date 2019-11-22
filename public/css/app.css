@@ -1,5 +1,86 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+.navigation {
+  bottom: 0px;
+  left: 0px;
+  position: fixed;
+  top: 0px;
+  z-index: 200;
+}
+
+.navigation .sidebar {
+  -webkit-box-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  flex-shrink: 0;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  padding-bottom: calc(20px);
+  padding-top: 24px;
+  width: 64px;
+  height: calc(100vh - 0px);
+  background-color: white;
+  color: white;
+  fill: white;
+  -webkit-transition: background-color 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, color 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  transition: background-color 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, color 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+}
+
+.navigation .sidebar .nav-header {
+  -webkit-box-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  flex-shrink: 0;
+  -webkit-box-pack: justify;
+  justify-content: flex-start;
+}
+
+.navigation .sub-sidebar {
+  height: 100%;
+  position: relative;
+}
+
+.navigation .sub-sidebar .sub-menu {
+  margin: auto;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  min-width: 240px;
+  overflow-x: hidden;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  background-color: #0747a6;
+  color: white;
+}
+
+.content {
+  will-change: padding-left;
+  padding-left: 254px;
+  margin-left: 64px;
+  margin-top: 0px;
+  width: 0px;
+  -webkit-box-flex: 1;
+          flex: 1 1 auto;
+}
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
