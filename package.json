@@ -25,6 +25,7 @@
         "sass-loader": "^7.1.0"
     },
     "dependencies": {
-        "@blueprintjs/core": "^3.21.0"
+        "@blueprintjs/core": "^3.21.0",
+        "react-router-dom": "^5.1.2"
     }
 }

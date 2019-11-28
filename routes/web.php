@@ -11,16 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/test', function () {
-    return view('test');
-});
+Route::get('/{path?}', function () {
+    return view('demo');
+})->where('path', '.*')->name('react');
 
 // Route::get('/{path?}', 'HomeController@index')->where('path', '.*')->name('react');
