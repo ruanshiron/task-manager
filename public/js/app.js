@@ -93457,6 +93457,27 @@ __webpack_require__.r(__webpack_exports__);
 
 _blueprintjs_core__WEBPACK_IMPORTED_MODULE_5__["FocusStyleManager"].onlyShowFocusOnTabs();
 
+function LinkButton(_ref) {
+  var to = _ref.to,
+      activeOnlyWhenExact = _ref.activeOnlyWhenExact,
+      icon = _ref.icon;
+  var match = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["useRouteMatch"])({
+    path: to,
+    exact: activeOnlyWhenExact
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: to
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
+    style: {
+      margin: "4px"
+    },
+    icon: icon,
+    minimal: true,
+    large: true,
+    active: match ? true : false
+  }));
+}
+
 function App() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container"
@@ -93466,42 +93487,26 @@ function App() {
     className: "sidebar"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "nav-header"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
-    style: {
-      margin: "4px"
-    },
-    icon: "home",
-    minimal: true,
-    large: true,
-    active: true
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
-    style: {
-      margin: "4px"
-    },
-    icon: "projects",
-    minimal: true,
-    large: true
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
-    style: {
-      margin: "4px"
-    },
-    icon: "chart",
-    minimal: true,
-    large: true
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
-    style: {
-      margin: "4px"
-    },
-    icon: "people",
-    minimal: true,
-    large: true
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
-    style: {
-      margin: "4px"
-    },
-    icon: "diagram-tree",
-    minimal: true,
-    large: true
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LinkButton, {
+    to: "/",
+    activeOnlyWhenExact: true,
+    icon: "home"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LinkButton, {
+    to: "/tasks",
+    activeOnlyWhenExact: true,
+    icon: "projects"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LinkButton, {
+    to: "/kpi",
+    activeOnlyWhenExact: true,
+    icon: "chart"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LinkButton, {
+    to: "/groups",
+    activeOnlyWhenExact: true,
+    icon: "people"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LinkButton, {
+    to: "/units",
+    activeOnlyWhenExact: true,
+    icon: "diagram-tree"
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
     style: {
       margin: "4px"
@@ -93686,8 +93691,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Vinh\Code\task-manager\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Vinh\Code\task-manager\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/vinhnt/Code/task-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/vinhnt/Code/task-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

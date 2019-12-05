@@ -5,7 +5,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    useRouteMatch
 } from "react-router-dom";
 
 import { Tasks, Groups, Kpi, Units, Home } from '../screens';
@@ -17,6 +18,19 @@ import { FocusStyleManager } from "@blueprintjs/core";
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
+function LinkButton({to, activeOnlyWhenExact, icon}) {
+    let match = useRouteMatch({
+        path: to,
+        exact: activeOnlyWhenExact
+    })
+
+    return (
+        <Link to={to}> 
+            <Button style={{ margin: "4px" }} icon={icon} minimal large active={match ? true : false}></Button>
+        </Link>
+    )
+}
+
 function App() {
 
     return (
@@ -26,11 +40,17 @@ function App() {
                 <div className="navigation">
                     <div className="sidebar">
                         <div className="nav-header">
-                            <Button style={{ margin: "4px" }} icon="home" minimal large active></Button>
-                            <Button style={{ margin: "4px" }} icon="projects" minimal large ></Button>
-                            <Button style={{ margin: "4px" }} icon="chart" minimal large ></Button>
-                            <Button style={{ margin: "4px" }} icon="people" minimal large ></Button>
-                            <Button style={{ margin: "4px" }} icon="diagram-tree" minimal large ></Button>
+
+                            <LinkButton to="/" activeOnlyWhenExact={true} icon="home"></LinkButton>
+
+                            <LinkButton to="/tasks" activeOnlyWhenExact={true} icon="projects"></LinkButton>
+
+                            <LinkButton to="/kpi" activeOnlyWhenExact={true} icon="chart"></LinkButton>
+                            
+                            <LinkButton to="/groups" activeOnlyWhenExact={true} icon="people"></LinkButton>
+
+                            <LinkButton to="/units" activeOnlyWhenExact={true} icon="diagram-tree"></LinkButton>
+                            
                         </div>
                         <Button style={{ margin: "4px" }} icon="person" minimal large></Button>
                     </div>
