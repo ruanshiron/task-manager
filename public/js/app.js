@@ -93479,9 +93479,7 @@ function LinkButton(_ref) {
 }
 
 function App() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "navigation"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "sidebar"
@@ -93514,7 +93512,9 @@ function App() {
     icon: "person",
     minimal: true,
     large: true
-  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     exact: true,
     path: "/"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_screens__WEBPACK_IMPORTED_MODULE_4__["Home"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
@@ -93525,7 +93525,7 @@ function App() {
     path: "/groups"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_screens__WEBPACK_IMPORTED_MODULE_4__["Groups"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     path: "/units"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_screens__WEBPACK_IMPORTED_MODULE_4__["Units"], null)))));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_screens__WEBPACK_IMPORTED_MODULE_4__["Units"], null))))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -93572,8 +93572,71 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @blueprintjs/core */ "./node_modules/@blueprintjs/core/lib/esm/index.js");
 
 
+
+function TaskPreviewCard(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Card"], {
+    style: {
+      marginTop: "15px"
+    },
+    interactive: true,
+    elevation: _blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Elevation"].TWO
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["H4"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#"
+  }, "T\u1ED5ng quan c\xF4ng vi\u1EC7c")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Card content"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Button"], null, "Submit"));
+}
+
+function ImportantCard(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Card"], {
+    style: {
+      marginTop: "15px"
+    },
+    interactive: true,
+    elevation: _blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Elevation"].TWO
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["H4"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#"
+  }, "C\xF4ng vi\u1EC7c quan tr\u1ECDng")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Tag"], null, "C\xF4ng vi\u1EC7c 1")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Tag"], null, "C\xF4ng vi\u1EC7c 2")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Tag"], null, "C\xF4ng vi\u1EC7c 3")));
+}
+
+function ReminderCard(params) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Card"], {
+    style: {
+      marginTop: "15px"
+    },
+    interactive: true,
+    elevation: _blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Elevation"].TWO
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["H4"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#"
+  }, "Nh\u1EAFc nh\u1EDF")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Card content"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Button"], null, "Submit"));
+}
+
+function DiaryCard(params) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Card"], {
+    style: {
+      marginTop: "15px"
+    },
+    interactive: true,
+    elevation: _blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Elevation"].TWO
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["H4"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#"
+  }, "Nh\u1EADt k\xFD")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Card content"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["Button"], null, "Submit"));
+}
+
 function Home(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["H1"], null, "Home");
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container-fluid"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-8"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TaskPreviewCard, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-4"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ImportantCard, null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-6"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ReminderCard, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-6"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DiaryCard, null))));
 }
 
 /***/ }),
