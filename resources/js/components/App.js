@@ -11,14 +11,14 @@ import {
 
 import { Tasks, Groups, Kpi, Units, Home } from '../screens';
 
-import { Button, Menu, MenuItem, MenuDivider } from '@blueprintjs/core';
+import { Button, Menu, MenuItem, MenuDivider, Tooltip, Position } from '@blueprintjs/core';
 
 import '@blueprintjs/core/lib/css/blueprint.css';
 import { FocusStyleManager } from "@blueprintjs/core";
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
-function LinkButton({ to, activeOnlyWhenExact, icon }) {
+function LinkButton({ to, activeOnlyWhenExact, icon, name }) {
     let match = useRouteMatch({
         path: to,
         exact: activeOnlyWhenExact
@@ -26,7 +26,9 @@ function LinkButton({ to, activeOnlyWhenExact, icon }) {
 
     return (
         <Link to={to}>
-            <Button style={{ margin: "4px" }} icon={icon} minimal large active={match ? true : false}></Button>
+            <Tooltip content={name} position={Position.RIGHT}>
+                <Button style={{ margin: "4px" }} icon={icon} minimal large active={match ? true : false}></Button>
+            </Tooltip>
         </Link>
     )
 }
@@ -41,15 +43,15 @@ function App() {
                     <div className="sidebar">
                         <div className="nav-header">
 
-                            <LinkButton to="/" activeOnlyWhenExact={true} icon="home"></LinkButton>
+                            <LinkButton name="Trang chủ" to="/" activeOnlyWhenExact={true} icon="home"></LinkButton>
 
-                            <LinkButton to="/tasks" activeOnlyWhenExact={true} icon="projects"></LinkButton>
+                            <LinkButton name="Công việc" to="/tasks" activeOnlyWhenExact={true} icon="projects"></LinkButton>
 
-                            <LinkButton to="/kpi" activeOnlyWhenExact={true} icon="chart"></LinkButton>
+                            <LinkButton name="KPI" to="/kpi" activeOnlyWhenExact={true} icon="chart"></LinkButton>
 
-                            <LinkButton to="/groups" activeOnlyWhenExact={true} icon="people"></LinkButton>
+                            <LinkButton name="Nhóm" to="/groups" activeOnlyWhenExact={true} icon="people"></LinkButton>
 
-                            <LinkButton to="/units" activeOnlyWhenExact={true} icon="diagram-tree"></LinkButton>
+                            <LinkButton name="Đơn vị" to="/units" activeOnlyWhenExact={true} icon="diagram-tree"></LinkButton>
 
                         </div>
                         <Button style={{ margin: "4px" }} icon="person" minimal large></Button>
