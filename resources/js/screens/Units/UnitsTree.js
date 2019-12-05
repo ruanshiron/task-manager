@@ -2,70 +2,52 @@ import React, { useState, useEffect } from 'react';
 
 import { ITreeNode, Tree, Tooltip, Position, Icon, Intent, Classes } from '@blueprintjs/core';
 
-import UnitsTree from './UnitsTree'
+class UnitsTree extends React.Component {
+    state = { nodes: INITIAL_STATE };
 
-function UnitsTree2(props) {
-    const [states, setStates] = useState({nodes: INITIAL_STATE})
-
-    useEffect(() => {
-        console.log(states);    
-    });
-
-    function handleNodeClick(nodeData, _nodePath, e) {
-        const originallySelected = nodeData.isSelected
-        
+    handleNodeClick = (nodeData, _nodePath, e) => {
+        const originallySelected = nodeData.isSelected;
         if (!e.shiftKey) {
-            forEachNode(states, n => (n.isSelected = false))
+            this.forEachNode(this.state.nodes, n => (n.isSelected = false));
         }
-        nodeData.isSelected = originallySelected == null ? true : !originallySelected
-        
-        setStates(states)
-    }
+        nodeData.isSelected = originallySelected == null ? true : !originallySelected;
+        this.setState(this.state);
+    };
 
-    function handleNodeCollapse(nodeData) {
-        nodeData.isExpanded = false
-        setStates(states)
-    }
+    handleNodeCollapse = (nodeData) => {
+        nodeData.isExpanded = false;
+        this.setState(this.state);
+    };
 
-    function forEachNode(nodes, callback) {
+    handleNodeExpand = (nodeData) => {
+        nodeData.isExpanded = true;
+        this.setState(this.state);
+    };
+
+    forEachNode(nodes, callback) {
         if (nodes == null) {
-            return
+            return;
         }
 
         for (const node of nodes) {
-            callback(node)
-            if (node.childNodes != null) forEachNode(node.childNodes, callback)
+            callback(node);
+            if (node.childNodes!=null) this.forEachNode(node.childNodes, callback);
         }
     }
-
-    function handleNodeExpand(nodeData) {
-        nodeData.isExpanded = true
-        setStates(states)
-        console.log(states);
-        
+    render() {
+        return (
+            <Tree
+                contents={this.state.nodes}
+                onNodeClick={this.handleNodeClick}
+                onNodeCollapse={this.handleNodeCollapse}
+                onNodeExpand={this.handleNodeExpand}
+            />
+        )
     }
-
-    return (
-        <Tree
-            contents={states.nodes}
-            onNodeClick={handleNodeClick}
-            onNodeCollapse={handleNodeCollapse}
-            onNodeExpand={handleNodeExpand}
-        />
-    )
 }
 
-export function Units(props) {
-    return (
-        <div className="container-fluid">
-            <div style={{left: "64px"}} className="navigation">
-                <div style={{backgroundColor: "#EBF1F5",minWidth: "285px", maxWidth: "285px", padding:"15px", height: "100vh", paddingTop: "28px"}}>
-                    <UnitsTree />
-                </div>
-            </div>
-        </div>
-    );
-}
+
+export default UnitsTree
 
 const INITIAL_STATE = [
     {
