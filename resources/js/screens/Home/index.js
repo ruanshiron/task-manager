@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Button, Card, Elevation, Tag, Divider, H4 } from "@blueprintjs/core";
+import PieChart from "./Pie Chart" 
 
 function TaskPreviewCard(props) {
     return (
         <Card style={{ marginTop: "15px" }} interactive={true} elevation={Elevation.TWO}>
             <H4><a href="#">Tổng quan công việc</a></H4>
-            <p>Card content</p>
-            <Button>Submit</Button>
+            <PieChart/>
         </Card>
     )
 }
@@ -27,8 +27,9 @@ function ReminderCard(params) {
     return (
         <Card style={{ marginTop: "15px" }} interactive={true} elevation={Elevation.TWO}>
             <H4><a href="#">Nhắc nhở</a></H4>
-            <p>Card content</p>
-            <Button>Submit</Button>
+            <p>Bạn cần phê duyệt <Tag>Công việc 1</Tag></p>
+            <p>Bạn cần phê duyệt <Tag>Công việc 2</Tag></p>
+            <p>Bạn cần phê duyệt <Tag>Công việc 3</Tag></p>
         </Card>
     )
 }
@@ -37,8 +38,10 @@ function DiaryCard(params) {
     return (
         <Card style={{ marginTop: "15px" }} interactive={true} elevation={Elevation.TWO}>
             <H4><a href="#">Nhật ký</a></H4>
-            <p>Card content</p>
-            <Button>Submit</Button>
+            <p>9h45 26/7/2019 <Tag minimal>Nguyễn Thế Vinh</Tag> phê duyệt <Tag>Công việc 1</Tag></p>
+            <p>9h45 26/7/2019 <Tag minimal>Ninh Mạnh Hùng</Tag> phê duyệt <Tag>Công việc 2</Tag></p>
+            <p>9h45 26/7/2019 <Tag minimal>Phạm Hải Anh</Tag> phê duyệt <Tag>Công việc 3</Tag></p>
+            <p>9h45 26/7/2019 <Tag minimal>Trần Văn Hoàng</Tag> phê duyệt <Tag>Công việc 4</Tag></p>
         </Card>
     )
 }
