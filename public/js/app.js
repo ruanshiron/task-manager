@@ -93588,13 +93588,69 @@ function Home(props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Kpi", function() { return Kpi; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @blueprintjs/core */ "./node_modules/@blueprintjs/core/lib/esm/index.js");
+/* harmony import */ var _blueprintjs_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @blueprintjs/core */ "./node_modules/@blueprintjs/core/lib/esm/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _blueprintjs_core_lib_css_blueprint_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @blueprintjs/core/lib/css/blueprint.css */ "./node_modules/@blueprintjs/core/lib/css/blueprint.css");
+/* harmony import */ var _blueprintjs_core_lib_css_blueprint_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_blueprintjs_core_lib_css_blueprint_css__WEBPACK_IMPORTED_MODULE_4__);
 
 
+
+
+
+
+
+_blueprintjs_core__WEBPACK_IMPORTED_MODULE_0__["FocusStyleManager"].onlyShowFocusOnTabs();
 function Kpi(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_1__["H1"], null, "Kpi");
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_blueprintjs_core__WEBPACK_IMPORTED_MODULE_0__["H1"], null, "Kpi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "row justify-content-center"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "col-md-8"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "card"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "bp3-select .modifier"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Ch\u1ECDn \u0111\u01A1n v\u1ECB:"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+    className: "bp3-select .modifier"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Ch\u1ECDn \u0111\u01A1n v\u1ECB"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+    value: "phongKinhDoanh"
+  }, "Ph\xF2ng Kinh Doanh"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+    value: "phongMarketing"
+  }, "Ph\xF2ng Marketing"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+    value: "boPhanNhanSu"
+  }, "B\u1ED9 Ph\u1EADn Nh\xE2n S\u1EF1"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "goal-name"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "T\xEAn m\u1EE5c ti\xEAu:"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+    className: "bp3-input .modifier",
+    type: "text",
+    placeholder: "M\u1EE5c ti\xEAu 1",
+    dir: "auto"
+  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "bp3-select .modifier"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Thu\u1ED9c m\u1EE5c ti\xEAu:"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+    className: "bp3-select .modifier"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Doanh thu 300 t\u1ECFi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+    value: "phongKinhDoanh"
+  }, "Doanh thu 200 t\u1ECFi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+    value: "phongMarketing"
+  }, "Doanh thu 1 t\u1ECFi"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "goal-name"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Ti\xEAu ch\xED \u0111\xE1nh gi\xE1:"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+    className: "bp3-input .modifier",
+    type: "text",
+    placeholder: "Nh\u1EADp ti\xEAu ch\xED \u0111\xE1nh gi\xE1",
+    dir: "auto"
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+    className: "bp3-button bp3-icon-save",
+    id: "save",
+    type: "submit"
+  }, "Save")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+    className: "bp3-html-table .modifier"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Project"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Description"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Technologies"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, "STT"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, "T\xEAn m\u1EE5c ti\xEAu"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, "Sass, TypeScript, React")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, "TSLint"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, "Static analysis linter for TypeScript"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, "TypeScript")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, "Plottable"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, "Composable charting library built on top of D3"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, "SVG, TypeScript, D3")))))))));
 }
 
 /***/ }),
@@ -93691,8 +93747,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/vinhnt/Code/task-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/vinhnt/Code/task-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\th lap trinh web\task-manager\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\th lap trinh web\task-manager\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
