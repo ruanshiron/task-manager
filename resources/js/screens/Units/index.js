@@ -59,7 +59,14 @@ export function Units(props) {
     return (
         <div className="container-fluid">
             <div style={{left: "64px"}} className="navigation">
-                <div style={{backgroundColor: "#EBF1F5",minWidth: "285px", maxWidth: "285px", padding:"15px", height: "100vh", paddingTop: "28px"}}>
+                <div style={{
+                    backgroundColor: "#EBF1F5",
+                    minWidth: "285px", 
+                    maxWidth: "285px", 
+                    padding:"15px", 
+                    height: "100vh", 
+                    paddingTop: "28px"
+                }}>
                     <UnitsTree />
                 </div>
             </div>
