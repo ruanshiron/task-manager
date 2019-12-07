@@ -18,8 +18,8 @@ function LinkMenuItem({ to, activeOnlyWhenExact, icon, text }) {
     })
 
     return (
-        <Link style={{color: 'black'}} to={to}>
-            <Menu.Item icon={icon} text={text} active={match ? true : false}/>
+        <Link style={{ textDecoration: 'none', color: 'black'}} to={to}>
+            <Menu.Item style={{ marginTop: '2px' }} icon={icon} text={text} active={match ? true : false}/>
         </Link>
     )
 }

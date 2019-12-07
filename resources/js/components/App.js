@@ -14,6 +14,7 @@ import { Tasks, Groups, Kpi, Units, Home } from '../screens';
 import { Button, Menu, MenuItem, MenuDivider, Tooltip, Position } from '@blueprintjs/core';
 
 import '@blueprintjs/core/lib/css/blueprint.css';
+import '@blueprintjs/select/lib/css/blueprint-select.css'
 import { FocusStyleManager } from "@blueprintjs/core";
 
 FocusStyleManager.onlyShowFocusOnTabs();
@@ -45,14 +46,14 @@ function App() {
 
                             <LinkButton name="Trang chủ" to="/" activeOnlyWhenExact={true} icon="home"></LinkButton>
 
-                            <LinkButton name="Công việc" to="/tasks" activeOnlyWhenExact={true} icon="projects"></LinkButton>
+                            <LinkButton name="Công việc" to="/tasks" icon="projects"></LinkButton>
 
-                            <LinkButton name="KPI" to="/kpi" activeOnlyWhenExact={true} icon="chart"></LinkButton>
+                            <LinkButton name="KPI" to="/kpi" icon="chart"></LinkButton>
 
-                            <LinkButton name="Nhóm" to="/groups" activeOnlyWhenExact={true} icon="people"></LinkButton>
+                            <LinkButton name="Nhóm" to="/groups" icon="people"></LinkButton>
 
-                            <LinkButton name="Đơn vị" to="/units" activeOnlyWhenExact={true} icon="diagram-tree"></LinkButton>
-
+                            <LinkButton name="Đơn vị" to="/units" icon="diagram-tree"></LinkButton>
+ß
                         </div>
                         <Button style={{ margin: "4px" }} icon="person" minimal large></Button>
                     </div>

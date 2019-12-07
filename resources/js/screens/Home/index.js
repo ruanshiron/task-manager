@@ -50,18 +50,12 @@ export function Home(props) {
     return (
         <div className="container-fluid">
             <div className="row">
-                <div className="col-8">
+                <div className="col-7">
                     <TaskPreviewCard />
                 </div>
-                <div className="col-4">
+                <div className="col-5">
                     <ImportantCard />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-6">
                     <ReminderCard />
-                </div>
-                <div className="col-6">
                     <DiaryCard />
                 </div>
             </div>
