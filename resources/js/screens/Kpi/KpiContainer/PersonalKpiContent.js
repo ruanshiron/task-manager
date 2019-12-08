@@ -25,7 +25,7 @@ class PersonalKpiContent extends React.Component {
                     <div className="d-flex flex-row bd-highlight mb-3">
                         <div className="p-2">
                             <H6>Tháng</H6>
-                            <ItemSelect/>
+                            <DatetimeInput/>
                         </div>
                         <div className="p-2">
                             <H6>Người duyệt</H6>

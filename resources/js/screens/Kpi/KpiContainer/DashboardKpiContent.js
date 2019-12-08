@@ -22,7 +22,7 @@ class DashboardKpiContent extends React.Component {
                         <div className="d-flex flex-row bd-highlight mb-3">
                             <div className="p-2">
                                 <H6>Tháng</H6>
-                                <ItemSelect/>
+                                <DatetimeInput/>
                             </div>
                         </div>
                         <div className="flex-fill bd-highlight">
