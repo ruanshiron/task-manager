@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { H1, H6} from "@blueprintjs/core"
 import { Menu, MenuItem, MenuDivider, Button,EditableText, Classes, Icon, IconName } from '@blueprintjs/core';
-import { ItemSelect, ItemMultiSelect } from '../../../components';
+import { ItemSelect, ItemMultiSelect, DatetimeInput } from '../../../components';
 class UnitsKpiContent extends React.Component {
 
     render() {
