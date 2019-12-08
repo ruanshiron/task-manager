@@ -5,6 +5,7 @@ import { Suggest, Select, MultiSelect } from "@blueprintjs/select"
 
 import UnitsTree from '../../Units/UnitsTree'
 import { ItemSelect, ItemMultiSelect } from '../../../components';
+import { TTree } from '../../../components/TTree';
 
 const INTENTS = [Intent.NONE, Intent.PRIMARY, Intent.SUCCESS, Intent.DANGER, Intent.WARNING];
 
@@ -50,7 +51,7 @@ class NewTasksContent extends React.Component {
 
                     <div className="p-2">
                         <H6>Công việc đã chọn</H6>
-                        <UnitsTree />
+                        <TTree />
                     </div>
                 </div>
                 <div className="flex-fill bd-highlight">

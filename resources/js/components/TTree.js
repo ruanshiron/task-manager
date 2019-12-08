@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { ITreeNode, Tree, Tooltip, Position, Icon, Intent, Classes } from '@blueprintjs/core';
+import { ITreeNode, Tree, Tooltip, Position, Icon, Intent, Classes, Button } from '@blueprintjs/core';
 
 export class TTree extends React.Component {
     state = { nodes: this.props.contents? this.props.contents :INITIAL_STATE };
@@ -71,9 +71,10 @@ const INITIAL_STATE = [
                 icon: "document",
                 label: "Item 0",
                 secondaryLabel: (
-                    <Tooltip content="An eye!">
-                        <Icon icon="eye-open" />
-                    </Tooltip>
+                    <div>
+                        <Button minimal icon="plus" />
+                        <Button minimal icon="minus" />
+                    </div>
                 ),
             },
             {

@@ -15,8 +15,16 @@ export class Units extends React.Component {
                             <UnitsTree />
                         </div>
                     </div>
-                    <div className="fa-scroll border-left content-unit "
-                        style={{ minWidth: "800px", padding: "15px", height: "100vh", paddingTop: "28px", marginLeft: "285px" }}>
+                    <div 
+                        className = "fa-scroll border-left content-unit container-fluid"
+                        style = {{ 
+                            maxWidth: "700px",
+                            padding: "15px", 
+                            height: "100vh", 
+                            paddingTop: "28px", 
+                            marginLeft: "285px" 
+                        }}
+                    >
                         <UnitsContent />
                     </div>
                 </div>
