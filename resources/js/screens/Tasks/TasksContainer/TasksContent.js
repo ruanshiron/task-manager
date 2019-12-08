@@ -14,26 +14,20 @@ import NewTasksContent from './NewTasksContent';
 import TasksTemplateContent from './TasksTemplateContent';
 import NewTasksTemplateContent from './NewTasksTemplateContent';
 
-class KpiContent extends React.Component {
+class TasksContent extends React.Component {
 
     render() {
         return (
             <Switch>
-                <Route exact path="/tasks/">
-                    <TasksListContent />
-                </Route>
-                <Route path="/tasks/new">
-                    <NewTasksContent />
-                </Route>
-                <Route exact path="/tasks/template">
-                    <TasksTemplateContent/>
-                </Route>
-                <Route exact path="/tasks/template/new">
-                    <NewTasksTemplateContent/>
-                </Route>
+
+                <Route exact path="/tasks/new" render={(props) => <NewTasksContent {...props} />} />
+                <Route exact path="/tasks/:taskId" render={(props) => <TasksListContent {...props} />} />
+
+                <Route exact path="/tasks/template/new" render={(props) => <NewTasksTemplateContent {...props} />} />
+                <Route exact path="/tasks/template" render={(props) => <TasksTemplateContent {...props} />} />
             </Switch>
         )
     }
 }
 
-export default KpiContent
+export default TasksContent

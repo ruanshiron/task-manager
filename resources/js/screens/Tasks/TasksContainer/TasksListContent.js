@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Label, Checkbox, Alignment, H3 } from "@blueprintjs/core"
+import { Redirect } from "react-router-dom"
 
 import { ItemSelect } from '../../../components/ItemSelect';
 import { ItemMultiSelect } from '../../../components/ItemMultiSelect';
@@ -13,8 +14,11 @@ class TasksListContent extends React.Component {
         large: false,
     };
 
-    render() {
+    componentDidUpdate() {
+        console.log(this.props);
+    }
 
+    render() {
         return (
             <div style={{ paddingTop: '28px' }} className="container-fluid">
 
@@ -25,8 +29,8 @@ class TasksListContent extends React.Component {
                     <Checkbox {...this.state} label="Người tạo" />
                 </div>
 
-                <table class="table">
-                    <thead class="thead-light">
+                <table className="table">
+                    <thead className="thead-light">
                         <tr>
                             <th scope="col">Tên công việc</th>
                             <th scope="col">Hành động</th>

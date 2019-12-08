@@ -46,19 +46,22 @@ function DiaryCard(params) {
     )
 }
 
-export function Home(props) {
-    return (
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-7">
-                    <TaskPreviewCard />
-                </div>
-                <div className="col-5">
-                    <ImportantCard />
-                    <ReminderCard />
-                    <DiaryCard />
+export class Home extends React.Component {
+    render() {
+        return (
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-7">
+                        <TaskPreviewCard />
+                    </div>
+                    <div className="col-5">
+                        <ImportantCard />
+                        <ReminderCard />
+                        <DiaryCard />
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
+    
 }

@@ -17,7 +17,7 @@ class NewTasksTemplateContent extends React.Component {
     render() {
 
         return (
-            <div style={{ paddingBottom: '48px',paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
+            <div style={{ paddingBottom: '50vh',paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
                 <div className="p-2">
                     <H3>Tạo mẫu mới</H3>
                     <p>Một công việc bắt buộc phải theo một mẫu nên, hãy tạo mẫu trước khi tao công việc</p>

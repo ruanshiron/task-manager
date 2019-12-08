@@ -10,13 +10,21 @@ const INTENTS = [Intent.NONE, Intent.PRIMARY, Intent.SUCCESS, Intent.DANGER, Int
 
 class NewTasksContent extends React.Component {
 
-    state = {
+    constructor(props) {
+        super(props)
+
+        // this.handleOnClick = this.handleOnClick.bind(this)
+    }
+
+    componentDidMount() {
+        console.log(this.props);
+        
     }
 
     render() {
 
         return (
-            <div style={{ paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
+            <div style={{ paddingBottom: '50vh', paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
                 <div className="p-2">
                     <H3>Tạo công việc mới</H3>
                     <p>Hãy chọn mẫu công việc hoặc tạo một mẫu mới, và hoàn thành các mục dưới đây</p>
@@ -26,15 +34,15 @@ class NewTasksContent extends React.Component {
                 <div className="d-flex flex-row bd-highlight mb-3">
                     <div className="p-2">
                         <H6>Công việc gốc</H6>
-                        <ItemSelect/>
+                        <ItemSelect />
                     </div>
                     <div className="p-2">
                         <H6>Mẫu công việc</H6>
-                        <ItemSelect/>
+                        <ItemSelect />
                     </div>
                     <div className="p-2">
                         <H6>Nhóm</H6>
-                        <ItemSelect/>
+                        <ItemSelect />
                     </div>
 
                 </div>
@@ -55,28 +63,28 @@ class NewTasksContent extends React.Component {
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người thực hiện</H6>
-                        <ItemMultiSelect/>
+                        <ItemMultiSelect />
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người phê guyệt</H6>
-                        <ItemMultiSelect/>
+                        <ItemMultiSelect />
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người quan sát</H6>
-                        <ItemMultiSelect/>
+                        <ItemMultiSelect />
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>KPI mục tiêu</H6>
-                        <ItemMultiSelect/>
+                        <ItemMultiSelect />
                     </div>
                 </div>
 
@@ -84,7 +92,7 @@ class NewTasksContent extends React.Component {
                 <div className="d-flex flex-row bd-highlight mb-3">
                     <div className="p-2">
                         <H6>Mức độ ưu tiên</H6>
-                        <ItemSelect/>
+                        <ItemSelect />
                     </div>
 
 
@@ -94,14 +102,13 @@ class NewTasksContent extends React.Component {
                 <div className="d-flex flex-row bd-highlight mb-3">
                     <div className="p-2">
 
-                    <Button intent="success" large>Tạo công việc</Button>
+                        <Button intent="success" large>Tạo công việc</Button>
                     </div>
                 </div>
             </div>
         )
     }
 
-    
 }
 
 export default NewTasksContent
