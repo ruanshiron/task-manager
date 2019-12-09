@@ -6,6 +6,7 @@ import { Suggest, Select, MultiSelect } from "@blueprintjs/select"
 import UnitsTree from '../../Units/UnitsTree'
 import { ItemSelect, ItemMultiSelect } from '../../../components';
 import { TTree } from '../../../components/TTree';
+import axios from 'axios';
 
 const INTENTS = [Intent.NONE, Intent.PRIMARY, Intent.SUCCESS, Intent.DANGER, Intent.WARNING];
 
@@ -14,12 +15,30 @@ class NewTasksContent extends React.Component {
     constructor(props) {
         super(props)
 
-        // this.handleOnClick = this.handleOnClick.bind(this)
+        this.handleOnClick = this.handleOnClick.bind(this)
     }
 
     componentDidMount() {
         console.log(this.props);
-        
+
+    }
+
+    handleOnClick(e) {
+        axios({
+            method: 'post',
+            url: 'https://jsonplaceholder.typicode.com/users',
+            data: {
+                "template_id": 1,
+                "group_id": 1,
+                "kpi_id": 2,
+                "priority_id": 2,
+                "name": "hohlep"
+            }
+        })
+        .then(response => {
+            console.log(response);
+
+        });
     }
 
     render() {
@@ -103,7 +122,7 @@ class NewTasksContent extends React.Component {
                 <div className="d-flex flex-row bd-highlight mb-3">
                     <div className="p-2">
 
-                        <Button intent="success" large>Tạo công việc</Button>
+                        <Button intent="success" onClick={this.handleOnClick} large>Tạo công việc</Button>
                     </div>
                 </div>
             </div>

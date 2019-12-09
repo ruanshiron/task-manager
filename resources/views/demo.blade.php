@@ -20,6 +20,8 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
+        <div id="csrf">@csrf </div>
+
         <div id="task-manager"></div>
     </body>
 </html>

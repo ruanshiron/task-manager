@@ -39,7 +39,7 @@ class RateKpiContent extends React.Component {
                         </div>
                     </div>
                     <div className="flex-fill bd-highlight">
-                    <div className="card">
+                    <div className="card ml-2 mr-2">
                         <div className="flex-fill bd-highlight">
                             <div className="p-2">
                                 <p>Mục tiêu 1 - Trọng số 30 - Hoàn thành 70% đơn hàng</p>
@@ -56,7 +56,7 @@ class RateKpiContent extends React.Component {
                             </div>  
                         </div>
                         <div className="flex-fill bd-highlight">
-                            <button className="bp3-button" data-toggle="collapse" data-target="#demo">Danh sách công việc(10 việc: 3 hoàn thành, 2 hủy, 3 dừng, 2 đang thực hiện</button>
+                            <button className="bp3-button m-2" data-toggle="collapse" data-target="#demo">Danh sách công việc(10 việc: 3 hoàn thành, 2 hủy, 3 dừng, 2 đang thực hiện</button>
                                 <div id="demo" className="collapse">
                                     
                                     <p>+Công việc 1, điểm số 70. Vai trò: người thực hiện. 3/5-2/6. Hoàn thành đúng hạn</p>

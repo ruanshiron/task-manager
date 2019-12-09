@@ -18,6 +18,8 @@ import '@blueprintjs/select/lib/css/blueprint-select.css'
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css'
 
 import { FocusStyleManager } from "@blueprintjs/core";
+import { UserContext } from '../common/user';
+import { UserButton } from './UserButton';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -38,41 +40,68 @@ function LinkButton({ to, activeOnlyWhenExact, icon, name }) {
 
 class App extends React.Component {
 
+    constructor(props) {
+        super(props)
+
+        this.getUser = this.getUser.bind(this)
+    }
+
+    state = {
+        user: undefined,
+    }
+
+    componentDidMount() {
+        this.getUser()
+    }
+
+    getUser = () => {
+        let user = null
+
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/users',
+        })
+        .then(response => {
+            console.log(response);
+            this.setState({user: response})
+        });
+    }
+
     render() {
         return (
+            <UserContext.Provider value={this.state}>
+                <Router>
+                    <div>
+                        <div className="navigation">
+                            <div className="sidebar">
+                                <div className="nav-header">
 
-            <Router>
-                <div>
-                    <div className="navigation">
-                        <div className="sidebar">
-                            <div className="nav-header">
+                                    <LinkButton name="Trang chủ" to="/" activeOnlyWhenExact={true} icon="home"></LinkButton>
 
-                                <LinkButton name="Trang chủ" to="/" activeOnlyWhenExact={true} icon="home"></LinkButton>
+                                    <LinkButton name="Công việc" to="/tasks" icon="projects"></LinkButton>
 
-                                <LinkButton name="Công việc" to="/tasks" icon="projects"></LinkButton>
+                                    <LinkButton name="KPI" to="/kpi" icon="chart"></LinkButton>
 
-                                <LinkButton name="KPI" to="/kpi" icon="chart"></LinkButton>
+                                    <LinkButton name="Nhóm" to="/groups" icon="people"></LinkButton>
 
-                                <LinkButton name="Nhóm" to="/groups" icon="people"></LinkButton>
+                                    <LinkButton name="Đơn vị" to="/units" icon="diagram-tree"></LinkButton>
 
-                                <LinkButton name="Đơn vị" to="/units" icon="diagram-tree"></LinkButton>
-
+                                </div>
+                                <UserButton />
                             </div>
-                            <Button style={{ margin: "4px" }} icon="person" minimal large></Button>
+                        </div>
+                        <div className="content">
+                            <Switch>
+                                <Route exact path="/" render={(props) => <Home {...props}/>} />>
+                                <Route path="/tasks" render={(props) => <Tasks {...props}/>} />
+                                <Route path="/kpi" render={(props) => <Kpi {...props}/>}/>
+                                <Route path="/groups" render={(props) => <Groups {...props}/>}/>
+                                <Route path="/units" render={(props) => <Units {...props}/>}/>>
+                            </Switch>
                         </div>
                     </div>
-                    <div className="content">
-                        <Switch>
-                            <Route exact path="/" render={(props) => <Home {...props}/>} />>
-                            <Route path="/tasks" render={(props) => <Tasks {...props}/>} />
-                            <Route path="/kpi" render={(props) => <Kpi {...props}/>}/>
-                            <Route path="/groups" render={(props) => <Groups {...props}/>}/>
-                            <Route path="/units" render={(props) => <Units {...props}/>}/>>
-                        </Switch>
-                    </div>
-                </div>
-            </Router>
-
+                </Router>
+            </UserContext.Provider>
         );
     }
 

@@ -15,8 +15,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/{path?}', function () {
-    return view('demo');
-})->where('path', '.*')->name('react');
+Route::prefix('api')->group(function() {
+    Route::resource('users', 'UserController');
+    Route::resource('tasks', 'TaskController');
+});
+
+Route::get('/{path?}', 'HomeController@index')->where('path', '.*')->name('react');
 
 // Route::get('/{path?}', 'HomeController@index')->where('path', '.*')->name('react');
