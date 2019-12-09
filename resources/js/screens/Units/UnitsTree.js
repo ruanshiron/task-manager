@@ -36,13 +36,14 @@ class UnitsTree extends React.Component {
     }
     render() {
         return (
-            <Tree
-            contents={this.state.nodes}
-            onNodeClick={this.handleNodeClick}
-            onNodeCollapse={this.handleNodeCollapse}
-            onNodeExpand={this.handleNodeExpand}
-            />
-            
+            <div className="container-fluid">
+                <Tree
+                    contents={this.state.nodes}
+                    onNodeClick={this.handleNodeClick}
+                    onNodeCollapse={this.handleNodeCollapse}
+                    onNodeExpand={this.handleNodeExpand}
+                />
+            </div>
         )
     }
 }
@@ -60,6 +61,12 @@ const INITIAL_STATE = [
                 Unit 0
             </Tooltip>
         ),
+        secondaryLabel: (
+            <div>
+                <Button minimal icon="plus" />
+                <Button minimal icon="minus" />
+            </div>
+        ),
         childNodes: [
             {
                 id: 4,
@@ -69,6 +76,12 @@ const INITIAL_STATE = [
                     <Tooltip content="foo" position={Position.RIGHT}>
                         Unit 4
                     </Tooltip>
+                ),
+                secondaryLabel: (
+                    <div>
+                        <Button minimal icon="plus" />
+                        <Button minimal icon="minus" />
+                    </div>
                 ),
                 childNodes: [
                     {
@@ -80,6 +93,12 @@ const INITIAL_STATE = [
                                 Unit 5
                             </Tooltip>
                         ),
+                        secondaryLabel: (
+                            <div>
+                                <Button minimal icon="plus" />
+                                <Button minimal icon="minus" />
+                            </div>
+                        ),
                         childNodes: [
                             {
                                 id: 6,
@@ -89,6 +108,12 @@ const INITIAL_STATE = [
                                     <Tooltip content="foo" position={Position.RIGHT}>
                                         Unit 6
                                     </Tooltip>
+                                ),
+                                secondaryLabel: (
+                                    <div>
+                                        <Button minimal icon="plus" />
+                                        <Button minimal icon="minus" />
+                                    </div>
                                 ),
                                 childNodes: [
                                     
@@ -109,6 +134,12 @@ const INITIAL_STATE = [
                 Unit 1
             </Tooltip>
         ),
+        secondaryLabel: (
+            <div>
+                <Button minimal icon="plus" />
+                <Button minimal icon="minus" />
+            </div>
+        ),
         childNodes: [
             {
                 id: 2,
@@ -119,12 +150,24 @@ const INITIAL_STATE = [
                         Unit 2
                     </Tooltip>
                 ),
+                secondaryLabel: (
+                    <div>
+                        <Button minimal icon="plus" />
+                        <Button minimal icon="minus" />
+                    </div>
+                ),
                 childNodes: [
                     {
                         id: 3,
                         hasCaret: true,
                         icon: "layers",
                         label: "Unit 3",
+                        secondaryLabel: (
+                            <div>
+                                <Button minimal icon="plus" />
+                                <Button minimal icon="minus" />
+                            </div>
+                        ),
                         childNodes: [
                             
                         ],

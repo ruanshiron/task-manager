@@ -32,11 +32,13 @@ class GroupMenu extends React.Component {
 
     render() {
         return (
-            < Menu >
-                <MenuDivider title="GROUP" />
-                <LinkMenuItem icon="new-text-box" activeOnlyWhenExact to="/groups/" text="Xen danh sách nhóm" />
-                <LinkMenuItem icon="new-object" to="/groups/createNewGroup" text="Tạo mới nhóm" />
-            </Menu>
+            <div className="container-fluid">
+                < Menu >
+                    <MenuDivider title="GROUP" />
+                    <LinkMenuItem icon="new-text-box" activeOnlyWhenExact to="/groups/" text="Xen danh sách nhóm" />
+                    <LinkMenuItem icon="new-object" to="/groups/createNewGroup" text="Tạo mới nhóm" />
+                </Menu>
+            </div>  
         )
     }
 }

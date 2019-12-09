@@ -8,23 +8,20 @@ import UnitsContent from './UnitsContents'
 export class Units extends React.Component {
     render() {
         return (
-            <div className="container-fluid">
-                <div className="row relative">
-                    <div className="position-fixed" style={{ left: "64px" }}>
-                        <div style={{ backgroundColor: "#EBF1F5", minWidth: "285px", maxWidth: "285px", padding: "15px", height: "100vh", paddingTop: "30px" }}>
-                            <UnitsTree />
-                        </div>
+            <div>
+                <div style={{ left: "64px" }} className="navigation">
+                    <div style={{
+                        backgroundColor: "#EBF1F5",
+                        minWidth: "285px",
+                        maxWidth: "285px",
+                        height: "100vh",
+                        paddingTop: "28px"
+                    }}>
+                        <UnitsTree /> 
                     </div>
-                    <div 
-                        className = "fa-scroll border-left content-unit container-fluid"
-                        style = {{ 
-                            maxWidth: "700px",
-                            padding: "15px", 
-                            height: "100vh", 
-                            paddingTop: "28px", 
-                            marginLeft: "285px" 
-                        }}
-                    >
+                </div>    
+                <div style={{marginLeft: "285px"}}>
+                    <div className="container-fluid">
                         <UnitsContent />
                     </div>
                 </div>
