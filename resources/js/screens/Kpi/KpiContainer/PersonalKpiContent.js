@@ -36,10 +36,10 @@ class PersonalKpiContent extends React.Component {
                             <ItemSelect/>
                         </div>
                     </div>
-                    
+                    <div className="p-2">
+                        <H6>Mục tiêu</H6>  
+                    </div>
                     <div className="card">  
-                    <H6>Mục tiêu</H6>
-                    <br></br>
                     <div className="d-flex flex-row bd-highlight mb-3">
                         <div className="p-2">
                         <H6>Tên mục tiêu:</H6>
@@ -76,19 +76,19 @@ class PersonalKpiContent extends React.Component {
                                     <td>1</td>
                                     <td>Doanh thu</td>
                                     <td>Doanh thu 300 tỉ</td>
-                                    <td><Button icon="edit" iconsize={50} /><Button icon="delete" intent="danger"/></td>
+                                    <td><Button icon="edit" intent="primary"></Button><Button icon="trash" intent="danger"></Button></td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
                                     <td>Khách hàng</td>
                                     <td>Kết nối 300k khách hàng</td>
-                                    <td><Button icon="edit" iconsize={50} /><Button icon="delete" intent="danger"/></td>
+                                    <td><Button icon="edit" intent="primary"></Button><Button icon="trash" intent="danger"></Button></td>
                                 </tr>
                                 <tr>
                                     <td>3</td>
                                     <td>KPI 3</td>
                                     <td></td>
-                                    <td><Button icon="edit" iconsize={50} /><Button icon="delete" intent="danger"/></td>
+                                    <td><Button icon="edit" intent="primary"></Button><Button icon="trash" intent="danger"></Button></td>
                                 </tr>
                             </tbody>
                             </table>
