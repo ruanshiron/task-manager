@@ -18,6 +18,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('api')->group(function() {
     Route::resource('users', 'UserController');
     Route::resource('tasks', 'TaskController');
+    Route::resource('groups', 'GroupController');
 });
 
 Route::get('/{path?}', 'HomeController@index')->where('path', '.*')->name('react');
