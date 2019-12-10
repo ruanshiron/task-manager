@@ -11,6 +11,7 @@ import {
 
 import ListGroup from './ListGroup'
 import CreateNewGroup from './CreateNewGroup'
+import EditGroup from './EditGroup';
 
 class GroupContent extends React.Component {
 
@@ -26,6 +27,9 @@ class GroupContent extends React.Component {
                 </Route>
                 <Route path="/groups/Listgroup">
                     <ListGroup/>
+                </Route>
+                <Route path="/groups/edit">
+                    <EditGroup/>
                 </Route>
                 <Route path="/groups/createNewGroup">
                     <CreateNewGroup/>
