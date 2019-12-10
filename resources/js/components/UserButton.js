@@ -38,9 +38,7 @@ export class UserButton extends React.Component {
                 <MenuDivider />
                 <form action="/logout" method="POST">
                     <input type="hidden" name="_token" value={this.state.csrf} />
-                    <a class="bp3-menu-item bp3-popover-dismiss">
-                        <button type="submit" class="bp3-text-overflow-ellipsis bp3-fill">Logout</button>
-                    </a>
+                    <button type="submit" class="bp3-button bp3-fill bp3-minimal">Logout</button>
                 </form>
             </Menu>
         );
