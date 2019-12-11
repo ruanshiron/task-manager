@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+Route::resource('deputies', 'DeputyController');
+
+Route::delete('deputies/{id}', 'DeputyController@destroy');
+
+Route::resource('members', 'MemberController');
+
+Route::resource('groups', 'GroupController');

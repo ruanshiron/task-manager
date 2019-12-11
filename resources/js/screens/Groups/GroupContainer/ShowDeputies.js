@@ -41,7 +41,7 @@ class ShowDeputies extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{width: "100%"}}>
                 <AddDeputy onSubmit={this.handleSubmitDeputy} />
                 <table className="table" >
                     <thead className="thead-light">

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { H1, InputGroup, Button, Icon, Card, EditableText, TextArea } from '@blueprintjs/core';
+import { ItemSelect, ItemMultiSelect } from '../../../components';
 
 
 class AddGroup extends Component {
@@ -51,7 +52,7 @@ class AddGroup extends Component {
                     <br></br>
                     <div className="unit-leader">
                         <label ><strong><font size="3" >Trưởng nhóm</font></strong></label><br></br>
-                        <div style={{ width: "500px" }}><InputGroup name="captain"/></div>
+                        <div style={{ width: "500px" }}><ItemMultiSelect name="captain"/></div>
                     </div>
                     <button className="mt-5">Submit</button>
                 </form>

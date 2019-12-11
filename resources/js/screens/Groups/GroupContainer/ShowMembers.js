@@ -41,7 +41,7 @@ class ShowMembers extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{width: "100%"}}>
                 <AddMember onSubmit={this.handleSubmitMember} />
                 <table className="table" >
                     <thead className="thead-light">
