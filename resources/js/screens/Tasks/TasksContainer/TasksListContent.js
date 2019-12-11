@@ -5,17 +5,48 @@ import { Redirect } from "react-router-dom"
 
 import { ItemSelect } from '../../../components/ItemSelect';
 import { ItemMultiSelect } from '../../../components/ItemMultiSelect';
+import axios from 'axios';
 
 class TasksListContent extends React.Component {
     state = {
-        alignIndicator: Alignment.LEFT,
-        disabled: false,
-        inline: true,
-        large: false,
+        table: {
+            labels: [
+                "Tên công việc",
+                "Hành động",
+                "Trạng thái",
+                "Tiến độ",
+                "Người thực hiện",
+                "Ưu tiên",
+                "Bắt đầu",
+                "Kết thúc",
+                "Thời gian"
+            ],
+            data: [
+
+            ],
+            shows: [
+
+            ]
+        }
     };
 
-    componentDidUpdate() {
-        console.log(this.props);
+    componentDidMount() {
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/tasks',
+        })
+            .then(response => {
+                try {
+                    this.setState({
+                        table: {
+                            ...this.state.table,
+                            data: response.data
+                        }
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            })
     }
 
     render() {
@@ -24,59 +55,37 @@ class TasksListContent extends React.Component {
 
                 <div className="pb-4">
                     <H3>Vai trò của bạn</H3>
-                    <Checkbox {...this.state} label="Người thực hiện" />
-                    <Checkbox {...this.state} label="Người đánh giá" />
-                    <Checkbox {...this.state} label="Người tạo" />
+                    <Checkbox {...styles.checkbox} label="Người thực hiện" />
+                    <Checkbox {...styles.checkbox} label="Người đánh giá" />
+                    <Checkbox {...styles.checkbox} label="Người tạo" />
                 </div>
 
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th scope="col">Tên công việc</th>
-                            <th scope="col">Hành động</th>
-                            <th scope="col">Trạng thái</th>
-                            <th scope="col">Tiến độ</th>
-                            <th scope="col">Người thực hiện</th>
-                            <th scope="col">Ưu tiên</th>
-                            <th scope="col">Bắt đầu</th>
-                            <th scope="col">Kết thúc</th>
-                            <th scope="col">Thời gian</th>
+                            {
+                                this.state.table.labels.map(u =>
+                                    <th scope="col">{u}</th>
+                                )
+                            }
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">Công việc 1</th>
-                            <td></td>
-                            <td>Đang thực hiện</td>
-                            <td>20%</td>
-                            <td></td>
-                            <td>Thấp</td>
-                            <td>1/5/2019</td>
-                            <td>31/5/2020</td>
-                            <td>2 năm</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">_ Công việc 1</th>
-                            <td></td>
-                            <td>Đang thực hiện</td>
-                            <td>20%</td>
-                            <td></td>
-                            <td>Thấp</td>
-                            <td>1/5/2019</td>
-                            <td>31/5/2020</td>
-                            <td>2 năm</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">_ _ Công việc 1</th>
-                            <td></td>
-                            <td>Đang thực hiện</td>
-                            <td>20%</td>
-                            <td></td>
-                            <td>Thấp</td>
-                            <td>1/5/2019</td>
-                            <td>31/5/2020</td>
-                            <td>2 năm</td>
-                        </tr>
+                        {
+                            this.state.table.data.map(u =>
+                                <tr>
+                                    <th scope="row">{u.name}</th>
+                                    <td></td>
+                                    <td>Đang thực hiện</td>
+                                    <td>20%</td>
+                                    <td></td>
+                                    <td>"u.priority.name"</td>
+                                    <td>{u.start_at}</td>
+                                    <td>{u.end_at}</td>
+                                    <td>{u.time}</td>
+                                </tr>
+                            )
+                        }
                     </tbody>
                 </table>
             </div>
@@ -85,3 +94,12 @@ class TasksListContent extends React.Component {
 }
 
 export default TasksListContent
+
+const styles = {
+    checkbox: {
+        alignIndicator: Alignment.LEFT,
+        disabled: false,
+        inline: true,
+        large: false,
+    }
+}

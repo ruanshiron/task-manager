@@ -19,12 +19,14 @@ class TasksContent extends React.Component {
     render() {
         return (
             <Switch>
+                <Route exact path="/tasks" render={(props) => <TasksListContent {...props} />} />
+
+                <Route exact path="/tasks/template/new" render={(props) => <NewTasksTemplateContent {...props} />} />
+                <Route exact path="/tasks/template" render={(props) => <TasksTemplateContent {...props} />} />
 
                 <Route exact path="/tasks/new" render={(props) => <NewTasksContent {...props} />} />
                 <Route exact path="/tasks/:taskId" render={(props) => <TasksListContent {...props} />} />
 
-                <Route exact path="/tasks/template/new" render={(props) => <NewTasksTemplateContent {...props} />} />
-                <Route exact path="/tasks/template" render={(props) => <TasksTemplateContent {...props} />} />
             </Switch>
         )
     }

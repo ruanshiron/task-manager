@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 $factory->define(Template::class, function (Faker $faker) {
     return [
-        'kpi_id' => $faker->numberBetween($min = 1, $max = 20),
+        'kpi_fun' => $faker->text($maxNbChars = 10),
         'description' => $faker->text($maxNbChars = 200),
         'name' => $faker->sentence($nbWords = 6, $variableNbWords = true)
 

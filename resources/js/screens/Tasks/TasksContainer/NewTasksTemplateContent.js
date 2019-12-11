@@ -10,8 +10,12 @@ const INTENTS = [Intent.NONE, Intent.PRIMARY, Intent.SUCCESS, Intent.DANGER, Int
 
 class NewTasksTemplateContent extends React.Component {
 
+    constructor(props) {
+        super(props)
+    }
+
     state = {
-        detail: ""
+
     }
 
     render() {

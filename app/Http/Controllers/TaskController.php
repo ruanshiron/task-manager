@@ -17,7 +17,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return response()->json(Task::all());
+        return response()->json(Task::where('parent_id', null)->get());
     }
 
     /**

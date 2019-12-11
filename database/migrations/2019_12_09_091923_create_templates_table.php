@@ -17,7 +17,7 @@ class CreateTemplatesTable extends Migration
             $table->bigIncrements('id');
             $table->text('name');
             $table->text('description');
-            $table->unsignedBigInteger('kpi_id');
+            $table->text('kpi_fun')->nullable();
             $table->timestamps();
         });
     }
