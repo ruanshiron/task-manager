@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Task;
+use App\Task;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -47,10 +48,34 @@ class TaskController extends Controller
             "priority_id" => "required",
             "name" => "required",
             "start_at" => "required",
-            "end_at" => "required"
+            "end_at" => "required",
+
         ])->validate();
 
-        Task::create($validator);
+        $validator_2 = Validator::make($request->all(), [
+            "approvers_id" => "required|array",
+            "observers_id" => "required|array"
+        ])->validate();
+
+        $task = Task::create($validator);
+
+        $observers = array();
+        $approvers = array();
+
+        if ($validator_2["approvers_id"]) {
+            foreach ($validator_2["approvers_id"] as $value) {
+                array_push($approvers, ["user_id" => $value, "task_id" => $task->id]);
+            }
+        }
+
+        if ($validator_2["observers_id"]) {
+            foreach ($validator_2["observers_id"] as $value) {
+                array_push($observers, ["user_id" => $value, "task_id" => $task->id]);
+            }
+        }
+
+        DB::table('observers')->insert($observers);
+        DB::table('approvers')->insert($approvers);
 
         return response()->json([
             "succeed" => true,
