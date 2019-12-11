@@ -53,6 +53,7 @@ class TaskController extends Controller
         ])->validate();
 
         $validator_2 = Validator::make($request->all(), [
+            "implementers_id" => "required|array",
             "approvers_id" => "required|array",
             "observers_id" => "required|array"
         ])->validate();
@@ -70,6 +71,12 @@ class TaskController extends Controller
 
         if ($validator_2["observers_id"]) {
             foreach ($validator_2["observers_id"] as $value) {
+                array_push($observers, ["user_id" => $value, "task_id" => $task->id]);
+            }
+        }
+
+        if ($validator_2["implementers_id"]) {
+            foreach ($validator_2["implementers_id"] as $value) {
                 array_push($observers, ["user_id" => $value, "task_id" => $task->id]);
             }
         }

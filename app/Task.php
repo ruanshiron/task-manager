@@ -25,4 +25,9 @@ class Task extends Model
     public function observers() {
         return $this->belongsToMany('App\User', 'observers', 'user_id', 'task_id');
     }
+
+    public function implementers()
+    {
+        return $this->belongsToMany('App\User', 'implementers', 'user_id', 'task_id');
+    }
 }

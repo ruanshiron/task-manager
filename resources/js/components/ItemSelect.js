@@ -68,9 +68,8 @@ export class ItemSelect extends React.Component {
                 popoverProps={{ minimal }}
             >
                 <Button
-                    icon="film"
                     rightIcon="caret-down"
-                    text={film ? `${film.title} (${film.year})` : "(No selection)"}
+                    text={film ? `${film.title}` : "(No selection)"}
                     disabled={disabled}
                 />
             </Select>

@@ -90,10 +90,9 @@ export class ItemMultiSelect extends React.Component {
             <MenuItem
                 active={modifiers.active}
                 icon={this.isFilmSelected(film) ? "tick" : "blank"}
-                key={film.rank}
-                label={film.year.toString()}
+                key={film.id}
                 onClick={handleClick}
-                text={`${film.rank}. ${film.title}`}
+                text={`${film.title}`}
                 shouldDismissPopover={false}
             />
         );
@@ -161,7 +160,7 @@ export class ItemMultiSelect extends React.Component {
             if (this.props.onChange) this.props.onChange(this.state.films)
         });
 
-    
+
     }
 
     handleFilmSelect = (film) => {
