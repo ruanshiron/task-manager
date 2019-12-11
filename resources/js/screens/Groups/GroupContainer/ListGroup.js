@@ -12,10 +12,10 @@ class ListGroup extends React.Component {
 
     componentDidMount() {
         // Get nhom
-        axios.get('/api/groups')
-            .then(reponse => {
-                this.setState({ groupList: reponse.data });
-            })
+        // axios.get('/api/groups')
+        //     .then(reponse => {
+        //         this.setState({ groupList: reponse.data });
+        //     })
     }
 
     // onDelete(deputy_id) {
