@@ -121,19 +121,18 @@ export const TOP_100_FILMS = [
     { title: "Snatch", year: 2000 },
     { title: "3 Idiots", year: 2009 },
     { title: "Monty Python and the Holy Grail", year: 1975 },
-].map((m, index) => ({ ...m, rank: index + 1 }));
+].map((m, index) => ({ ...m, id: index + 1 }));
 
 export const renderFilm = (film, { handleClick, modifiers, query }) => {
     if (!modifiers.matchesPredicate) {
         return null;
     }
-    const text = `${film.rank}. ${film.title}`;
+    const text = `${film.title}`;
     return (
         <MenuItem
             active={modifiers.active}
             disabled={modifiers.disabled}
-            label={film.year.toString()}
-            key={film.rank}
+            key={film.id}
             onClick={handleClick}
             text={highlightText(text, query)}
         />
@@ -161,7 +160,7 @@ export const filterFilm= (query, film, _index, exactMatch) => {
     if (exactMatch) {
         return normalizedTitle === normalizedQuery;
     } else {
-        return `${film.rank}. ${normalizedTitle} ${film.year}`.indexOf(normalizedQuery) >= 0;
+        return `${normalizedTitle}`.indexOf(normalizedQuery) >= 0;
     }
 };
 
@@ -208,9 +207,8 @@ export const filmSelectProps = {
 
 export function createFilm(title){
     return {
-        rank: 100 + Math.floor(Math.random() * 100 + 1),
+        id: 100 + Math.floor(Math.random() * 100 + 1),
         title,
-        year: new Date().getFullYear(),
     };
 }
 

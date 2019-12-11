@@ -3,7 +3,6 @@ import axios from 'axios';
 import { ItemSelect, ItemMultiSelect } from '../../../components';
 import { H1, InputGroup, Button, Icon, Card, EditableText, TextArea } from '@blueprintjs/core';
 
-
 class AddDeputy extends Component {
 
     handleSubmit = (e) => {
@@ -36,14 +35,14 @@ class AddDeputy extends Component {
             <div>
                 <form id="form-deputy" onSubmit={this.handleSubmit}>
                     <div className="row" >
-                        <span style={{ margin: "15px" }} className="col-2"><strong>Chọn phó nhóm</strong></span>
+                        <span style={{ margin: "15px" }} className="col-3"><strong>Chọn phó nhóm</strong></span>
                         <span style={{ marginTop: "10px", width: "300px" }}>
-                            <InputGroup name="name" />
+                            <ItemMultiSelect name="name" />
                         </span>
                     </div>
                     <br></br>
                     <div className="row">
-                        <span style={{ margin: '15px' }} className="col-2">
+                        <span style={{ margin: '15px' }} className="col-3">
                             <strong>Nhiệm vụ</strong>
                         </span>
                         <span>

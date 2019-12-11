@@ -56,7 +56,16 @@ class ListGroup extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {
+                     <tr>
+                                        <td>Nhom 1</td>
+                                        <td>An roi choi</td>
+                                        <td>Luffy</td>
+                                        <td>4</td>
+                                        <td>20</td>
+                                        <td><a href="edit"> <Button icon="edit" intent="primary"></Button></a></td>
+                                        <td><a href="#"><Button icon="trash" intent="danger" type="submit"></Button></a></td>
+                                    </tr>
+                        {/* {
                             this.state.groupList.map((record, id) => {
                                 return (
                                     <tr key={id}>
@@ -70,7 +79,7 @@ class ListGroup extends React.Component {
                                     </tr>
                                 )
                             })
-                        }
+                        } */}
                     </tbody>
                 </table>
             </div>

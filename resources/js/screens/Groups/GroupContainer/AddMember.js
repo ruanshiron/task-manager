@@ -33,14 +33,14 @@ class AddMember extends Component {
             <div>
                 <form id="form-member" onSubmit={this.handleSubmit}>
                 <div className="row" >
-                        <span style={{ margin: "15px" }} className="col-2"><strong>Chọn thành viên</strong></span>
+                        <span style={{ margin: "15px" }} className="col-3"><strong>Chọn thành viên</strong></span>
                         <span style={{ marginTop: "10px", width: "300px" }}>
                             <InputGroup name="name"/>
                         </span>
                     </div>
                     <br></br>
                     <div className="row">
-                        <span style={{ margin: '15px' }} className="col-2">
+                        <span style={{ margin: '15px' }} className="col-3">
                             <strong>Nhiệm vụ</strong>
                         </span>
                         <span>

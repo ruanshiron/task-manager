@@ -12,33 +12,72 @@ const INTENTS = [Intent.NONE, Intent.PRIMARY, Intent.SUCCESS, Intent.DANGER, Int
 
 class NewTasksContent extends React.Component {
 
+    state = {
+        users: [
+            {id: 1, title: "gogo"},
+            {id: 2, title: "gog"}
+        ],
+        tasks: [
+            "Task 1",
+            "Task 2"
+        ],
+        templates: [
+            "Template 1",
+            "Template 2"
+        ],
+        groups: [
+            "Group 1",
+            "Group 2"
+        ],
+        request: {
+            parent_id: null,
+            tempate_id: null,
+            group_id: null,
+            name: "",
+            implementers_id: [ ],
+            observers_id: [ ],
+            approvers_id: [ ],
+            priority_id: null,
+            kpi_id: null
+        }
+    }
+
     constructor(props) {
         super(props)
 
         this.handleOnClick = this.handleOnClick.bind(this)
+        this.nameOnChange = this.nameOnChange.bind(this)
+        this.implementersOnChange = this.implementersOnChange.bind(this)
+        this.approversOnChange = this.approversOnChange.bind(this)
     }
 
     componentDidMount() {
-        console.log(this.props);
 
     }
 
+    componentDidUpdate() {
+        console.log(this.state);
+    }
+
     handleOnClick(e) {
-        axios({
-            method: 'post',
-            url: 'https://jsonplaceholder.typicode.com/users',
-            data: {
-                "template_id": 1,
-                "group_id": 1,
-                "kpi_id": 2,
-                "priority_id": 2,
-                "name": "hohlep"
+
+    }
+
+    nameOnChange(e) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                name: e.target.value
             }
         })
-        .then(response => {
-            console.log(response);
+    }
 
-        });
+    implementersOnChange(value) {
+        console.log(value);
+    }
+
+    approversOnChange(value) {
+        console.log(value);
     }
 
     render() {
@@ -54,15 +93,15 @@ class NewTasksContent extends React.Component {
                 <div className="d-flex flex-row bd-highlight mb-3">
                     <div className="p-2">
                         <H6>Công việc gốc</H6>
-                        <ItemSelect />
+                        <ItemSelect onItemSelect={this.handleOnClick} items={this.tasks} />
                     </div>
                     <div className="p-2">
                         <H6>Mẫu công việc</H6>
-                        <ItemSelect />
+                        <ItemSelect onItemSelect={this.handleOnClick} items={this.templates} />
                     </div>
                     <div className="p-2">
                         <H6>Nhóm</H6>
-                        <ItemSelect />
+                        <ItemSelect onItemSelect={this.handleOnClick} items={this.groups} />
                     </div>
 
                 </div>
@@ -76,28 +115,28 @@ class NewTasksContent extends React.Component {
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Tên công việc</H6>
-                        <InputGroup fill />
+                        <InputGroup value={this.state.request.name} onChange={this.nameOnChange} fill />
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người thực hiện</H6>
-                        <ItemMultiSelect />
+                        <ItemMultiSelect items={this.state.users} onChange={this.implementersOnChange} />
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người phê guyệt</H6>
-                        <ItemMultiSelect />
+                        <ItemMultiSelect items={this.state.users} onChange={this.approversOnChange} />
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người quan sát</H6>
-                        <ItemMultiSelect />
+                        <ItemMultiSelect  />
                     </div>
                 </div>
 
