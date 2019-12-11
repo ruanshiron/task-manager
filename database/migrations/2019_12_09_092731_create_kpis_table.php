@@ -15,6 +15,7 @@ class CreateKpisTable extends Migration
     {
         Schema::create('kpis', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text('name');
             $table->timestamps();
         });
     }

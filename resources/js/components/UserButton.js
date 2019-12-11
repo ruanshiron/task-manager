@@ -10,14 +10,6 @@ export class UserButton extends React.Component {
 
     }
 
-    state = {
-        csrf: document.getElementById("csrf").children[0].defaultValue
-    }
-
-    componentDidMount() {
-        console.log(this.state.csrf);
-
-    }
 
     handleLogout(e) {
         console.log('xxs')
@@ -37,7 +29,7 @@ export class UserButton extends React.Component {
                 <MenuItem text="Profile" />
                 <MenuDivider />
                 <form action="/logout" method="POST">
-                    <input type="hidden" name="_token" value={this.state.csrf} />
+                    <input type="hidden" name="_token" value={$('meta[name=csrf-token]').attr('content')} />
                     <button type="submit" class="bp3-button bp3-fill bp3-minimal">Logout</button>
                 </form>
             </Menu>

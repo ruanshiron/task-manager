@@ -1,10 +1,10 @@
-import React from 'react' 
+import React from 'react'
 
 import { Position} from '@blueprintjs/core'
-import { DateInput } from '@blueprintjs/datetime'  
+import { DateInput } from '@blueprintjs/datetime'
 
 export class DatetimeInput extends React.Component {
-    
+
     constructor(props) {
         super(props)
         this.state = {
@@ -17,9 +17,12 @@ export class DatetimeInput extends React.Component {
             shortcuts: false,
             timePrecision: undefined,
         }
-    } 
+    }
 
-    handleDateChange = (date) => this.setState({ date });
+    handleDateChange = (date) => this.setState({ date }, () => {
+        let t = this.state.date
+        this.props.onChange(t.getFullYear() + '-' + t.getMonth() + '-' + t.getDate());
+    })
 
     render() {
         const { date, format, ...spreadProps } = this.state;
@@ -32,10 +35,10 @@ export class DatetimeInput extends React.Component {
                 onChange={this.handleDateChange}
                 popoverProps={{ position: Position.BOTTOM }}
             />
-        ) 
+        )
     }
-        
-    
+
+
 }
 
 const FORMATS = [

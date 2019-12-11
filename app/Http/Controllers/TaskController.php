@@ -50,6 +50,7 @@ class TaskController extends Controller
         ])->validate();
 
         $validator_2 = Validator::make($request->all(), [
+            "kpis_id" => "required|array",
             "implementers_id" => "required|array",
             "approvers_id" => "required|array",
             "observers_id" => "required|array"
@@ -57,8 +58,15 @@ class TaskController extends Controller
 
         $task = Task::create($validator);
 
+        $kpis = array();
         $observers = array();
         $approvers = array();
+
+        if ($validator_2["kpis_id"]) {
+            foreach ($validator_2["kpis_id"] as $value) {
+                array_push($kpis, ["kpi_id" => $value, "task_id" => $task->id]);
+            }
+        }
 
         if ($validator_2["approvers_id"]) {
             foreach ($validator_2["approvers_id"] as $value) {
@@ -80,10 +88,9 @@ class TaskController extends Controller
 
         DB::table('observers')->insert($observers);
         DB::table('approvers')->insert($approvers);
+        DB::table('task_kpis')->insert($kpis);
 
-        return response()->json([
-            "succeed" => true,
-        ]);
+        return response()->json($task);
     }
 
     /**

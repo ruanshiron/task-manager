@@ -4,7 +4,7 @@ import { H3, H6, Button, Intent, MenuItem, Divider, InputGroup, Classes } from "
 import { Suggest, Select, MultiSelect } from "@blueprintjs/select"
 
 import UnitsTree from '../../Units/UnitsTree'
-import { ItemSelect, ItemMultiSelect } from '../../../components';
+import { ItemSelect, ItemMultiSelect, DatetimeInput } from '../../../components';
 import { TTree } from '../../../components/TTree';
 import axios from 'axios';
 
@@ -16,20 +16,22 @@ class NewTasksContent extends React.Component {
         users: null,
         tasks: null,
         templates: null,
-        groups: [
-            {id: 1, title: "Group 1"},
-            {id: 2, title: "Group 2"},
-        ],
+        groups: null,
+        kpis: null,
+        priorities: null,
         request: {
             parent_id: null,
-            tempate_id: null,
+            template_id: null,
             group_id: null,
             name: "",
-            implementers_id: [ ],
-            observers_id: [ ],
-            approvers_id: [ ],
+            implementers_id: [],
+            observers_id: [],
+            approvers_id: [],
             priority_id: null,
-            kpi_id: null
+            kpis_id: null,
+            start_at: '2019-2-2',
+            end_at: '2019-3-3'
+
         }
     }
 
@@ -46,6 +48,10 @@ class NewTasksContent extends React.Component {
         this.implementersOnChange = this.implementersOnChange.bind(this)
         this.approversOnChange = this.approversOnChange.bind(this)
         this.observersOnChange = this.observersOnChange.bind(this)
+        this.kpisOnChange = this.kpisOnChange.bind(this)
+        this.prioritiesOnChange = this.prioritiesOnChange.bind(this)
+        this.fromDateOnChanger = this.fromDateOnChanger.bind(this)
+        this.toDateOnChanger = this.toDateOnChanger.bind(this)
     }
 
     componentDidMount() {
@@ -54,28 +60,102 @@ class NewTasksContent extends React.Component {
             method: 'get',
             url: 'http://localhost:8000/api/users',
         })
-        .then(response => {
-            try {
-                this.setState({
-                    users: response.data.map(u => ({...u ,title: u.name}))
-                })
-            } catch (error) {
-                console.log(error);
-            }
-        });
+            .then(response => {
+                try {
+                    this.setState({
+                        users: response.data.map(u => ({ ...u, title: u.name }))
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            });
 
         // Fetch tasks
         axios({
             method: 'get',
             url: 'http://localhost:8000/api/tasks',
         })
-        .then(response => {
-            try {
-                this.setState({
-                    tasks: response.data.map(u => ({...u, title: u.name}))
-                })
-            } catch (error) {
+            .then(response => {
+                try {
+                    this.setState({
+                        tasks: response.data.map(u => ({ ...u, title: u.name }))
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            })
+
+        // Fetch templates
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/templates',
+        })
+            .then(response => {
+                try {
+                    this.setState({
+                        templates: response.data.map(u => ({ ...u, title: u.name }))
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            })
+
+        // Fetch groups
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/groups',
+        })
+            .then(response => {
+                try {
+                    this.setState({
+                        groups: response.data.map(u => ({ ...u, title: u.name }))
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            })
+
+        // Fetch Kpis
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/kpis',
+        })
+            .then(response => {
+                try {
+                    this.setState({
+                        kpis: response.data.map(u => ({ ...u, title: u.name }))
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            })
+
+        // Fetch Priorities
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/priorities',
+        })
+            .then(response => {
+                try {
+                    this.setState({
+                        priorities: response.data.map(u => (u))
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            })
+            .catch(error => {
                 console.log(error);
+            })
+
+        // Date config
+        let t = new Date()
+        let time = t.getFullYear() + '-' + t.getMonth() + '_' + t.getDate()
+        this.setState({
+            request: {
+                ...this.state.request,
+                start_at: time,
+                end_at: time
             }
         })
     }
@@ -85,10 +165,21 @@ class NewTasksContent extends React.Component {
     }
 
     handleOnClick(e) {
-
+        axios({
+            method: 'post',
+            url: 'http://localhost:8000/api/tasks',
+            data: this.state.request
+        })
+            .then(response => {
+                this.props.history.push(`/tasks/${response.data.id}`)
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     taskOnSelect(value) {
+
         this.setState({
             request: {
                 ...this.state.request,
@@ -101,7 +192,7 @@ class NewTasksContent extends React.Component {
         this.setState({
             request: {
                 ...this.state.request,
-                tempate_id: value.id
+                template_id: value.id
             }
         })
     }
@@ -151,6 +242,42 @@ class NewTasksContent extends React.Component {
         })
     }
 
+    kpisOnChange(value) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                kpis_id: value.map(u => u.id)
+            }
+        })
+    }
+
+    prioritiesOnChange(value) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                priority_id: value.id
+            }
+        })
+    }
+
+    fromDateOnChanger(value) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                start_at: value
+            }
+        })
+    }
+
+    toDateOnChanger(value) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                end_at: value
+            }
+        })
+    }
+
     render() {
 
         return (
@@ -164,15 +291,15 @@ class NewTasksContent extends React.Component {
                 <div className="d-flex flex-row bd-highlight mb-3">
                     <div className="p-2">
                         <H6>Công việc gốc</H6>
-                            { this.state.tasks && <ItemSelect onItemSelect={this.taskOnSelect} items={this.state.tasks} /> }
+                        {this.state.tasks && <ItemSelect onChange={this.taskOnSelect} items={this.state.tasks} />}
                     </div>
                     <div className="p-2">
                         <H6>Mẫu công việc</H6>
-                            { this.state.templates && <ItemSelect onItemSelect={this.templateOnSelect} items={this.state.templates} /> }
+                        {this.state.templates && <ItemSelect onChange={this.templateOnSelect} items={this.state.templates} />}
                     </div>
                     <div className="p-2">
                         <H6>Nhóm</H6>
-                        <ItemSelect onItemSelect={this.groupOnSelect} items={this.state.groups} />
+                        {this.state.groups && <ItemSelect onChange={this.groupOnSelect} items={this.state.groups} />}
                     </div>
 
                 </div>
@@ -218,7 +345,7 @@ class NewTasksContent extends React.Component {
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>KPI mục tiêu</H6>
-                        <ItemMultiSelect />
+                        {this.state.kpis && <ItemMultiSelect items={this.state.kpis} onChange={this.kpisOnChange} />}
                     </div>
                 </div>
 
@@ -226,10 +353,21 @@ class NewTasksContent extends React.Component {
                 <div className="d-flex flex-row bd-highlight mb-3">
                     <div className="p-2">
                         <H6>Mức độ ưu tiên</H6>
-                        <ItemSelect />
+                        {this.state.priorities && <ItemSelect items={this.state.priorities} onChange={this.prioritiesOnChange} />}
                     </div>
 
 
+                </div>
+
+                <div className="d-flex flex-row bd-highlight mb-3">
+                    <div className="p-2">
+                        <H6>Từ Ngày</H6>
+                        <DatetimeInput onChange={this.fromDateOnChanger} />
+                    </div>
+                    <div className="p-2">
+                        <H6>Đến Ngày</H6>
+                        <DatetimeInput onChange={this.toDateOnChanger} />
+                    </div>
                 </div>
 
                 <Divider />
