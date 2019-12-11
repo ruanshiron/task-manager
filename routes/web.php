@@ -16,6 +16,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('api')->group(function() {
+    Route::get('/users/me', 'UserController@me');
     Route::resource('users', 'UserController');
     Route::resource('tasks', 'TaskController');
     Route::resource('groups', 'GroupController');

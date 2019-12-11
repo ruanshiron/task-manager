@@ -17,9 +17,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
-
-        return response()->json($tasks);
+        return response()->json(Task::all());
     }
 
     /**
@@ -44,7 +42,6 @@ class TaskController extends Controller
             "parent_id" => "nullable",
             "template_id" => "required",
             "group_id" => "required",
-            "kpi_id" => "required",
             "priority_id" => "required",
             "name" => "required",
             "start_at" => "required",

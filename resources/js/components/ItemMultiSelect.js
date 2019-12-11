@@ -75,6 +75,7 @@ export class ItemMultiSelect extends React.Component {
                 tagRenderer={this.renderTag}
                 tagInputProps={{ tagProps: getTagProps, onRemove: this.handleTagRemove, rightElement: clearButton }}
                 selectedItems={this.state.films}
+                placeholder=""
             />
         );
     }

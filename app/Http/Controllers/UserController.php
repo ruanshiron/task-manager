@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    public function me()
+    {
+        return response()->json(auth()->user());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return response()->json(auth()->user());
+        return response()->json(User::all());
     }
 
     /**

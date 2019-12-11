@@ -18,7 +18,6 @@ class CreateTasksTable extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('template_id');
             $table->unsignedBigInteger('group_id');
-            $table->unsignedBigInteger('kpi_id');
             $table->unsignedBigInteger('priority_id');
             $table->date('start_at');
             $table->date('end_at');

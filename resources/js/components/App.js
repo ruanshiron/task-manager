@@ -59,7 +59,7 @@ class App extends React.Component {
 
         axios({
             method: 'get',
-            url: 'http://localhost:8000/api/users',
+            url: 'http://localhost:8000/api/users/me',
         })
         .then(response => {
             console.log(response);

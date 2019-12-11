@@ -13,21 +13,12 @@ const INTENTS = [Intent.NONE, Intent.PRIMARY, Intent.SUCCESS, Intent.DANGER, Int
 class NewTasksContent extends React.Component {
 
     state = {
-        users: [
-            {id: 1, title: "gogo"},
-            {id: 2, title: "gog"}
-        ],
-        tasks: [
-            "Task 1",
-            "Task 2"
-        ],
-        templates: [
-            "Template 1",
-            "Template 2"
-        ],
+        users: null,
+        tasks: null,
+        templates: null,
         groups: [
-            "Group 1",
-            "Group 2"
+            {id: 1, title: "Group 1"},
+            {id: 2, title: "Group 2"},
         ],
         request: {
             parent_id: null,
@@ -46,21 +37,82 @@ class NewTasksContent extends React.Component {
         super(props)
 
         this.handleOnClick = this.handleOnClick.bind(this)
+
+        this.taskOnSelect = this.taskOnSelect.bind(this)
+        this.templateOnSelect = this.templateOnSelect.bind(this)
+        this.groupOnSelect = this.groupOnSelect.bind(this)
+
         this.nameOnChange = this.nameOnChange.bind(this)
         this.implementersOnChange = this.implementersOnChange.bind(this)
         this.approversOnChange = this.approversOnChange.bind(this)
+        this.observersOnChange = this.observersOnChange.bind(this)
     }
 
     componentDidMount() {
+        // Fetch users
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/users',
+        })
+        .then(response => {
+            try {
+                this.setState({
+                    users: response.data.map(u => ({...u ,title: u.name}))
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        });
 
+        // Fetch tasks
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/tasks',
+        })
+        .then(response => {
+            try {
+                this.setState({
+                    tasks: response.data.map(u => ({...u, title: u.name}))
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        })
     }
 
     componentDidUpdate() {
-        console.log(this.state);
+
     }
 
     handleOnClick(e) {
 
+    }
+
+    taskOnSelect(value) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                parent_id: value.id
+            }
+        })
+    }
+
+    templateOnSelect(value) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                tempate_id: value.id
+            }
+        })
+    }
+
+    groupOnSelect(value) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                group_id: value.id
+            }
+        })
     }
 
     nameOnChange(e) {
@@ -73,11 +125,30 @@ class NewTasksContent extends React.Component {
     }
 
     implementersOnChange(value) {
-        console.log(value);
+        this.setState({
+            request: {
+                ...this.state.request,
+                implementers_id: value.map(u => u.id)
+            }
+        })
     }
 
     approversOnChange(value) {
-        console.log(value);
+        this.setState({
+            request: {
+                ...this.state.request,
+                approvers_id: value.map(u => u.id)
+            }
+        })
+    }
+
+    observersOnChange(value) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                observers_id: value.map(u => u.id)
+            }
+        })
     }
 
     render() {
@@ -93,25 +164,25 @@ class NewTasksContent extends React.Component {
                 <div className="d-flex flex-row bd-highlight mb-3">
                     <div className="p-2">
                         <H6>Công việc gốc</H6>
-                        <ItemSelect onItemSelect={this.handleOnClick} items={this.tasks} />
+                            { this.state.tasks && <ItemSelect onItemSelect={this.taskOnSelect} items={this.state.tasks} /> }
                     </div>
                     <div className="p-2">
                         <H6>Mẫu công việc</H6>
-                        <ItemSelect onItemSelect={this.handleOnClick} items={this.templates} />
+                            { this.state.templates && <ItemSelect onItemSelect={this.templateOnSelect} items={this.state.templates} /> }
                     </div>
                     <div className="p-2">
                         <H6>Nhóm</H6>
-                        <ItemSelect onItemSelect={this.handleOnClick} items={this.groups} />
+                        <ItemSelect onItemSelect={this.groupOnSelect} items={this.state.groups} />
                     </div>
 
                 </div>
-                <div className="d-flex flex-row bd-highlight mb-3">
+                {/* <div className="d-flex flex-row bd-highlight mb-3">
 
                     <div className="p-2">
                         <H6>Công việc đã chọn</H6>
                         <TTree />
                     </div>
-                </div>
+                </div> */}
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Tên công việc</H6>
@@ -122,21 +193,25 @@ class NewTasksContent extends React.Component {
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người thực hiện</H6>
-                        <ItemMultiSelect items={this.state.users} onChange={this.implementersOnChange} />
+                        {
+                            this.state.users &&
+                            <ItemMultiSelect items={this.state.users} onChange={this.implementersOnChange} />
+                        }
+
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người phê guyệt</H6>
-                        <ItemMultiSelect items={this.state.users} onChange={this.approversOnChange} />
+                        {this.state.users && <ItemMultiSelect items={this.state.users} onChange={this.approversOnChange} />}
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người quan sát</H6>
-                        <ItemMultiSelect  />
+                        {this.state.users && <ItemMultiSelect items={this.state.users} onChange={this.observersOnChange} />}
                     </div>
                 </div>
 
