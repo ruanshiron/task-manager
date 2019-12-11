@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTemplatesTable extends Migration
+class CreateTemplateViewersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateTemplatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('templates', function (Blueprint $table) {
+        Schema::create('template_viewers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('name');
-            $table->text('description')->nullable();
-            $table->text('kpi_fun')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('template_id');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateTemplatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('templates');
+        Schema::dropIfExists('template_viewers');
     }
 }

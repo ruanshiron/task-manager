@@ -61,6 +61,7 @@ class TaskController extends Controller
         $kpis = array();
         $observers = array();
         $approvers = array();
+        $implementers = array();
 
         if ($validator_2["kpis_id"]) {
             foreach ($validator_2["kpis_id"] as $value) {
@@ -82,13 +83,14 @@ class TaskController extends Controller
 
         if ($validator_2["implementers_id"]) {
             foreach ($validator_2["implementers_id"] as $value) {
-                array_push($observers, ["user_id" => $value, "task_id" => $task->id]);
+                array_push($implementers, ["user_id" => $value, "task_id" => $task->id]);
             }
         }
 
         DB::table('observers')->insert($observers);
         DB::table('approvers')->insert($approvers);
         DB::table('task_kpis')->insert($kpis);
+        DB::table('implementers')->insert($kpis);
 
         return response()->json($task);
     }
