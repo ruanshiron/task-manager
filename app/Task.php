@@ -30,4 +30,8 @@ class Task extends Model
     {
         return $this->belongsToMany('App\User', 'implementers', 'user_id', 'task_id');
     }
+
+    public function priority() {
+        return $this->belongsTo('App\Priority', 'priority_id');
+    }
 }

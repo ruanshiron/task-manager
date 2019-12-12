@@ -4,7 +4,8 @@ import { H1, EditableText, H5, H3, H6, Button, Intent, MenuItem, Divider, InputG
 import { Suggest, Select, MultiSelect } from "@blueprintjs/select"
 
 import UnitsTree from '../../Units/UnitsTree'
-import { ItemSelect, ItemMultiSelect } from '../../../components';
+import { ItemSelect, ItemMultiSelect, NameDescriptionEditable } from '../../../components';
+import { timingSafeEqual } from 'crypto';
 
 const INTENTS = [Intent.NONE, Intent.PRIMARY, Intent.SUCCESS, Intent.DANGER, Intent.WARNING];
 
@@ -12,10 +13,128 @@ class NewTasksTemplateContent extends React.Component {
 
     constructor(props) {
         super(props)
+
+        this.nameOnChange = this.nameOnChange.bind(this)
+        this.descriptionOnChange = this.descriptionOnChange.bind(this)
+        this.viewersOnChange = this.viewersOnChange.bind(this)
+        this.observersOnChange = this.observersOnChange.bind(this)
+        this.approversOnChange = this.approversOnChange.bind(this)
+        this.implementersOnChange = this.implementersOnChange.bind(this)
+
+        this.actionsOnChange = this.actionsOnChange.bind(this)
+        this.informationsOnChange = this.informationsOnChange.bind(this)
     }
 
     state = {
+        users: null,
+        action_input: {
+            name: "",
+            description: ""
+        },
+        information_input: {
+            name: "",
+            description: ""
+        },
+        actions_table: {
 
+        },
+        informations_table: {
+
+        },
+        request: {
+            name: "",
+            description: "",
+            viewers_id: [],
+            implementers_id: [],
+            observers_id: [],
+            approvers_id: [],
+            actions: [],
+            informations: [],
+            kpi_fun: ""
+        }
+    }
+
+    componentDidMount() {
+        // Fetch users
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/users',
+        })
+            .then(response => {
+                try {
+                    this.setState({
+                        users: response.data.map(u => ({ ...u, title: u.name }))
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            });
+    }
+
+    nameOnChange(e) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                name: e.target.value
+            }
+        })
+    }
+
+    descriptionOnChange(e) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                description: e.target.value
+            }
+        })
+    }
+
+    viewersOnChange(value) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                viewers_id: value.map(u => u.id)
+            }
+        })
+    }
+
+    implementersOnChange(value) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                implementers_id: value.map(u => u.id)
+            }
+        })
+    }
+
+    approversOnChange(value) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                approvers_id: value.map(u => u.id)
+            }
+        })
+    }
+
+    observersOnChange(value) {
+        this.setState({
+            request: {
+                ...this.state.request,
+                observers_id: value.map(u => u.id)
+            }
+        })
+    }
+
+    actionsOnChange(value) {
+        this.setState({
+            action_input: value
+        })
+    }
+
+    informationsOnChange(value) {
+        this.setState({
+            information_input: value
+        })
     }
 
     render() {
@@ -31,14 +150,14 @@ class NewTasksTemplateContent extends React.Component {
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Tên mẫu</H6>
-                        <InputGroup fill large />
+                        <InputGroup fill value={this.state.request.name} onChange={this.nameOnChange} />
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Mô tả</H6>
-                        <InputGroup fill />
+                        <InputGroup fill value={this.state.request.description} onChange={this.descriptionOnChange} />
                     </div>
                 </div>
 
@@ -46,58 +165,50 @@ class NewTasksTemplateContent extends React.Component {
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người có quyền xem mẫu này</H6>
-                        <ItemMultiSelect />
+                        {
+                            this.state.users &&
+                            <ItemMultiSelect items={this.state.users} onChange={this.viewersOnChange} />
+                        }
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người thực hiện</H6>
-                        <ItemMultiSelect />
+                        {
+                            this.state.users &&
+                            <ItemMultiSelect items={this.state.users} onChange={this.implementersOnChange} />
+                        }
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người phê guyệt</H6>
-                        <ItemMultiSelect />
+                        {
+                            this.state.users &&
+                            <ItemMultiSelect items={this.state.users} onChange={this.approversOnChange} />
+                        }
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>Người quan sát</H6>
-                        <ItemMultiSelect />
+                        {
+                            this.state.users &&
+                            <ItemMultiSelect items={this.state.users} onChange={this.observersOnChange} />
+                        }
                     </div>
                 </div>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <Card elevation={0}>
-                            <H5>
-                                <a>Hoạt động</a>
-                            </H5>
                             <div className="mb-2">
-                                <H1>
-                                    <EditableText
-                                        alwaysRenderInput
-                                        placeholder="Tên hoạt động..."
-                                        selectAllOnFocus
-                                        fill
-                                        confirmOnEnterKey
-                                    />
-                                </H1>
-                                <EditableText
-                                    alwaysRenderInput
-                                    maxLength={255}
-                                    maxLines={12}
-                                    minLines={3}
-                                    multiline={true}
-                                    placeholder="Mô tả"
-                                    selectAllOnFocus
-                                    confirmOnEnterKey
-                                    value={this.state.detail}
-                                    onChange={this.handleDetailChange}
+                                <NameDescriptionEditable
+                                    placeholder="Tên hành động ..."
+                                    onChange={this.actionsOnChange}
                                 />
                             </div>
                             <Button text="Thêm" intent="primary" className={Classes.BUTTON} />
@@ -140,30 +251,10 @@ class NewTasksTemplateContent extends React.Component {
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <Card elevation={0}>
-                            <H5>
-                                <a>Hoạt động</a>
-                            </H5>
                             <div className="mb-2">
-                                <H1>
-                                    <EditableText
-                                        alwaysRenderInput
-                                        placeholder="Tên trường thông tin..."
-                                        selectAllOnFocus
-                                        fill
-                                        confirmOnEnterKey
-                                    />
-                                </H1>
-                                <EditableText
-                                    alwaysRenderInput
-                                    maxLength={255}
-                                    maxLines={12}
-                                    minLines={3}
-                                    multiline={true}
-                                    placeholder="Mô tả..."
-                                    selectAllOnFocus
-                                    confirmOnEnterKey
-                                    value={this.state.detail}
-                                    onChange={this.handleDetailChange}
+                                <NameDescriptionEditable
+                                    placeholder="Tên thông tin ..."
+                                    onChange={this.informationsOnChange}
                                 />
                             </div>
                             <ItemSelect/> <br/> <br/>

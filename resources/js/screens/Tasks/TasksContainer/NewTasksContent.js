@@ -161,7 +161,6 @@ class NewTasksContent extends React.Component {
     }
 
     componentDidUpdate() {
-
     }
 
     handleOnClick(e) {

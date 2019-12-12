@@ -187,6 +187,8 @@ export class ItemMultiSelect extends React.Component {
         };
     }
 
-    handleClear = () => this.setState({ films: [] });
+    handleClear = () => this.setState({ films: [] }, () => {
+        if (this.props.onChange) this.props.onChange(this.state.films)
+    });
 
 }

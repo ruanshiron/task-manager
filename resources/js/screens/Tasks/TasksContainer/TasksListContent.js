@@ -42,6 +42,9 @@ class TasksListContent extends React.Component {
                             ...this.state.table,
                             data: response.data
                         }
+                    }, () => {
+                        console.log(this.state.table.data);
+
                     })
                 } catch (error) {
                     console.log(error);
@@ -79,7 +82,11 @@ class TasksListContent extends React.Component {
                                     <td>Đang thực hiện</td>
                                     <td>20%</td>
                                     <td></td>
-                                    <td>"u.priority.name"</td>
+                                    {
+                                        u.priority ?
+                                            <td>{u.priority.title}</td>  :
+                                            <td></td>
+                                    }
                                     <td>{u.start_at}</td>
                                     <td>{u.end_at}</td>
                                     <td>{u.time}</td>
