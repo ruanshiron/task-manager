@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { H1,H6} from "@blueprintjs/core"
-import { Menu, MenuItem, MenuDivider, Button,EditableText, Classes, Icon, IconName } from '@blueprintjs/core';
+import { Menu, MenuItem, MenuDivider, Button,EditableText, Classes, Icon, IconName, InputGroup } from '@blueprintjs/core';
 import { DateTimePicker, TimePrecision } from "@blueprintjs/datetime";
 import { ItemSelect, ItemMultiSelect, DatetimeInput } from '../../../components';
 
@@ -40,12 +40,12 @@ class PersonalKpiContent extends React.Component {
                         <H6>Mục tiêu</H6>  
                     </div>
                     <div className="card">  
-                    <div className="d-flex flex-row bd-highlight mb-3">
-                        <div className="p-2">
-                        <H6>Tên mục tiêu:</H6>
-                        <input className="bp3-input .modifier"  type="text" placeholder="Mục tiêu 1" dir="auto" />
+                    <div className="flex-fill bd-highlight">
+                            <div className="p-2">
+                                <H6>Tên mục tiêu</H6>
+                                <InputGroup  fill />
+                            </div>
                         </div>
-                    </div>
                         
                     <div className="d-flex flex-row bd-highlight mb-3">
                         <div className="p-2">

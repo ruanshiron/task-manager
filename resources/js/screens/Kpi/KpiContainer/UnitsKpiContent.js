@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { H1, H6} from "@blueprintjs/core"
-import { Menu, MenuItem, MenuDivider, Button,EditableText, Classes, Icon, IconName } from '@blueprintjs/core';
+import { Menu, MenuItem, MenuDivider, Button,EditableText, Classes, Icon, IconName, InputGroup } from '@blueprintjs/core';
 import { ItemSelect, ItemMultiSelect, DatetimeInput } from '../../../components';
 class UnitsKpiContent extends React.Component {
 
@@ -19,10 +19,10 @@ class UnitsKpiContent extends React.Component {
                             </div>
                         </div>
                         
-                        <div className="d-flex flex-row bd-highlight mb-3">
+                        <div className="flex-fill bd-highlight">
                             <div className="p-2">
-                            <H6>Tên mục tiêu:</H6>
-                            <input className="bp3-input .modifier"  type="text" placeholder="Mục tiêu 1" dir="auto" />
+                                <H6>Tên mục tiêu</H6>
+                                <InputGroup  fill />
                             </div>
                         </div>
                         
