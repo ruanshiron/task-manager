@@ -12,25 +12,18 @@ class ListGroup extends React.Component {
 
     componentDidMount() {
         // Get nhom
-        // axios.get('/api/groups')
+        axios.get('/api/groups')
+            .then(reponse => {
+                this.setState({ groupList: reponse.data });
+                console.log(reponse.data);
+                
+            })
+
+        // axios.get('/api/users')
         //     .then(reponse => {
-        //         this.setState({ groupList: reponse.data });
+        //         this.setState({ userList: reponse.data });
         //     })
     }
-
-    // onDelete(deputy_id) {
-    //     axios.delete('/api/deputies/'+deputy_id)
-    //     .then(
-    //         reponse=>{
-    //             for (var i = 0; i < deputyList.length; i++) {
-    //                 if (deputyList[i].id == deputy_id) {
-    //                     deputyList.splice(i, 1);
-    //                     this.setState({deputyList: deputyList});
-    //                 }
-    //             }
-    //         }
-    //     )
-    // }
 
     state = {
         alignIndicator: Alignment.LEFT,
@@ -43,43 +36,34 @@ class ListGroup extends React.Component {
         return (
             <div style={{ paddingTop: '28px' }} className="container-fluid">
 
-                <table className="table" >
+                <table className="table1" >
                     <thead className="thead-light">
                         <tr>
                             <th scope="col">Tên nhóm</th>
-                            <th scope="col">Mô tả</th>
+                            <th scope="col" style={{ width: '40%' }}>Mô tả</th>
                             <th scope="col">Trưởng nhóm</th>
-                            <th scope="col">Số thành viên</th>
-                            <th scope="col">Số công việc thực hiện</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Delete</th>
+                            <th scope="col" style={{ width: '8%' }}>Số thành viên</th>
+                            <th scope="col" style={{ width: '8%' }}>Số công việc thực hiện</th>
+                            <th scope="col" style={{ width: '8%' }}>Chỉnh sửa</th>
+                            <th scope="col" style={{ width: '8%' }}>Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
-                     <tr>
-                                        <td>Nhom 1</td>
-                                        <td>An roi choi</td>
-                                        <td>Luffy</td>
-                                        <td>4</td>
-                                        <td>20</td>
-                                        <td><a href="edit"> <Button icon="edit" intent="primary"></Button></a></td>
-                                        <td><a href="#"><Button icon="trash" intent="danger" type="submit"></Button></a></td>
-                                    </tr>
-                        {/* {
+                        {
                             this.state.groupList.map((record, id) => {
                                 return (
                                     <tr key={id}>
                                         <td>{record.name}</td>
                                         <td>{record.description}</td>
-                                        <td>{record.captain}</td>
-                                        <td>4</td>
-                                        <td>20</td>
-                                        <td><a href="edit"> <Button icon="edit" intent="primary"></Button></a></td>
-                                        <td><a href="#"><Button icon="trash" intent="danger" type="submit"></Button></a></td>
+                                        <td>{record.captain.name}</td>
+                                        <td style={{ textAlign: 'center' }}>4</td>
+                                        <td style={{ textAlign: 'center' }}>20</td>
+                                        <td style={{ textAlign: 'center' }}><a href="edit">Chỉnh sửa</a></td>
+                                        <td style={{ textAlign: 'center' }}><a href="#" className="text-danger">Xóa</a></td>
                                     </tr>
                                 )
                             })
-                        } */}
+                        }
                     </tbody>
                 </table>
             </div>

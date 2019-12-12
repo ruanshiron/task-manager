@@ -32,7 +32,7 @@ class EditGroup extends React.Component {
             <div style={{ paddingBottom: '28px', paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
                 <div className="unit-name">
                     <label ><strong><font size="3" >Tên nhóm</font></strong></label><br></br>
-                    <InputGroup name="name" leftIcon="layers" value="acd" />
+                    <InputGroup name="name" leftIcon="layers" />
                 </div>
                 <br></br>
                 <div className="Desciption">

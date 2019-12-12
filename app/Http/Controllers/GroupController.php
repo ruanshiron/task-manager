@@ -17,7 +17,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return response()->json(Group::all());
+        return response()->json(Group::with('captain')->get());
     }
 
     /**
@@ -138,6 +138,10 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $group = Group::find($id)->delete();
+
+        return response()->json([
+            "succeed" => true,
+        ]);
     }
 }

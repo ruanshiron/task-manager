@@ -17,6 +17,7 @@ class CreateDeputiesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('group_id');
+            $table->string('mission');
             $table->timestamps();
         });
     }
