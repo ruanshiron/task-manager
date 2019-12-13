@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { H1, EditableText, H5, H3, H6, Button, Intent, MenuItem, Divider, InputGroup, Classes, Card } from "@blueprintjs/core"
+import { H1, EditableText, H5, H3, H6, Button, Intent, MenuItem, Divider, InputGroup, Classes, Card, Checkbox, TextArea } from "@blueprintjs/core"
 import { Suggest, Select, MultiSelect } from "@blueprintjs/select"
 
 import UnitsTree from '../../Units/UnitsTree'
@@ -20,9 +20,6 @@ class NewTasksTemplateContent extends React.Component {
         this.observersOnChange = this.observersOnChange.bind(this)
         this.approversOnChange = this.approversOnChange.bind(this)
         this.implementersOnChange = this.implementersOnChange.bind(this)
-
-        this.actionsOnChange = this.actionsOnChange.bind(this)
-        this.informationsOnChange = this.informationsOnChange.bind(this)
     }
 
     state = {
@@ -36,7 +33,9 @@ class NewTasksTemplateContent extends React.Component {
             description: ""
         },
         actions_table: {
+            labels: [
 
+            ]
         },
         informations_table: {
 
@@ -125,22 +124,10 @@ class NewTasksTemplateContent extends React.Component {
         })
     }
 
-    actionsOnChange(value) {
-        this.setState({
-            action_input: value
-        })
-    }
-
-    informationsOnChange(value) {
-        this.setState({
-            information_input: value
-        })
-    }
-
     render() {
 
         return (
-            <div style={{ paddingBottom: '50vh',paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
+            <div style={{ paddingBottom: '50vh', paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
                 <div className="p-2">
                     <H3>Tạo mẫu mới</H3>
                     <p>Một công việc bắt buộc phải theo một mẫu nên, hãy tạo mẫu trước khi tao công việc</p>
@@ -202,99 +189,7 @@ class NewTasksTemplateContent extends React.Component {
                     </div>
                 </div>
 
-                <div className="flex-fill bd-highlight">
-                    <div className="p-2">
-                        <Card elevation={0}>
-                            <div className="mb-2">
-                                <NameDescriptionEditable
-                                    placeholder="Tên hành động ..."
-                                    onChange={this.actionsOnChange}
-                                />
-                            </div>
-                            <Button text="Thêm" intent="primary" className={Classes.BUTTON} />
-                            <div className="mt-4">
-                                <table className="table">
-                                    <thead className="thead-light">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </Card>
-                    </div>
-                </div>
-
-                <div className="flex-fill bd-highlight">
-                    <div className="p-2">
-                        <Card elevation={0}>
-                            <div className="mb-2">
-                                <NameDescriptionEditable
-                                    placeholder="Tên thông tin ..."
-                                    onChange={this.informationsOnChange}
-                                />
-                            </div>
-                            <ItemSelect/> <br/> <br/>
-                            <Button text="Thêm" intent="primary" className={Classes.BUTTON} />
-                            <div className="mt-4">
-                                <table className="table">
-                                    <thead className="thead-light">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </Card>
-                    </div>
-                </div>
-
+                <ActionsTable />
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
@@ -312,9 +207,190 @@ class NewTasksTemplateContent extends React.Component {
             </div>
         )
     }
-    handleDetailChange = (detail) => this.setState({ detail });
 
 
 }
 
 export default NewTasksTemplateContent
+
+function ActionsTable({ onChange }) {
+    const [state, setState] = useState({
+        data: [
+            { name: "sample 1", description: "sample 1", must_be: false, editing: false },
+            { name: "sample 2", description: "sample 2", must_be: false, editing: false },
+            { name: "sample 3", description: "sample 3", must_be: false, editing: false }
+        ],
+        create: { name: "", description: "", must_be: false, editing: false }
+    })
+
+    function mustBeOnChange(index) {
+        setState({
+            ...state,
+            data: state.data.map((u, i) => i != index ? u : { ...u, must_be: !u.must_be })
+        })
+
+    }
+
+    function deleteOnChange(i) {
+        state.data.splice(i, 1)
+
+        setState({
+            ...state,
+            data: state.data
+        })
+    }
+
+    function editOnChange(index) {
+        setState({
+            ...state,
+            data: state.data.map((u, i) => i != index ? u : { ...u, editing: !u.editing })
+        })
+    }
+
+    function nameEditOnChange(event, index) {
+        setState({
+            ...state,
+            data: state.data.map((u, i) => i != index ? u : { ...u, name: event.target.value })
+        })
+    }
+
+    function descriptionEditOnChange(event, index) {
+        setState({
+            ...state,
+            data: state.data.map((u, i) => i != index ? u : { ...u, description: event.target.value })
+        })
+    }
+
+    useEffect(() => {
+        console.log(state);
+
+
+    })
+
+    return (
+        <div className="flex-fill bd-highlight">
+            <div className="p-2">
+                <H6>Hành động</H6>
+                <Card elevation={0}>
+                    <div className="">
+                        <table className="table">
+                            <thead className="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Mô Tả</th>
+                                    <th style={{ minWidth: '88px' }} scope="col">Bắt buộc</th>
+                                    <th style={{ minWidth: '120px' }} scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    state.data.map((u, i) => (
+                                        !u.editing ?
+                                            <tr key={i}>
+                                                <th scope="row">
+                                                    {i + 1}
+                                                </th>
+                                                <td>
+                                                    {u.name}
+                                                </td>
+                                                <td>
+                                                    {u.description}
+                                                </td>
+                                                <td style={{ textAlign: 'center', verticalAlign: 'center' }}>
+                                                    <Button onClick={(e) => mustBeOnChange(i)} minimal>{u.must_be ? "có" : "không"}</Button>
+                                                </td>
+                                                <td>
+                                                    <Button onClick={(e) => editOnChange(i)} intent="warning" minimal>{u.editing ? "xong" : "sửa"}</Button>
+                                                    <Button onClick={(e) => deleteOnChange(i)} intent="danger" minimal>xoá</Button>
+                                                </td>
+                                            </tr>
+                                            :
+                                            <tr key={i}>
+                                                <th scope="row">
+                                                    {i + 1}
+                                                </th>
+                                                <td>
+                                                    <InputGroup value={u.name} onChange={(e) => nameEditOnChange(e, i)} />
+                                                </td>
+                                                <td>
+                                                    <InputGroup value={u.description} onChange={(e) => descriptionEditOnChange(e, i)} />
+                                                </td>
+                                                <td style={{ textAlign: 'center', verticalAlign: 'center' }}>
+                                                    <Button onClick={(e) => mustBeOnChange(i)} minimal>{u.must_be ? "có" : "không"}</Button>
+                                                </td>
+                                                <td>
+                                                    <Button onClick={(e) => editOnChange(i)} intent="warning" minimal>{u.editing ? "xong" : "sửa"}</Button>
+                                                    <Button onClick={(e) => deleteOnChange(i)} intent="danger" minimal>xoá</Button>
+                                                </td>
+                                            </tr>
+                                    ))
+                                }
+
+
+                                {/* Thêm hành động */}
+                                <tr>
+                                    <th scope="row">{state.data.length + 1}</th>
+                                    <td>
+                                        <InputGroup
+                                            value={state.create.name}
+                                            onChange={e => {
+                                                setState({
+                                                    ...state,
+                                                    create: {
+                                                        ...state.create,
+                                                        name: e.target.value
+                                                    }
+                                                })
+                                            }}
+                                        />
+                                    </td>
+                                    <td>
+                                        <InputGroup
+                                            value={state.create.description}
+                                            onChange={e => {
+                                                setState({
+                                                    ...state,
+                                                    create: {
+                                                        ...state.create,
+                                                        description: e.target.value
+                                                    }
+                                                })
+                                            }}
+                                        />
+                                    </td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <Button
+                                            onClick={(e) => {
+                                                setState({
+                                                    ...state,
+                                                    create: { ...state.create, must_be: !state.create.must_be }
+                                                })
+                                            }}
+                                            minimal
+                                        >{
+                                                state.create.must_be ? "có" : "không"}
+                                        </Button>
+                                    </td>
+                                    <td>
+                                        <Button intent="success" minimal
+                                            onClick={e => {
+                                                if (state.create.name.trim() != "")
+                                                    setState({
+                                                        ...state,
+                                                        data: [...state.data, state.create],
+                                                        create: { name: "", description: "", must_be: false, editing: false }
+                                                    })
+                                            }}
+                                        >thêm</Button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </Card>
+            </div>
+        </div>
+
+    )
+}

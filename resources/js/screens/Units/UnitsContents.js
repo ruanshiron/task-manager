@@ -1,164 +1,119 @@
 import React from 'react';
 
-import { H1, InputGroup, Button, Icon, Card, H5, H3, Classes, EditableText, TextArea  } from '@blueprintjs/core';
-import { ItemSelect, ItemMultiSelect } from '../../components';
+import { H1, InputGroup, Button, Icon, Card, H6, H3, Classes, EditableText, TextArea, Divider } from '@blueprintjs/core';
+import { ItemSelect, ItemMultiSelect, NameDescriptionEditable } from '../../components';
 
 class UnitsContent extends React.PureComponent {
 
     render() {
         return (
-            <div style={{ paddingBottom: '50vh',paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
-                <div className="unit-name">
-                    <label ><strong><font size="3" >Tên đơn vị</font></strong></label><br></br>
-                    <InputGroup  leftIcon="layers"   
-                        placeholder="Tên đơn vị..."
-                        large
-                        className=".modifier w-50"
-                    />
+            <div style={{ paddingBottom: '50vh', paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
+                <div className="p-2">
+                    <H3>Đơn vị</H3>
                 </div>
-                <br></br>
-                <div className="Desciption">
-                    <label ><strong><font size="3" >Mô tả</font></strong></label><br></br>
-                    <TextArea className="form-control" rows="5" id="describe-unit" />
+                <Divider />
+                <div className="p-2">
+                    <NameDescriptionEditable />
                 </div>
-                <br></br>
-                <div className="unit-leader">
-                    <label ><strong><font size="3" >Trưởng đơn vị</font></strong></label><br></br>
-                    <div style={{width:"500px"}}><ItemMultiSelect/></div>
+                <Divider />
+                <div className="p-2">
+                    <H6>Công việc gốc</H6>
+                    <TextArea fill className="form-control" rows="5" id="describe-unit" />
                 </div>
-                <br></br>
-
-                <label ><strong><font size="3" >Phó đơn vị</font></strong></label><br></br>
-
+                <div className="p-2">
+                    <H6>Trưởng đơn vị</H6>
+                    <ItemMultiSelect fill />
+                </div>
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
+                        <H6>Phó đơn vị</H6>
                         <Card elevation={0}>
-                            <div className="row" >
-                                <span style={{margin: "15px"}} className="col-2"><strong>Phó đơn vị</strong></span>
-                                <span style={{marginTop: "10px", width:"300px"}}><ItemMultiSelect/></span>
-                            </div>
-                            <br></br>
-                            <div className="row">
-                                <span style={{margin:'15px'}} className="col-2">
-                                    <strong>Nhiệm vụ</strong>
-                                </span>
-                                <span>
-                                    <TextArea style={{ minWidth: "300px", padding: "15px", paddingTop: "10px" }} 
-                                    className="form-control" rows="5" id="misson"/>
-                                    
-                                </span>
-                                <span style={{margin:'50px 20px'}}>
-                                    <Button style={{width: '80px'}} intent="primary">Lưu</Button>
-                                </span>
-                            </div>
-                            <br></br>
-                            <div className="row " style={{margin:'15px'}}>
-                                <table className="table" >
+                            <div className="">
+                                <table className="table">
                                     <thead className="thead-light">
                                         <tr>
-                                            <th scope="col">Họ và tên</th>
-                                            <th scope="col">Nhiệm vụ</th>
-                                            <th scope="col">Hành động</th>
-                                            
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Nguyễn Thế Vinh</td>
-                                            <td>Phòng phụ trách KPI</td>
-                                            <td>
-                                                <Button icon="edit" intent="primary"></Button>
-                                                <Button icon="trash" intent="danger"></Button>
-                                            </td>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td><Button intent="warning" minimal>sửa</Button>
+                                                <Button intent="danger" minimal>xoá</Button></td>
                                         </tr>
                                         <tr>
-                                            <td>Nguyễn Thế Vinh</td>
-                                            <td>Phòng phụ trách KPI</td>
-                                            <td>
-                                                <Button icon="edit" intent="primary"></Button>
-                                                <Button icon="trash" intent="danger"></Button>
-                                            </td>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td><Button intent="warning" minimal>sửa</Button>
+                                                <Button intent="danger" minimal>xoá</Button></td>
                                         </tr>
                                         <tr>
-                                            <td>Nguyễn Thế Vinh</td>
-                                            <td>Phòng phụ trách KPI</td>
+                                            <th scope="row">3</th>
+                                            <td><InputGroup /></td>
+                                            <td><InputGroup /></td>
                                             <td>
-                                                <Button icon="edit" intent="primary"></Button>
-                                                <Button icon="trash" intent="danger"></Button>
+                                                <Button intent="success" minimal fill>thêm</Button>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </Card>
-                    </div>   
-                </div>    
+                    </div>
+                </div>
 
-                <br></br>
-                <label ><strong><font size="3" >Nhân viên</font></strong></label><br></br>
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
+                        <H6>Nhân viên</H6>
                         <Card elevation={0}>
-                            <div className="row" >
-                                <span style={{margin: "15px"}} className="col-2"><strong>Chọn nhân viên</strong></span>
-                                <span style={{marginTop: "10px", width:"300px"}}><ItemMultiSelect/></span>
-                            </div>
-                            <br></br>
-                            <div className="row">
-                                <span style={{margin:'15px'}} className="col-2">
-                                    <strong>Nhiệm vụ</strong>
-                                </span>
-                                <span>
-                                    <TextArea style={{ minWidth: "300px", padding: "15px", paddingTop: "10px" }} 
-                                    className="form-control" rows="5" id="misson"/>
-                                </span>
-                                <span style={{margin:'50px 20px'}}>
-                                    <Button style={{width: '80px'}} intent="primary">Lưu</Button>
-                                </span>
-                            </div>
-                            <br></br>
-                            <div className="row " style={{margin:'15px'}}>
-                                <table className="table" >
+                            <div className="">
+                                <table className="table">
                                     <thead className="thead-light">
                                         <tr>
-                                            <th scope="col">Họ và tên</th>
-                                            <th scope="col">Nhiệm vụ</th>
-                                            <th scope="col">Hành động</th>
-                                            
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Nguyễn Thế Vinh</td>
-                                            <td>Phòng phụ trách KPI</td>
-                                            <td>
-                                                <Button icon="edit" intent="primary"></Button>
-                                                <Button icon="trash" intent="danger"></Button>
-                                            </td>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td><Button intent="warning" minimal>sửa</Button>
+                                                <Button intent="danger" minimal>xoá</Button></td>
                                         </tr>
                                         <tr>
-                                            <td>Nguyễn Thế Vinh</td>
-                                            <td>Phòng phụ trách KPI</td>
-                                            <td>
-                                                <Button icon="edit" intent="primary"></Button>
-                                                <Button icon="trash" intent="danger"></Button>
-                                            </td>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td><Button intent="warning" minimal>sửa</Button>
+                                                <Button intent="danger" minimal>xoá</Button></td>
                                         </tr>
                                         <tr>
-                                            <td>Nguyễn Thế Vinh</td>
-                                            <td>Phòng phụ trách KPI</td>
+                                            <th scope="row">3</th>
+                                            <td><InputGroup /></td>
+                                            <td><InputGroup /></td>
                                             <td>
-                                                <Button icon="edit" intent="primary"></Button>
-                                                <Button icon="trash" intent="danger"></Button>
+                                                <Button intent="success" minimal fill>thêm</Button>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </Card>
-                    </div>   
-                </div>    
+                    </div>
+                </div>
+
+
             </div>
         )
     }
