@@ -6,6 +6,8 @@ import { Suggest, Select, MultiSelect } from "@blueprintjs/select"
 import UnitsTree from '../../Units/UnitsTree'
 import { ItemSelect, ItemMultiSelect, NameDescriptionEditable } from '../../../components';
 import { timingSafeEqual } from 'crypto';
+import { ActionsTable } from '../components';
+import { InformationsTable } from '../components/InformationsTable';
 
 const INTENTS = [Intent.NONE, Intent.PRIMARY, Intent.SUCCESS, Intent.DANGER, Intent.WARNING];
 
@@ -20,6 +22,10 @@ class NewTasksTemplateContent extends React.Component {
         this.observersOnChange = this.observersOnChange.bind(this)
         this.approversOnChange = this.approversOnChange.bind(this)
         this.implementersOnChange = this.implementersOnChange.bind(this)
+
+        this.actionsOnChange = this.actionsOnChange.bind(this)
+        this.informationsOnChange = this.informationsOnChange.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
     }
 
     state = {
@@ -124,6 +130,36 @@ class NewTasksTemplateContent extends React.Component {
         })
     }
 
+    actionsOnChange(data) {
+        this.state.request.actions = data
+    }
+
+    informationsOnChange(data) {
+        this.state.request.informations = data
+    }
+
+    onSubmit(event) {
+        this.state.request.informations = this.state.request.informations.map((u,i) => ( {...u, filetype_id: u.filetype.id, order: i+1}))
+        this.state.request.actions = this.state.request.actions.map((u,i) => ( {...u, order: i+1}))
+
+        console.log(this.state.request);
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:8000/api/templates',
+            data: this.state.request
+        })
+            .then(response => {
+                console.log(response);
+
+                // this.props.history.push(`/templates/${response.data.id}`)
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+    }
+
     render() {
 
         return (
@@ -189,19 +225,37 @@ class NewTasksTemplateContent extends React.Component {
                     </div>
                 </div>
 
-                <ActionsTable />
+                <ActionsTable onChange={this.actionsOnChange} />
+
+                <InformationsTable onChange={this.informationsOnChange} />
 
                 <div className="flex-fill bd-highlight">
                     <div className="p-2">
                         <H6>KPI mục tiêu</H6>
-                        <InputGroup fill large />
+                        <InputGroup
+                            fill
+                            large
+                            onChange = {(e) => {
+                                this.setState({
+                                    request: {
+                                        ...this.state.request,
+                                        kpi_fun: e.target.value
+                                    }
+                                })
+                            }}
+                        />
                     </div>
                 </div>
                 <Divider />
                 <div className="d-flex flex-row bd-highlight mb-3">
                     <div className="p-2">
 
-                        <Button intent="success" large>Tạo công việc</Button>
+                        <Button
+                            onClick={this.onSubmit}
+                            intent="success" large
+                        >
+                            Tạo công việc
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -213,184 +267,3 @@ class NewTasksTemplateContent extends React.Component {
 
 export default NewTasksTemplateContent
 
-function ActionsTable({ onChange }) {
-    const [state, setState] = useState({
-        data: [
-            { name: "sample 1", description: "sample 1", must_be: false, editing: false },
-            { name: "sample 2", description: "sample 2", must_be: false, editing: false },
-            { name: "sample 3", description: "sample 3", must_be: false, editing: false }
-        ],
-        create: { name: "", description: "", must_be: false, editing: false }
-    })
-
-    function mustBeOnChange(index) {
-        setState({
-            ...state,
-            data: state.data.map((u, i) => i != index ? u : { ...u, must_be: !u.must_be })
-        })
-
-    }
-
-    function deleteOnChange(i) {
-        state.data.splice(i, 1)
-
-        setState({
-            ...state,
-            data: state.data
-        })
-    }
-
-    function editOnChange(index) {
-        setState({
-            ...state,
-            data: state.data.map((u, i) => i != index ? u : { ...u, editing: !u.editing })
-        })
-    }
-
-    function nameEditOnChange(event, index) {
-        setState({
-            ...state,
-            data: state.data.map((u, i) => i != index ? u : { ...u, name: event.target.value })
-        })
-    }
-
-    function descriptionEditOnChange(event, index) {
-        setState({
-            ...state,
-            data: state.data.map((u, i) => i != index ? u : { ...u, description: event.target.value })
-        })
-    }
-
-    useEffect(() => {
-        console.log(state);
-
-
-    })
-
-    return (
-        <div className="flex-fill bd-highlight">
-            <div className="p-2">
-                <H6>Hành động</H6>
-                <Card elevation={0}>
-                    <div className="">
-                        <table className="table">
-                            <thead className="thead-light">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Tên</th>
-                                    <th scope="col">Mô Tả</th>
-                                    <th style={{ minWidth: '88px' }} scope="col">Bắt buộc</th>
-                                    <th style={{ minWidth: '120px' }} scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    state.data.map((u, i) => (
-                                        !u.editing ?
-                                            <tr key={i}>
-                                                <th scope="row">
-                                                    {i + 1}
-                                                </th>
-                                                <td>
-                                                    {u.name}
-                                                </td>
-                                                <td>
-                                                    {u.description}
-                                                </td>
-                                                <td style={{ textAlign: 'center', verticalAlign: 'center' }}>
-                                                    <Button onClick={(e) => mustBeOnChange(i)} minimal>{u.must_be ? "có" : "không"}</Button>
-                                                </td>
-                                                <td>
-                                                    <Button onClick={(e) => editOnChange(i)} intent="warning" minimal>{u.editing ? "xong" : "sửa"}</Button>
-                                                    <Button onClick={(e) => deleteOnChange(i)} intent="danger" minimal>xoá</Button>
-                                                </td>
-                                            </tr>
-                                            :
-                                            <tr key={i}>
-                                                <th scope="row">
-                                                    {i + 1}
-                                                </th>
-                                                <td>
-                                                    <InputGroup value={u.name} onChange={(e) => nameEditOnChange(e, i)} />
-                                                </td>
-                                                <td>
-                                                    <InputGroup value={u.description} onChange={(e) => descriptionEditOnChange(e, i)} />
-                                                </td>
-                                                <td style={{ textAlign: 'center', verticalAlign: 'center' }}>
-                                                    <Button onClick={(e) => mustBeOnChange(i)} minimal>{u.must_be ? "có" : "không"}</Button>
-                                                </td>
-                                                <td>
-                                                    <Button onClick={(e) => editOnChange(i)} intent="warning" minimal>{u.editing ? "xong" : "sửa"}</Button>
-                                                    <Button onClick={(e) => deleteOnChange(i)} intent="danger" minimal>xoá</Button>
-                                                </td>
-                                            </tr>
-                                    ))
-                                }
-
-
-                                {/* Thêm hành động */}
-                                <tr>
-                                    <th scope="row">{state.data.length + 1}</th>
-                                    <td>
-                                        <InputGroup
-                                            value={state.create.name}
-                                            onChange={e => {
-                                                setState({
-                                                    ...state,
-                                                    create: {
-                                                        ...state.create,
-                                                        name: e.target.value
-                                                    }
-                                                })
-                                            }}
-                                        />
-                                    </td>
-                                    <td>
-                                        <InputGroup
-                                            value={state.create.description}
-                                            onChange={e => {
-                                                setState({
-                                                    ...state,
-                                                    create: {
-                                                        ...state.create,
-                                                        description: e.target.value
-                                                    }
-                                                })
-                                            }}
-                                        />
-                                    </td>
-                                    <td style={{ textAlign: 'center' }}>
-                                        <Button
-                                            onClick={(e) => {
-                                                setState({
-                                                    ...state,
-                                                    create: { ...state.create, must_be: !state.create.must_be }
-                                                })
-                                            }}
-                                            minimal
-                                        >{
-                                                state.create.must_be ? "có" : "không"}
-                                        </Button>
-                                    </td>
-                                    <td>
-                                        <Button intent="success" minimal
-                                            onClick={e => {
-                                                if (state.create.name.trim() != "")
-                                                    setState({
-                                                        ...state,
-                                                        data: [...state.data, state.create],
-                                                        create: { name: "", description: "", must_be: false, editing: false }
-                                                    })
-                                            }}
-                                        >thêm</Button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </Card>
-            </div>
-        </div>
-
-    )
-}

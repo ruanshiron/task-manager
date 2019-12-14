@@ -19,7 +19,7 @@ class CreateInformationsTable extends Migration
             $table->unsignedBigInteger('order');
             $table->text('name');
             $table->text('description');
-            $table->boolean('must_be')->default(0)->change();;
+            $table->boolean('must_be');
             $table->unsignedBigInteger('filetype_id');
             $table->timestamps();
 

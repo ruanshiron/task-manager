@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Template;
+use App\Action;
+use App\Information;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -53,7 +55,19 @@ class TemplateController extends Controller
 
         $validator_3 = Validator::make($request->all(), [
             "actions" => "required|array",
-            "informations" => "required|array"
+            "actions.*.name" => "required|string",
+            "actions.*.must_be" => "required|boolean",
+            "actions.*.order" => "required",
+            "actions.*.description" => "nullable",
+        ])->validate();
+
+        $validator_4 = Validator::make($request->all(), [
+            "informations" => "required|array",
+            "informations.*.name" => "required|string",
+            "informations.*.must_be" => "required|boolean",
+            "informations.*.order" => "required",
+            "informations.*.filetype_id" => "required",
+            "informations.*.description" => "nullable",
         ])->validate();
 
         $template = Template::create($validator);
@@ -92,6 +106,30 @@ class TemplateController extends Controller
         DB::table('template_approvers')->insert($approvers);
         DB::table('template_viewers')->insert($viewers);
         DB::table('template_implementers')->insert($implementers);
+
+
+
+        foreach ($validator_3["actions"] as $action) {
+            Action::create([
+                "name" => $action["name"],
+                "description" => $action["description"],
+                "must_be" => $action["must_be"],
+                "order" => $action["order"],
+                "template_id" => $template->id
+            ]);
+        }
+
+        foreach ($validator_4["informations"] as $information) {
+            Information::create([
+                "name" => $information["name"],
+                "description" => $information["description"],
+                "must_be" => $information["must_be"],
+                "filetype_id" => $information["filetype_id"],
+                "order" => $information["order"],
+                "template_id" => $template->id
+            ]);
+        }
+
 
         return response()->json($template);
 

@@ -22,10 +22,10 @@ export class ItemSelect extends React.Component {
             createdItems: [],
             disableItems: false,
             disabled: false,
-            film: {id: 0, title: "(No Selection)"},
+            film: this.props.selected? this.props.selected : {id: 0, title: "null"},
             filterable: true,
             hasInitialContent: false,
-            items: this.props.items? [...this.props.items, {id: 0, title: "(No Selection)"}]: filmSelectProps.items,
+            items: this.props.items? [...this.props.items, {id: 0, title: "null"}]: filmSelectProps.items,
             minimal: true,
             resetOnClose: false,
             resetOnQuery: true,
@@ -69,7 +69,7 @@ export class ItemSelect extends React.Component {
             >
                 <Button
                     rightIcon="caret-down"
-                    text={film ? `${film.title}` : "(No selection)"}
+                    text={film ? `${film.title}` : "null"}
                     disabled={disabled}
                 />
             </Select>

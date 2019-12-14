@@ -23,6 +23,7 @@ Route::prefix('api')->group(function() {
     Route::resource('groups', 'GroupController');
     Route::resource('units', 'UnitController');
     Route::resource('templates', 'TemplateController');
+    Route::resource('filetypes', 'FileTypeController');
     Route::resource('kpis', 'KpiController');
     Route::resource('priorities', 'PriorityController');
 });
