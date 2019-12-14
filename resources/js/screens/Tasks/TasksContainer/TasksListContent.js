@@ -67,16 +67,16 @@ class TasksListContent extends React.Component {
                     <thead className="thead-light">
                         <tr>
                             {
-                                this.state.table.labels.map(u =>
-                                    <th scope="col">{u}</th>
+                                this.state.table.labels.map((u ,i ) =>
+                                    <th scope="col" key={i}>{u}</th>
                                 )
                             }
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            this.state.table.data.map(u =>
-                                <tr>
+                            this.state.table.data.map((u,i) =>
+                                <tr key={i}>
                                     <th scope="row">{u.name}</th>
                                     <td></td>
                                     <td>Đang thực hiện</td>

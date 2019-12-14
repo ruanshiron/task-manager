@@ -3,9 +3,9 @@ import React from 'react';
 import { H3, H6, Button, Intent, MenuItem, Divider, InputGroup, Classes } from "@blueprintjs/core"
 import { Suggest, Select, MultiSelect } from "@blueprintjs/select"
 
-import UnitsTree from '../../Units/UnitsTree'
-import { ItemSelect, ItemMultiSelect, DatetimeInput } from '../../../components';
-import { TTree } from '../../../components/TTree';
+import UnitsTree from '../../../Units/UnitsTree'
+import { ItemSelect, ItemMultiSelect, DatetimeInput } from '../../../../components';
+import { TTree } from '../../../../components/TTree';
 import axios from 'axios';
 
 const INTENTS = [Intent.NONE, Intent.PRIMARY, Intent.SUCCESS, Intent.DANGER, Intent.WARNING];

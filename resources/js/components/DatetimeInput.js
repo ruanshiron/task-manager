@@ -31,6 +31,7 @@ export class DatetimeInput extends React.Component {
             <DateInput
                 {...spreadProps}
                 {...format}
+                {...this.props}
                 defaultValue={new Date()}
                 onChange={this.handleDateChange}
                 popoverProps={{ position: Position.BOTTOM }}

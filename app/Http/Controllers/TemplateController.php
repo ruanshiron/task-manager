@@ -7,6 +7,8 @@ use App\Template;
 use App\Action;
 use App\Information;
 
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +21,7 @@ class TemplateController extends Controller
      */
     public function index()
     {
-        return response()->json(Template::all());
+        return response()->json(Template::with('author')->with('tasks')->get());
     }
 
     /**
@@ -71,6 +73,8 @@ class TemplateController extends Controller
         ])->validate();
 
         $template = Template::create($validator);
+        $template->author_id = auth()->user()->id;
+        $template->save();
 
         $viewers = array();
         $approvers = array();

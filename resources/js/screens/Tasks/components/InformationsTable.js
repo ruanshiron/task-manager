@@ -77,7 +77,7 @@ export function InformationsTable({ onChange, data }) {
             <div className="p-2">
                 <H6>Thông tin</H6>
                 <Card elevation={0}>
-                    <div className="">
+                    <div className="table-responsive">
                         <table className="table">
                             <thead className="thead-light">
                                 <tr>

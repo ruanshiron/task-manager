@@ -18,6 +18,7 @@ class CreateTemplatesTable extends Migration
             $table->text('name');
             $table->text('description')->nullable();
             $table->text('kpi_fun')->nullable();
+            $table->text('author_id')->nullable();
             $table->timestamps();
         });
     }

@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { H1, EditableText, H5, H3, H6, Button, Intent, MenuItem, Divider, InputGroup, Classes, Card, Checkbox, TextArea } from "@blueprintjs/core"
 import { Suggest, Select, MultiSelect } from "@blueprintjs/select"
 
-import UnitsTree from '../../Units/UnitsTree'
-import { ItemSelect, ItemMultiSelect, NameDescriptionEditable } from '../../../components';
+import UnitsTree from '../../../Units/UnitsTree'
+import { ItemSelect, ItemMultiSelect, NameDescriptionEditable } from '../../../../components';
 import { timingSafeEqual } from 'crypto';
-import { ActionsTable } from '../components';
-import { InformationsTable } from '../components/InformationsTable';
+import { ActionsTable } from '../../components';
+import { InformationsTable } from '../../components/InformationsTable';
 
 const INTENTS = [Intent.NONE, Intent.PRIMARY, Intent.SUCCESS, Intent.DANGER, Intent.WARNING];
 

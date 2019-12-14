@@ -62,7 +62,6 @@ class App extends React.Component {
             url: 'http://localhost:8000/api/users/me',
         })
         .then(response => {
-            console.log(response);
             this.setState({user: response})
         });
     }

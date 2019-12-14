@@ -8,6 +8,8 @@ class Template extends Model
 {
     protected $guarded = [];
 
+    protected $hidden = ['author_id'];
+
     public function viewers()
     {
         return $this->belongsToMany('App\User', 'templates_viewers', 'user_id', 'template_id');
@@ -36,5 +38,15 @@ class Template extends Model
     public function informations()
     {
         return $this->hasMany('App\Information');
+    }
+
+    public function author()
+    {
+        return $this->belongsTo('App\User', 'author_id');
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany('App\Task');
     }
 }

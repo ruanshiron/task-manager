@@ -18,7 +18,6 @@ export class UserButton extends React.Component {
             url: 'http://localhost:8000/logout',
         })
         .then(response => {
-            console.log(response)
         });
     }
 

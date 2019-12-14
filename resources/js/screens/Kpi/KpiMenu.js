@@ -1,28 +1,7 @@
 import React from 'react';
 
 import { Menu, Classes, MenuDivider } from "@blueprintjs/core"
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    NavLink,
-    useRouteMatch
-} from "react-router-dom";
-
-
-function LinkMenuItem({ to, activeOnlyWhenExact, icon, text }) {
-    let match = useRouteMatch({
-        path: to,
-        exact: activeOnlyWhenExact
-    })
-
-    return (
-        <Link style={{ textDecoration: 'none', color: 'black'}} to={to}>
-            <Menu.Item style={{ marginTop: '2px' }} icon={icon} text={text} active={match ? true : false}/>
-        </Link>
-    )
-}
+import { LinkMenuItem } from '../../components'
 
 class KpiMenu extends React.Component {
 
