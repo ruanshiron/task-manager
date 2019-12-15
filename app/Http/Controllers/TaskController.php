@@ -90,7 +90,7 @@ class TaskController extends Controller
         DB::table('observers')->insert($observers);
         DB::table('approvers')->insert($approvers);
         DB::table('task_kpis')->insert($kpis);
-        DB::table('implementers')->insert($kpis);
+        DB::table('implementers')->insert($implementers);
 
         return response()->json($task);
     }
