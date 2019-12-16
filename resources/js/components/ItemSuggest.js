@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, MenuItem, Classes} from "@blueprintjs/core"
+import { Button, MenuItem, Classes } from "@blueprintjs/core"
 
 import {
     areFilmsEqual,
@@ -12,9 +12,9 @@ import {
     TOP_100_FILMS,
 } from '../common/film'
 
-import { Select } from '@blueprintjs/select';
+import { Select, Suggest } from '@blueprintjs/select';
 
-export class ItemSelect extends React.Component {
+export class ItemSuggest extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,10 +22,10 @@ export class ItemSelect extends React.Component {
             createdItems: [],
             disableItems: false,
             disabled: false,
-            film: this.props.selected? this.props.selected : {id: 0, title: "null"},
+            film: this.props.selected ? this.props.selected : { id: 0, title: "null" },
             filterable: true,
             hasInitialContent: false,
-            items: this.props.items? [...this.props.items, {id: 0, title: "null"}]: filmSelectProps.items,
+            items: this.props.items ? [...this.props.items, { id: 0, title: "null" }] : filmSelectProps.items,
             minimal: true,
             resetOnClose: false,
             resetOnQuery: true,
@@ -45,38 +45,31 @@ export class ItemSelect extends React.Component {
         const initialContent = this.state.hasInitialContent ? (
             <MenuItem disabled={true} text={`${TOP_100_FILMS.length} items loaded.`} />
         ) : (
-            undefined
-        );
+                undefined
+            );
         const maybeCreateNewItemFromQuery = allowCreate ? createFilm : undefined;
         const maybeCreateNewItemRenderer = allowCreate ? renderCreateFilmOption : null;
 
         return (
-            <Select
+            <Suggest
                 {...filmSelectProps}
                 {...flags}
                 {...this.props}
                 createNewItemFromQuery={maybeCreateNewItemFromQuery}
                 createNewItemRenderer={maybeCreateNewItemRenderer}
-                disabled={disabled}
-                itemDisabled={this.isItemDisabled}
+                inputValueRenderer={this.renderInputValue}
                 itemsEqual={areFilmsEqual}
                 // we may customize the default filmSelectProps.items by
-                // adding newly created items to the list, so pass our own
+                // adding newly created items to the list, so pass our own.
                 items={this.state.items}
-                initialContent={initialContent}
                 noResults={<MenuItem disabled={true} text="No results." />}
                 onItemSelect={this.handleValueChange}
                 popoverProps={{ minimal }}
-            >
-                <Button
-                    fill
-                    rightIcon="caret-down"
-                    text={film ? `${film.title}` : "null"}
-                    disabled={disabled}
-                />
-            </Select>
+            />
         )
     }
+
+    renderInputValue = (film) => film.title
 
 
     handleValueChange = (film) => {

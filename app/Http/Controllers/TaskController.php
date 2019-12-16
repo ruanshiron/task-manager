@@ -10,6 +10,19 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
+    private function findChild($tasks)
+    {
+        foreach ($tasks as $task) {
+            foreach ($task->children as $child) {
+                $child->with('children')->get();
+
+                $this->findChild($child->children);
+            }
+        }
+
+        return $tasks;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +30,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return response()->json(Task::with('priority')->where('parent_id', null)->get());
+        $tasks = Task::with('priority', 'children', 'parent')->where('parent_id', null)->get();
+
+        $tasks = $this->findChild($tasks);
+
+        return response()->json($tasks);
     }
 
     /**

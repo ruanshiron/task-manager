@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { H1,H6} from "@blueprintjs/core"
-import { Menu, MenuItem, MenuDivider, Button,EditableText, Classes, Icon, IconName, InputGroup } from '@blueprintjs/core';
+import { H1, H6 } from "@blueprintjs/core"
+import { Menu, MenuItem, MenuDivider, Button, EditableText, Classes, Icon, IconName, InputGroup, Card, TextArea } from '@blueprintjs/core';
 import { DateTimePicker, TimePrecision } from "@blueprintjs/datetime";
-import { ItemSelect, ItemMultiSelect, DatetimeInput } from '../../../components';
+import { ItemSelect, ItemMultiSelect, DatetimeInput, ItemSuggest } from '../../../components';
 
 
 
@@ -13,90 +13,83 @@ class PersonalKpiContent extends React.Component {
     render() {
         return (
             <div>
-           <div style={{ paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
-            
-                    
-                    <div className="d-flex flex-row bd-highlight mb-3">
-                        <div className="p-2">
-                            <H6>Chọn đơn vị</H6>
-                            <ItemSelect/>
-                        </div>
-                    </div>                 
-                    <div className="d-flex flex-row bd-highlight mb-3">
-                        <div className="p-2">
-                            <H6>Tháng</H6>
-                            <DatetimeInput/>
-                        </div>
-                        <div className="p-2">
-                            <H6>Người duyệt</H6>
-                            <ItemSelect/>
-                        </div>
-                        <div className="p-2">
-                            <H6>Trạng thái</H6>
-                            <ItemSelect/>
-                        </div>
-                    </div>
-                    <div className="p-2">
-                        <H6>Mục tiêu</H6>  
-                    </div>
-                    <div className="card">  
-                    <div className="flex-fill bd-highlight">
-                            <div className="p-2">
-                                <H6>Tên mục tiêu</H6>
-                                <InputGroup  fill />
+                <div style={{ paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
+                    <div className="flex-fill bd-highlight p-2">
+                        <Card elevation={0}>
+                            <div class="row">
+                                <div class="col">
+                                    <H6>Chọn đơn vị</H6>
+                                    <ItemSuggest fill />
+                                </div>
+                                <div class="col">
+                                    <H6>Tháng</H6>
+                                    <DatetimeInput />
+                                </div>
+                                <div class="col">
+                                    <H6>Người duyệt</H6>
+                                    <ItemSuggest />
+                                </div>
+                                <div class="col">
+                                    <H6>Trạng thái</H6>
+                                    <ItemSuggest fill />
+                                </div>
                             </div>
-                        </div>
-                        
-                    <div className="d-flex flex-row bd-highlight mb-3">
-                        <div className="p-2">
-                            <H6>Thuộc mục tiêu</H6>
-                            <ItemSelect/>
-                        </div>
+                        </Card>
                     </div>
-                    <div className="d-flex flex-row bd-highlight mb-3">
-                        <div className="p-2">
-                            <H6>Tiêu chí đánh giá:</H6>
-                            <input className="bp3-input .modifier"  type="text" placeholder="Nhập tiêu chí đánh giá" dir="auto" />
-                            <button className="bp3-button bp3-icon-save" id="save" type="submit">Save</button>
-                        </div>
+
+                    <div className="flex-fill bd-highlight p-2">
+                        <Card elevation={0}>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <H6>Chọn đơn vị</H6>
+                                    <InputGroup fill />
+                                </div>
+                                <div class="col">
+                                    <H6>Thuộc mục tiêu</H6>
+                                    <ItemSuggest />
+                                </div>
+                                <div class="col">
+                                    <H6>Trọng số</H6>
+                                    <InputGroup />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+
+                                <div class="col">
+                                    <H6>
+                                        Tiêu chí KPI
+                            </H6>
+                                    <TextArea fill />
+                                </div>
+                            </div>
+                            <Button className="mt-2" text="Lưu" large intent='success' />
+                        </Card>
                     </div>
-                    <br></br>
-                    <div>
-                        <table className="bp3-html-table .modifier">
-                            <thead>
-                                <tr>
-                                <th>STT</th>
-                                <th>Tên mục tiêu</th>
-                                <th>Tiêu chí đánh giá</th>
-                                <th>Hành động</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Doanh thu</td>
-                                    <td>Doanh thu 300 tỉ</td>
-                                    <td><Button icon="edit" intent="primary"></Button><Button icon="trash" intent="danger"></Button></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Khách hàng</td>
-                                    <td>Kết nối 300k khách hàng</td>
-                                    <td><Button icon="edit" intent="primary"></Button><Button icon="trash" intent="danger"></Button></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>KPI 3</td>
-                                    <td></td>
-                                    <td><Button icon="edit" intent="primary"></Button><Button icon="trash" intent="danger"></Button></td>
-                                </tr>
-                            </tbody>
-                            </table>
+
+                    <div className="flex-fill bd-highlight p-2">
+                        <Card elevation={0}>
+                            <div className="table-responsive">
+                                <table className="table">
+                                    <thead className="thead-light">
+                                        <tr>
+                                            <th scope="col">Tên</th>
+
+                                            <th scope="col">Trọng số</th>
+                                            <th scope="col">Tiêu chí đánh giá</th>
+                                            <th scope="col">Mục tiêu đơn vị</th>
+                                            <th style={{ minWidth: '120px' }} scope="col">Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </Card>
                     </div>
-                    </div>
-                    </div>
+                </div>
             </div>
-            
+
         );
     }
 }
