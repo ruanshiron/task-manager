@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Validator;
 
 class UnitController extends Controller
 {
+    private function findChild($units)
+    {
+        foreach ($units as $unit) {
+            foreach ($unit->children as $child) {
+                $child->with('children')->get();
+
+                $this->findChild($child->children);
+            }
+        }
+
+        return $units;
+    }
 
     /**
      * Display a listing of the resource.
@@ -21,7 +33,11 @@ class UnitController extends Controller
      */
     public function index()
     {
-        //
+        $units = Unit::with('children', 'parent')->where('parent_id', null)->get();
+
+        $units = $this->findChild($units);
+
+        return response()->json($units);
     }
 
     /**
@@ -63,7 +79,8 @@ class UnitController extends Controller
      */
     public function show($id)
     {
-        //
+        $unit = Unit::with('deputies', 'members', 'captain')->find($id);
+        return response()->json($unit);
     }
 
     /**

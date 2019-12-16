@@ -8,6 +8,8 @@ class Unit extends Model
 {
     protected $guarded = [];
 
+    protected $hidden = ['captain_id'];
+
     public function parent()
     {
         return $this->belongsTo(Unit::class, 'parent_id');
@@ -18,12 +20,16 @@ class Unit extends Model
         return $this->hasMany(Unit::class, 'parent_id');
     }
 
-    public function unit_deputies()
+    public function deputies()
     {
         return $this->belongsToMany('App\User', 'unit_deputies', 'user_id', 'unit_id');
     }
-    public function unit_members()
+    public function members()
     {
-        return $this->belongsToMany('App\User', 'unit_members', 'user_id', 'unit_id');
+        return $this->belongsToMany('App\User', 'unit_members', 'member_id', 'unit_id');
+    }
+
+    public function captain() {
+        return $this->hasOne('App\User', 'id', 'captain_id');
     }
 }

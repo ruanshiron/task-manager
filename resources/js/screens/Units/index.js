@@ -4,6 +4,8 @@ import { ITreeNode, Tree, Tooltip, Position, Icon, Intent, Classes, } from '@blu
 
 import UnitsTree from './UnitsTree'
 import UnitsContent from './UnitsContents'
+import { Route } from 'react-router-dom';
+import { UserButton } from '../../components';
 
 export class Units extends React.Component {
     render() {
@@ -17,12 +19,13 @@ export class Units extends React.Component {
                         height: "100vh",
                         paddingTop: "28px"
                     }}>
-                        <UnitsTree /> 
+                        <Route exact path="/units" > <UnitsTree/> </Route>
+                        <Route exact path="/units/:unitId">  <UnitsTree/> </Route>
                     </div>
-                </div>    
+                </div>
                 <div style={{marginLeft: "285px"}}>
                     <div className="container-fluid">
-                        <UnitsContent />
+                    <Route exact path="/units/:unitId">  <UnitsContent /> </Route>
                     </div>
                 </div>
             </div>

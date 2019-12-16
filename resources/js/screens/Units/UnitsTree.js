@@ -1,55 +1,106 @@
 import React, { useState, useEffect } from 'react';
 
+import { useParams, useHistory } from 'react-router-dom'
+
 import { ITreeNode, Tree, Tooltip, Position, Icon, Intent, Classes, Button } from '@blueprintjs/core';
 
-class UnitsTree extends React.Component {
-    state = { nodes: INITIAL_STATE };
 
-    handleNodeClick = (nodeData, _nodePath, e) => {
+export default function UnitsTree() {
+    const [state, setState] = useState({ nodes: INITIAL_STATE });
+
+    const history = useHistory()
+
+    const handleNodeClick = (nodeData, _nodePath, e) => {
         const originallySelected = nodeData.isSelected;
         if (!e.shiftKey) {
-            this.forEachNode(this.state.nodes, n => (n.isSelected = false));
+            forEachNode(state.nodes, n => (n.isSelected = false));
         }
         nodeData.isSelected = originallySelected == null ? true : !originallySelected;
-        this.setState(this.state);
+        setState({
+            nodes: state.nodes
+        });
+        history.push(nodeData.path)
+
     };
 
-    handleNodeCollapse = (nodeData) => {
+    const handleNodeCollapse = (nodeData) => {
         nodeData.isExpanded = false;
-        this.setState(this.state);
+        setState({
+            ...state,
+            nodes: state.nodes
+        });
     };
 
-    handleNodeExpand = (nodeData) => {
+    const handleNodeExpand = (nodeData) => {
         nodeData.isExpanded = true;
-        this.setState(this.state);
+        setState({
+            ...state,
+            nodes: state.nodes
+        });
     };
 
-    forEachNode(nodes, callback) {
+    const forEachNode = (nodes, callback) => {
         if (nodes == null) {
             return;
         }
 
         for (const node of nodes) {
             callback(node);
-            if (node.childNodes!=null) this.forEachNode(node.childNodes, callback);
+            if (node.childNodes != null) forEachNode(node.childNodes, callback);
         }
     }
-    render() {
-        return (
-            <div className="container-fluid">
-                <Tree
-                    contents={this.state.nodes}
-                    onNodeClick={this.handleNodeClick}
-                    onNodeCollapse={this.handleNodeCollapse}
-                    onNodeExpand={this.handleNodeExpand}
-                />
-            </div>
-        )
+
+    let params = useParams()
+
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/units/',
+        })
+            .then(response => {
+                setState({
+                    nodes: unitsParser(response.data)
+                })
+            });
+
+    }, [])
+
+
+
+
+    const unitsParser = (units) => {
+        return units.map(u => {
+            return {
+                ...u,
+                childNodes: unitsParser(u.children),
+                path: '/units/' + u.id,
+                isSelected: u.id == params.unitId? true: false,
+                hasCaret: u.children.length == 0 ? false: true,
+                isExpanded: true,
+                icon: "layers",
+                label: (
+                    <Tooltip content={u.name} position={Position.RIGHT}>
+                        {u.name}
+                    </Tooltip>
+                ),
+            }
+        })
     }
+
+    return (
+        <div className="container-fluid">
+            <Tree
+                contents={state.nodes}
+                onNodeClick={handleNodeClick}
+                onNodeCollapse={handleNodeCollapse}
+                onNodeExpand={handleNodeExpand}
+                onNodeDoubleClick={() => {}}
+            />
+        </div>
+    )
+
 }
 
-
-export default UnitsTree
 
 const INITIAL_STATE = [
     {
@@ -61,12 +112,6 @@ const INITIAL_STATE = [
                 Unit 0
             </Tooltip>
         ),
-        secondaryLabel: (
-            <div>
-                <Button minimal icon="plus" />
-                <Button minimal icon="minus" />
-            </div>
-        ),
         childNodes: [
             {
                 id: 4,
@@ -76,12 +121,6 @@ const INITIAL_STATE = [
                     <Tooltip content="foo" position={Position.RIGHT}>
                         Unit 4
                     </Tooltip>
-                ),
-                secondaryLabel: (
-                    <div>
-                        <Button minimal icon="plus" />
-                        <Button minimal icon="minus" />
-                    </div>
                 ),
                 childNodes: [
                     {
@@ -93,12 +132,6 @@ const INITIAL_STATE = [
                                 Unit 5
                             </Tooltip>
                         ),
-                        secondaryLabel: (
-                            <div>
-                                <Button minimal icon="plus" />
-                                <Button minimal icon="minus" />
-                            </div>
-                        ),
                         childNodes: [
                             {
                                 id: 6,
@@ -109,14 +142,8 @@ const INITIAL_STATE = [
                                         Unit 6
                                     </Tooltip>
                                 ),
-                                secondaryLabel: (
-                                    <div>
-                                        <Button minimal icon="plus" />
-                                        <Button minimal icon="minus" />
-                                    </div>
-                                ),
                                 childNodes: [
-                                    
+
                                 ],
                             },
                         ],
@@ -134,12 +161,6 @@ const INITIAL_STATE = [
                 Unit 1
             </Tooltip>
         ),
-        secondaryLabel: (
-            <div>
-                <Button minimal icon="plus" />
-                <Button minimal icon="minus" />
-            </div>
-        ),
         childNodes: [
             {
                 id: 2,
@@ -150,26 +171,14 @@ const INITIAL_STATE = [
                         Unit 2
                     </Tooltip>
                 ),
-                secondaryLabel: (
-                    <div>
-                        <Button minimal icon="plus" />
-                        <Button minimal icon="minus" />
-                    </div>
-                ),
                 childNodes: [
                     {
                         id: 3,
                         hasCaret: true,
                         icon: "layers",
                         label: "Unit 3",
-                        secondaryLabel: (
-                            <div>
-                                <Button minimal icon="plus" />
-                                <Button minimal icon="minus" />
-                            </div>
-                        ),
                         childNodes: [
-                            
+
                         ],
                     },
                 ],
