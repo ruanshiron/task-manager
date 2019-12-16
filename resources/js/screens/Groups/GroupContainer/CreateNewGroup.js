@@ -49,7 +49,7 @@ class CreateNewGroup extends React.Component {
 
         this.nameOnChange = this.nameOnChange.bind(this)
         this.descriptionOnChange = this.descriptionOnChange.bind(this)
-        this.captainOnChange = this.captainOnChange.bind(this)
+        this.captainOnSelect = this.captainOnSelect.bind(this)
     }
 
     componentDidMount() {
@@ -118,11 +118,11 @@ class CreateNewGroup extends React.Component {
         })
     }
 
-    captainOnChange(value) {
+    captainOnSelect(value) {
         this.setState({
             request: {
                 ...this.state.request,
-                captain_id: value
+                captain_id: value.id
             }
         })
     }
@@ -130,7 +130,6 @@ class CreateNewGroup extends React.Component {
     render() {
         return (
             <div style={{ paddingBottom: '28px', paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
-                {/* <AddGroup/> */}
                 <form id="form-group" onSubmit={this.handleSubmit}>
                     <div className="unit-name">
                         <label ><strong><font size="3" >Tên nhóm</font></strong></label>
@@ -147,13 +146,12 @@ class CreateNewGroup extends React.Component {
                         <label ><strong><font size="3" >Trưởng nhóm</font></strong></label>
                         <span><strong className="text-danger"> *</strong></span>
                         <div style={{ width: "500px" }}>
-                            {this.state.users && <ItemMultiSelect items={this.state.users} onChange={this.captainOnChange} />}
+                            {this.state.users && <ItemSelect items={this.state.users} onChange={this.captainOnSelect} />}
                         </div>
                     </div>
                     <div className="d-flex flex-row bd-highlight mb-3 mt-4">
                         <Button intent="success" large onClick={this.handleOnClick}>
-                            {/* <a href="/groups/" style={{ color: "white" }}>Tạo nhóm</a> */}
-                            aaa
+                            <a href="/groups/" style={{ color: "white" }}>Tạo nhóm</a>
                         </Button>
                     </div>
 
