@@ -41,7 +41,7 @@ class GroupController extends Controller
         $validator = Validator::make($request->all(), [
             "name" => "required",
             "description" => "nullable",
-            "captain_id" => "required",
+            "captain_id" => "required"
         ])->validate();
 
         Group::create($validator);
@@ -59,7 +59,8 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        //
+        $group = Group::find($id);
+        return response()->json($group  );
     }
 
     /**
