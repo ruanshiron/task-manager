@@ -21,6 +21,7 @@ Route::prefix('api')->group(function() {
 
     Route::resource('tasks', 'TaskController');
     Route::resource('groups', 'GroupController');
+    Route::delete('groups/delete/{id}', 'GroupController@destroy');
     Route::resource('units', 'UnitController');
     Route::resource('templates', 'TemplateController');
     Route::resource('filetypes', 'FileTypeController');

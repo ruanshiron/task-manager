@@ -4,34 +4,6 @@ import { H1, InputGroup, Button, Icon, Card, EditableText, TextArea } from '@blu
 import { ItemSelect, ItemMultiSelect } from '../../../components';
 
 class CreateNewGroup extends React.Component {
-    // state = {
-    //     users: null,
-    //     request: {
-    //         name: "",
-    //         description: "",
-    //         captain_id: []
-    //     }
-    // }
-    // constructor() {
-    //     super();
-    //     this.state = {
-    //         groupList: []
-    //     }
-    // }
-
-    // componentDidMount() {
-    //     //Get nhom
-    //     axios.get('/api/groups')
-    //         .then(reponse => {
-    //             this.setState({ groupList: reponse.data });
-    //         })
-    // }
-
-    // handleSubmitGroup = data => {
-    //     this.setState({
-    //         groupList: [...this.state.groupList, data]
-    //     })
-    // }
     state = {
         users: null,
         groups: null,

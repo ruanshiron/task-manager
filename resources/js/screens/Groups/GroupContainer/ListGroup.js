@@ -18,11 +18,20 @@ class ListGroup extends React.Component {
                 console.log(reponse.data);
                 
             })
+    }
 
-        // axios.get('/api/users')
-        //     .then(reponse => {
-        //         this.setState({ userList: reponse.data });
-        //     })
+    onDelete(group_id) {
+        axios.delete('/api/groups/delete/'+group_id)
+        .then(reponse=>{
+            var groupList = this.state.groupList;
+
+            for (var i = 0; i < groupList.length; i++) {
+                if (groupList[i].id == group_id) {
+                    groupList.splice(i, 1);
+                    this.setState({groupList:groupList});
+                }
+            }
+        })
     }
 
     state = {
@@ -59,7 +68,7 @@ class ListGroup extends React.Component {
                                         <td style={{ textAlign: 'center' }}>4</td>
                                         <td style={{ textAlign: 'center' }}>20</td>
                                         <td style={{ textAlign: 'center' }}><a href="edit">Chỉnh sửa</a></td>
-                                        <td style={{ textAlign: 'center' }}><a href="#" className="text-danger">Xóa</a></td>
+                                        <td style={{ textAlign: 'center' }}><a href="#" className="text-danger" onClick={this.onDelete.bind(this, record.id)}>Xóa</a></td>
                                     </tr>
                                 )
                             })
