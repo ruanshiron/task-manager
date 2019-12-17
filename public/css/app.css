@@ -11175,11 +11175,15 @@ a.text-dark:focus {
   }
 }
 
-.table th {
+.table thead th {
   vertical-align: middle;
 }
 
-.table td {
+.table tbody th {
+  vertical-align: middle;
+}
+
+.table tbody td {
   vertical-align: middle;
 }
 
