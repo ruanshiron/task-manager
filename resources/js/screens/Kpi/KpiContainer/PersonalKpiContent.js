@@ -9,6 +9,7 @@ import { ItemSelect, ItemMultiSelect, DatetimeInput, ItemSuggest } from '../../.
 
 
 class PersonalKpiContent extends React.Component {
+    
 
     render() {
         return (
@@ -41,7 +42,7 @@ class PersonalKpiContent extends React.Component {
                         <Card elevation={0}>
                             <div class="row mb-3">
                                 <div class="col-6">
-                                    <H6>Chọn đơn vị</H6>
+                                    <H6>Tên mục tiêu</H6>
                                     <InputGroup fill />
                                 </div>
                                 <div class="col">
