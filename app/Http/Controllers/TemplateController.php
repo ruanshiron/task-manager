@@ -147,40 +147,26 @@ class TemplateController extends Controller
      */
     public function show($id)
     {
-        //
+        $template = Template::find($id);
+        return response()->json($template);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $template = Template::find($id)->delete();
+
+        return response()->json([
+            "succeed" => true,
+        ]);
     }
 }

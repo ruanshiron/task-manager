@@ -91,7 +91,7 @@ class AddDeputy extends Component {
                             />
                         </span>
                         <span style={{ margin: '50px 20px' }}>
-                            <Button type="submit" style={{ width: '80px' }} intent="primary">Lưu</Button>
+                            <Button type="submit" style={{ width: '80px' }} intent="primary">Thêm</Button>
                         </span>
                     </div>
                 </form>

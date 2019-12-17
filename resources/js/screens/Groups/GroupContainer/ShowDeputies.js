@@ -25,20 +25,6 @@ class ShowDeputies extends React.Component {
         })
     }
 
-    // onDelete(deputy_id) {
-    //     axios.delete('/api/deputies/'+deputy_id)
-    //     .then(
-    //         reponse=>{
-    //             for (var i = 0; i < deputyList.length; i++) {
-    //                 if (deputyList[i].id == deputy_id) {
-    //                     deputyList.splice(i, 1);
-    //                     this.setState({deputyList: deputyList});
-    //                 }
-    //             }
-    //         }
-    //     )
-    // }
-
     render() {
         return (
             <div style={{ width: "100%" }}>
@@ -87,18 +73,6 @@ class ShowDeputies extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {/* {
-                            this.state.deputyList.map((record, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{record.name}</td>
-                                        <td>{record.mission}</td>
-                                        <td><Button icon="edit" intent="primary"></Button></td>
-                                        <td><Button icon="trash" intent="danger"></Button></td>
-                                    </tr>
-                                )
-                            })
-                        } */}
                     </tbody>
                 </table>
             </div>

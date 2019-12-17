@@ -91,8 +91,7 @@ class UnitController extends Controller
      */
     public function edit(Request $request)
     {
-
-
+        //
     }
 
     /**
@@ -108,47 +107,56 @@ class UnitController extends Controller
             "name" => "nullable",
             "description" => "nullable",
             "captain_id" => "nullable",
-            "members_id" => "nullable|array",
-            "deputies_id" => "nullable|array",
+            "members" => "nullable|array",
+            "deputies" => "nullable|array",
+        ])->validate();
+
+        $validator_2 = Validator::make($request->all(), [
+            "members" => "nullable|array",
+            "members.*.user_id" => "nullable",
+            "members.*.mission" => "nullable"
         ])->validate();
 
         $members = array();
         $deputies = array();
 
-        $group = Unit::find($id);
+        $unit = Unit::find($id);
 
-        if ($group == null) {
-            return response()->json(["error" => "Group ID is not existed"]);
+        if ($unit == null) {
+            return response()->json(["error" => "unit ID is not existed"]);
         }
 
-        if ($validator["name"] && $group->name != "" && $group->name != null) {
-            $group->name = $validator["name"];
+        if ($validator["name"] && $unit->name != "" && $unit->name != null) {
+            $unit->name = $validator["name"];
         }
-        if ($validator["description"] && $group->description != "" && $group->description != null) {
-            $group->description = $validator["description"];
+        if ($validator["description"] && $unit->description != "" && $unit->description != null) {
+            $unit->description = $validator["description"];
         }
-        if ($validator["captain_id"] && $group->captain_id != "" && $group->captain_id != null) {
-            $group->captain_id = $validator["captain_id"];
+        if ($validator["captain_id"] && $unit->captain_id != "" && $unit->captain_id != null) {
+            $unit->captain_id = $validator["captain_id"];
         }
 
-        $group->save();
-
-        if ($validator["members_id"]) {
-            foreach ($validator["members_id"] as $value) {
-                array_push($members, ["user_id" => $value, "group_id" => $id]);
+        if ($validator["members"]) {
+            foreach ($validator["members"] as $value) {
+                array_push($members, ["member_id" => $value["user_id"], "unit_id" => $id, "mission" => $value["mission"]]);
             }
         }
 
-        if ($validator["deputies_id"]) {
-            foreach ($validator["deputies_id"] as $value) {
-                array_push($deputies, ["user_id" => $value, "group_id" => $id]);
+        if ($validator["deputies"]) {
+            foreach ($validator["deputies"] as $value) {
+                array_push($deputies, ["user_id" => $value["user_id"], "unit_id" => $id, "mission" => $value["mission"]]);
             }
         }
 
-        DB::table('deputies')->insert($deputies);
-        DB::table('members')->insert($members);
+        $unit->save();
 
-        return response()->json(["succeed" => true]);
+        DB::table('unit_deputies')->where('unit_id', $unit->id)->delete();
+        DB::table('unit_members')->where('unit_id', $unit->id)->delete();
+
+        DB::table('unit_deputies')->insert($deputies);
+        DB::table('unit_members')->insert($members);
+
+        return response()->json($unit);
     }
 
     /**

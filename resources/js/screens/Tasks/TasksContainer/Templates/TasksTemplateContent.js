@@ -23,6 +23,20 @@ class TasksTemplateContent extends React.Component {
             })
     }
 
+    onDelete(template_id) {
+        axios.delete('/api/templates/delete/' + template_id)
+            .then(reponse => {
+                var templates = this.state.templates;
+
+                for (var i = 0; i < templates.length; i++) {
+                    if (templates[i].id == template_id) {
+                        templates.splice(i, 1);
+                        this.setState({ templates: templates });
+                    }
+                }
+            })
+    }
+
     render() {
 
         return (
@@ -31,12 +45,12 @@ class TasksTemplateContent extends React.Component {
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th scope="col">Tên công việc</th>
-                            <th scope="col">Mô tả</th>
-                            <th></th>
-                            <th></th>
-                            <th scope="col">Số công việc theo mẫu</th>
-                            <th scope="col">Người tạo</th>
+                            <th scope="col" style={{ width: '25%' }}>Tên công việc</th>
+                            <th scope="col" style={{ width: '30%' }}>Mô tả</th>
+                            <th scope="col" style={{ textAlign: 'center' }}>Số công việc theo mẫu</th>
+                            <th scope="col" style={{ textAlign: 'center' }}>Người tạo</th>
+                            <th style={{ textAlign: 'center' }}>Chỉnh sửa</th>
+                            <th style={{ textAlign: 'center' }}>Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,22 +59,23 @@ class TasksTemplateContent extends React.Component {
                                 <tr key={i}>
                                     <th scope="row">{u.name}</th>
                                     <td>{u.description}</td>
-                                    <td>
+                                    <td style={{ textAlign: 'center' }}>{u.tasks.length}</td>
+                                    <td style={{ textAlign: 'center' }}>{u.author.name}</td>
+                                    <td style={{ textAlign: 'center' }}>
                                         <Button
                                             minimal
                                             intent='warning'
                                             icon='edit'
                                         />
                                     </td>
-                                    <td>
+                                    <td style={{ textAlign: 'center' }}>
                                         <Button
                                             minimal
                                             intent='danger'
                                             icon='delete'
+                                            onClick={this.onDelete.bind(this, u.id)}
                                         />
                                     </td>
-                                    <td>{u.tasks.length}</td>
-                                    <td>{u.author.name}</td>
                                 </tr>
                             ))
                         }

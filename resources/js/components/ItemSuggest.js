@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, MenuItem, Classes } from "@blueprintjs/core"
+import { Button, MenuItem, Classes, ProgressBar } from "@blueprintjs/core"
 
 import {
     areFilmsEqual,
@@ -22,7 +22,7 @@ export class ItemSuggest extends React.Component {
             createdItems: [],
             disableItems: false,
             disabled: false,
-            film: this.props.selected ? this.props.selected : { id: 0, title: "null" },
+            film: this.props.selected ? this.props.selected : { id: 0, title: "" },
             filterable: true,
             hasInitialContent: false,
             items: this.props.items ? [...this.props.items, { id: 0, title: "null" }] : filmSelectProps.items,
@@ -31,12 +31,11 @@ export class ItemSuggest extends React.Component {
             resetOnQuery: true,
             resetOnSelect: false,
         }
-        this.onItemSelect = this.onItemSelect.bind(this)
     }
 
-    onItemSelect(item) {
-        this.setState({ selected: item })
-        this.props.onItemSelect(item)
+    componentDidUpdate() {
+        // console.log(this.props.selected);
+
     }
 
     render() {
@@ -65,6 +64,7 @@ export class ItemSuggest extends React.Component {
                 noResults={<MenuItem disabled={true} text="No results." />}
                 onItemSelect={this.handleValueChange}
                 popoverProps={{ minimal }}
+                selectedItem={this.props.selected?this.props.selected:''}
             />
         )
     }

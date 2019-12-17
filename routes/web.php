@@ -24,6 +24,7 @@ Route::prefix('api')->group(function() {
     Route::delete('groups/delete/{id}', 'GroupController@destroy');
     Route::resource('units', 'UnitController');
     Route::resource('templates', 'TemplateController');
+    Route::delete('templates/delete/{id}', 'TemplateController@destroy');
     Route::resource('filetypes', 'FileTypeController');
     Route::resource('kpis', 'KpiController');
     Route::resource('priorities', 'PriorityController');

@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { Label, Checkbox, Alignment, H3, Button } from "@blueprintjs/core"
+import { Link } from 'react-router-dom'
 
 class ListGroup extends React.Component {
     constructor() {
@@ -16,22 +16,22 @@ class ListGroup extends React.Component {
             .then(reponse => {
                 this.setState({ groupList: reponse.data });
                 console.log(reponse.data);
-                
+
             })
     }
 
     onDelete(group_id) {
-        axios.delete('/api/groups/delete/'+group_id)
-        .then(reponse=>{
-            var groupList = this.state.groupList;
+        axios.delete('/api/groups/delete/' + group_id)
+            .then(reponse => {
+                var groupList = this.state.groupList;
 
-            for (var i = 0; i < groupList.length; i++) {
-                if (groupList[i].id == group_id) {
-                    groupList.splice(i, 1);
-                    this.setState({groupList:groupList});
+                for (var i = 0; i < groupList.length; i++) {
+                    if (groupList[i].id == group_id) {
+                        groupList.splice(i, 1);
+                        this.setState({ groupList: groupList });
+                    }
                 }
-            }
-        })
+            })
     }
 
     state = {
@@ -62,12 +62,14 @@ class ListGroup extends React.Component {
                             this.state.groupList.map((record, id) => {
                                 return (
                                     <tr key={id}>
-                                        <td>{record.name}</td>
+                                        <td style={{ padding: '30px 0px' }}>{record.name}</td>
                                         <td>{record.description}</td>
                                         <td>{record.captain.name}</td>
                                         <td style={{ textAlign: 'center' }}>4</td>
                                         <td style={{ textAlign: 'center' }}>20</td>
-                                        <td style={{ textAlign: 'center' }}><a href="edit">Chỉnh sửa</a></td>
+                                        <td style={{ textAlign: 'center' }}>
+                                            <Link to={"/groups/" + record.id}>Chỉnh sửa</Link>
+                                        </td>
                                         <td style={{ textAlign: 'center' }}><a href="#" className="text-danger" onClick={this.onDelete.bind(this, record.id)}>Xóa</a></td>
                                     </tr>
                                 )

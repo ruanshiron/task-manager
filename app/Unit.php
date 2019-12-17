@@ -22,11 +22,11 @@ class Unit extends Model
 
     public function deputies()
     {
-        return $this->belongsToMany('App\User', 'unit_deputies', 'user_id', 'unit_id');
+        return $this->belongsToMany('App\User', 'unit_deputies', 'unit_id', 'user_id');
     }
     public function members()
     {
-        return $this->belongsToMany('App\User', 'unit_members', 'member_id', 'unit_id');
+        return $this->belongsToMany('App\User', 'unit_members', 'unit_id', 'member_id');
     }
 
     public function captain() {

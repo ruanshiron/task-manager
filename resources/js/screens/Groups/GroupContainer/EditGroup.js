@@ -9,35 +9,59 @@ class EditGroup extends React.Component {
     constructor() {
         super();
         this.state = {
-            groupList: []
+            groupList: [],
+            deputyList: [],
+            memberList: []
         }
     }
 
     componentDidMount() {
-        //Get nhom
+        // Get nhom
         axios.get('/api/groups')
             .then(reponse => {
                 this.setState({ groupList: reponse.data });
+                console.log(reponse.data);
+
+            })
+        axios.get('/api/deputies')
+            .then(reponse => {
+                this.setState({ groupList: reponse.data });
+                console.log(reponse.data);
+
+            })
+        axios.get('/api/groups')
+            .then(reponse => {
+                this.setState({ groupList: reponse.data });
+                console.log(reponse.data);
+
             })
     }
 
-    // handleSubmitGroup = data => {
-    //     this.setState({
-    //         groupList: [...this.state.groupList, data]
-    //     })
-    // }
+    onDelete(group_id) {
+        axios.delete('/api/groups/delete/' + group_id)
+            .then(reponse => {
+                var groupList = this.state.groupList;
+
+                for (var i = 0; i < groupList.length; i++) {
+                    if (groupList[i].id == group_id) {
+                        groupList.splice(i, 1);
+                        this.setState({ groupList: groupList });
+                    }
+                }
+            })
+    }
 
     render() {
         return (
             <div style={{ paddingBottom: '28px', paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
                 <div className="unit-name">
                     <label ><strong><font size="3" >Tên nhóm</font></strong></label><br></br>
-                    <InputGroup name="name" leftIcon="layers" />
+                    <InputGroup name="name" leftIcon="layers" value="" />
                 </div>
                 <br></br>
                 <div className="Desciption">
                     <label ><strong><font size="3" >Mô tả</font></strong></label><br></br>
-                    <TextArea className="form-control" rows="5" id="describe-unit" name="description" />
+                    <TextArea className="form-control" rows="5" id="describe-unit" name="description" value="aa" />
                 </div>
                 <br></br>
                 <div className="unit-leader">
@@ -50,7 +74,7 @@ class EditGroup extends React.Component {
 
                 <div className="flex-fill bd-highlight">
                     <div>
-                        <Card elevation={0} style={{width: "100%"}}>
+                        <Card elevation={0} style={{ width: "100%" }}>
                             <br></br>
                             <div className="row " style={{ margin: '15px' }}>
                                 <ShowDeputies />
@@ -72,29 +96,6 @@ class EditGroup extends React.Component {
                         </Card>
                     </div>
                 </div>
-                {/* {
-                    this.state.groupList.map((record, index) => {
-                        return (
-                            <div key={index}>
-                                <div className="unit-name">
-                                    <label ><strong><font size="3" >Tên nhóm</font></strong></label><br></br>
-                                    <InputGroup name="name" leftIcon="layers" value={record.name} />
-                                </div>
-                                <br></br>
-                                <div className="Desciption">
-                                    <label ><strong><font size="3" >Mô tả</font></strong></label><br></br>
-                                    <TextArea className="form-control" rows="5" id="describe-unit" name="description" value={record.description} />
-                                </div>
-                                <br></br>
-                                <div className="unit-leader">
-                                    <label ><strong><font size="3" >Trưởng nhóm</font></strong></label><br></br>
-                                    <div style={{ width: "500px" }}><InputGroup name="captain" value={record.captain} /></div>
-                                </div>
-                                <br></br>
-                            </div>
-                        )
-                    })
-                } */}
             </div>
         )
     }
