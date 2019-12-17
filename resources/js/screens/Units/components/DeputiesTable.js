@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { H6, Card, InputGroup, Button } from '@blueprintjs/core'
 import { ItemSuggest } from '../../../components'
 
-export function DeputiesTable({ onChange, deputies }) {
+export function DeputiesTable({users, onChange, deputies }) {
 
     const [state, setState] = useState({
         deputies: deputies ? deputies : [],
@@ -15,7 +15,7 @@ export function DeputiesTable({ onChange, deputies }) {
     })
 
     useEffect(() => {
-        if (onChange) onChange(state.deputies)
+
     })
 
     const editOnClick = (index) => {
@@ -23,6 +23,7 @@ export function DeputiesTable({ onChange, deputies }) {
             ...state,
             deputies: state.deputies.map((u, i) => index != i ? u : { ...u, editing: !u.editing })
         })
+        if (onChange) onChange(state.deputies)
     }
 
     const deleteOnClick = (index) => {
@@ -32,6 +33,7 @@ export function DeputiesTable({ onChange, deputies }) {
             ...state,
             deputies: state.deputies
         })
+        if (onChange) onChange(state.deputies)
     }
 
     const nameEditOnChange = (v, i) => {
@@ -70,7 +72,7 @@ export function DeputiesTable({ onChange, deputies }) {
                                 {
                                     state.deputies.map((u, i) => (
                                         u.editing ?
-                                            <tr>
+                                            <tr key={i}>
                                                 <th scope="row">{i + 1}</th>
                                                 <td><ItemSuggest onChange={v => nameEditOnChange(v, i)} selected={u.user} fill /></td>
                                                 <td><InputGroup onChange={e => missionEditOnChange(e, i)} value={state.mission} /></td>
@@ -80,7 +82,7 @@ export function DeputiesTable({ onChange, deputies }) {
                                                 </td>
                                             </tr>
                                             :
-                                            <tr>
+                                            <tr key={i}>
                                                 <th scope="row">{i + 1}</th>
                                                 <td>{u.user.title}</td>
                                                 <td>{u.mission}</td>
@@ -95,6 +97,7 @@ export function DeputiesTable({ onChange, deputies }) {
                                     <th scope="row">{state.deputies.length + 1}</th>
                                     <td>
                                         <ItemSuggest
+                                            items={users}
                                             selected={state.create.user}
                                             onChange={v => {
                                                 setState({
@@ -133,6 +136,7 @@ export function DeputiesTable({ onChange, deputies }) {
                                                             }, mission: ''
                                                         }
                                                     })
+                                                    if (onChange) onChange(state.deputies)
                                                 }
                                             }}
                                         />

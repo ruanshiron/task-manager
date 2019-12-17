@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { H1, InputGroup, Button, Icon, Card, H6, H3, Classes, EditableText, TextArea, Divider } from '@blueprintjs/core';
+import { H1, InputGroup, Button, Icon, Card, H6, H3, Classes, EditableText, TextArea, Divider, ProgressBar } from '@blueprintjs/core';
 import { ItemSelect, ItemMultiSelect, NameDescriptionEditable, ItemSuggest } from '../../components';
 import { useParams } from 'react-router-dom';
 import { DeputiesTable } from './components/DeputiesTable';
@@ -29,7 +29,6 @@ export default function UnitsContent() {
             url: 'http://localhost:8000/api/units/' + params.unitId,
         })
             .then(response => {
-                console.log(response.data);
                 response.data.captain.title = response.data.captain.name
 
                 setState({
@@ -43,10 +42,37 @@ export default function UnitsContent() {
             url: 'http://localhost:8000/api/users/',
         })
             .then(response => {
-                setUsers(response.data.map(u => {return {...u, title : u.name}}))
+                setUsers(response.data.map(u => { return { ...u, title: u.name } }))
             });
 
     }, [params])
+
+    function deputiesOnChange(v) {
+        state.unit.deputies = v.map(u => ({ user_id: u.user.id, mission: u.mission }))
+    }
+
+    function membersOnChange(v) {
+        state.unit.members = v.map(u => ({ user_id: u.user.id, mission: u.mission }))
+    }
+
+    function onSubmit() {
+
+        axios({
+            method: 'put',
+            url: 'http://localhost:8000/api/units/' + params.unitId,
+            data: {
+                ...state.unit,
+                captain_id: state.unit.captain.id
+            }
+        })
+            .then(response => {
+                console.log(response.data);
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
 
     return (
         <div style={{ paddingBottom: '50vh', paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
@@ -68,7 +94,7 @@ export default function UnitsContent() {
                     }}
                 />
                 <TextArea growVertically large fill
-                    value={state.unit.description}
+                    value={state.unit.description ? state.unit.description : ''}
                     onChange={(e) => {
                         setState({
                             ...state,
@@ -86,11 +112,27 @@ export default function UnitsContent() {
                 {users && <ItemSuggest items={users} selected={state.unit.captain} fill />}
             </div>
 
-            <DeputiesTable deputies={state.deputies} />
+            {users && <DeputiesTable
+                users={users}
+                onChange={deputiesOnChange}
+                deputies={state.deputies}
+            />}
 
-            <MembersTable members={state.members} />
+            {users && <MembersTable
+                users={users}
+                onChange={membersOnChange}
+                members={state.members}
+            />}
 
+            <Divider/>
 
+            <Button
+                intent='success'
+                className="m-2"
+                text="Lưu"
+                large
+                onClick={onSubmit}
+            />
         </div>
     )
 }

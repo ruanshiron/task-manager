@@ -18,9 +18,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('api')->group(function() {
     Route::get('/users/me', 'UserController@me');
     Route::resource('users', 'UserController');
-
     Route::resource('tasks', 'TaskController');
-    Route::delete('tasks/delete/{id}', 'TaskController@destroy');
     Route::resource('groups', 'GroupController');
     Route::delete('groups/delete/{id}', 'GroupController@destroy');
     Route::resource('units', 'UnitController');

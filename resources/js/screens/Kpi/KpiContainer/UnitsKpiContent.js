@@ -14,7 +14,7 @@ class UnitsKpiContent extends React.Component {
                         <div class="row mb-3">
                             <div class="col-6">
                                 <H6>
-                                    Tên
+                                    Tên mục tiêu
                                 </H6>
                                 <InputGroup fill />
                             </div>
