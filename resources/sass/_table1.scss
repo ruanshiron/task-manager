@@ -1,10 +1,18 @@
 .table {
-    th {
-        vertical-align: middle;
+    thead {
+        th {
+            vertical-align: middle;
+        }
     }
 
-    td {
-        vertical-align: middle;
+    tbody {
+        th {
+            vertical-align: middle;
+        }
+
+        td {
+            vertical-align: middle;
+        }
     }
 }
 
