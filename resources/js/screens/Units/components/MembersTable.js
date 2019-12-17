@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { H6, Card, InputGroup, Button } from '@blueprintjs/core'
 import { ItemSuggest } from '../../../components'
 
-export function MembersTable({ onChange, members }) {
+export function MembersTable({ users, onChange, members }) {
 
     const [state, setState] = useState({
         deputies: members ? members : [],
@@ -70,7 +70,7 @@ export function MembersTable({ onChange, members }) {
                                 {
                                     state.deputies.map((u, i) => (
                                         u.editing ?
-                                            <tr>
+                                            <tr key={i}>
                                                 <th scope="row">{i + 1}</th>
                                                 <td><ItemSuggest onChange={v => nameEditOnChange(v, i)} selected={u.user} fill /></td>
                                                 <td><InputGroup onChange={e => missionEditOnChange(e, i)} value={state.mission} /></td>
@@ -80,7 +80,7 @@ export function MembersTable({ onChange, members }) {
                                                 </td>
                                             </tr>
                                             :
-                                            <tr>
+                                            <tr key={i}>
                                                 <th scope="row">{i + 1}</th>
                                                 <td>{u.user.title}</td>
                                                 <td>{u.mission}</td>
@@ -95,6 +95,7 @@ export function MembersTable({ onChange, members }) {
                                     <th scope="row">{state.deputies.length + 1}</th>
                                     <td>
                                         <ItemSuggest
+                                            items={users}
                                             selected={state.create.user}
                                             onChange={v => {
                                                 setState({
