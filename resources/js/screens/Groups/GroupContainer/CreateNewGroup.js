@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { H1, InputGroup, Button, Icon, Card, EditableText, TextArea } from '@blueprintjs/core';
-import { ItemSelect, ItemMultiSelect } from '../../../components';
+import { ItemSelect, ItemMultiSelect, ItemSuggest } from '../../../components';
+import ShowDeputies from './ShowDeputies';
+import ShowMembers from './ShowMembers';
 
 class CreateNewGroup extends React.Component {
     state = {
@@ -39,7 +41,7 @@ class CreateNewGroup extends React.Component {
                     console.log(error);
                 }
             });
-            
+
         axios({
             method: 'get',
             url: 'http://localhost:8000/api/groups',
@@ -118,13 +120,41 @@ class CreateNewGroup extends React.Component {
                         <label ><strong><font size="3" >Trưởng nhóm</font></strong></label>
                         <span><strong className="text-danger"> *</strong></span>
                         <div style={{ width: "500px" }}>
-                            {this.state.users && <ItemSelect items={this.state.users} onChange={this.captainOnSelect} />}
+                            {this.state.users && <ItemSuggest items={this.state.users} onChange={this.captainOnSelect} />}
+                        </div>
+                    </div>
+                    <br></br>
+
+                    <label ><strong><font size="3" >Phó nhóm</font></strong></label><br></br>
+
+                    <div className="flex-fill bd-highlight">
+                        <div>
+                            <Card elevation={0} style={{ width: "100%" }}>
+                                <br></br>
+                                <div className="row " style={{ margin: '15px' }}>
+                                    <ShowDeputies />
+                                </div>
+                            </Card>
+                        </div>
+                    </div>
+
+                    <br></br>
+                    <label ><strong><font size="3" >Thành viên</font></strong></label><br></br>
+
+                    <div className="flex-fill bd-highlight">
+                        <div>
+                            <Card elevation={0}>
+                                <br></br>
+                                <div className="row " style={{ margin: '15px' }}>
+                                    <ShowMembers />
+                                </div>
+                            </Card>
                         </div>
                     </div>
                     <div className="d-flex flex-row bd-highlight mb-3 mt-4">
-                        <Button intent="success" large onClick={this.handleOnClick}>
-                            <a href="/groups/" style={{ color: "white" }}>Tạo nhóm</a>
-                        </Button>
+                        <a href="/groups/" style={{ color: "white" }}>
+                            <Button intent="success" large onClick={this.handleOnClick}>Tạo nhóm </Button>
+                        </a>
                     </div>
 
                 </form>
