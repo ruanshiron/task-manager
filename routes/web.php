@@ -20,12 +20,13 @@ Route::prefix('api')->group(function() {
     Route::resource('users', 'UserController');
 
     Route::resource('tasks', 'TaskController');
+    Route::delete('tasks/delete/{id}', 'TaskController@destroy');
     Route::resource('groups', 'GroupController');
     Route::delete('groups/delete/{id}', 'GroupController@destroy');
     Route::resource('units', 'UnitController');
     Route::resource('templates', 'TemplateController');
     Route::delete('templates/delete/{id}', 'TemplateController@destroy');
-    Route::resource('filetypes', 'FileTypeController');
+    Route::resource('filetypes', 'FiletypeController');
     Route::resource('kpis', 'KpiController');
     Route::resource('priorities', 'PriorityController');
 });

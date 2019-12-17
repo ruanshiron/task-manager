@@ -64,6 +64,8 @@ export function InformationsTable({ onChange, data }) {
             url: 'http://localhost:8000/api/filetypes',
         })
             .then(response => {
+                console.log(response);
+                
                 setState({
                     ...state,
                     filetypes: response.data.map(u => ({ ...u, title: u.name }))

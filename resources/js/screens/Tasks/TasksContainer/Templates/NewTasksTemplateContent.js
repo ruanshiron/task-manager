@@ -139,8 +139,8 @@ class NewTasksTemplateContent extends React.Component {
     }
 
     onSubmit(event) {
-        this.state.request.informations = this.state.request.informations.map((u,i) => ( {...u, filetype_id: u.filetype.id, order: i+1}))
-        this.state.request.actions = this.state.request.actions.map((u,i) => ( {...u, order: i+1}))
+        this.state.request.informations = this.state.request.informations.map((u, i) => ({ ...u, filetype_id: u.filetype.id, order: i + 1 }))
+        this.state.request.actions = this.state.request.actions.map((u, i) => ({ ...u, order: i + 1 }))
 
         console.log(this.state.request);
 
@@ -235,7 +235,7 @@ class NewTasksTemplateContent extends React.Component {
                         <InputGroup
                             fill
                             large
-                            onChange = {(e) => {
+                            onChange={(e) => {
                                 this.setState({
                                     request: {
                                         ...this.state.request,
@@ -249,13 +249,15 @@ class NewTasksTemplateContent extends React.Component {
                 <Divider />
                 <div className="d-flex flex-row bd-highlight mb-3">
                     <div className="p-2">
-
-                        <Button
+                        <a href="http://localhost:8000/tasks/template" style={{ color: "white" }}>
+                            <Button intent="success" large>Tạo công việc </Button>
+                        </a>
+                        {/* <Button
                             onClick={this.onSubmit}
                             intent="success" large
                         >
                             Tạo công việc
-                        </Button>
+                        </Button> */}
                     </div>
                 </div>
             </div>
