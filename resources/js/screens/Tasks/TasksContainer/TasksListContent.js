@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Label, Checkbox, Alignment, H3, Button } from "@blueprintjs/core"
-import { Redirect } from "react-router-dom"
+import { Redirect, Link } from "react-router-dom"
 
 import { ItemSelect } from '../../../components/ItemSelect';
 import { ItemMultiSelect } from '../../../components/ItemMultiSelect';
@@ -14,7 +14,7 @@ function renderTasksAndChildren({tasks, gen}) {
         tasks.map((u, i) =>
             <React.Fragment>
                 <tr key={i}>
-                    <th scope="row">{'* '.repeat(gen) + u.name}</th>
+                    <th scope="row"><Link to={'/tasks/' + u.id}>{'* '.repeat(gen) + u.name}</Link></th>
                     <td>Đang thực hiện</td>
                     <td style={{ textAlign: 'center' }}>20%</td>
                     <td style={{ textAlign: 'center' }}>5</td>

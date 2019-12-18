@@ -13,7 +13,7 @@ export default function TasksMenu(props) {
     useEffect(() => {
         axios({
             method: 'get',
-            url: 'http://localhost:8000/api/users/me',
+            url: 'http://localhost:8000/api/groups',
         })
             .then(response => {
                 try {
