@@ -15,7 +15,7 @@ class GroupMenu extends React.Component {
                 < Menu >
                     <MenuDivider title="GROUP" />
                     <LinkMenuItem icon="new-text-box" activeOnlyWhenExact to="/groups/" text="Xem danh sách nhóm" />
-                    <LinkMenuItem icon="new-object" to="/groups/createNewGroup" text="Tạo mới nhóm" />
+                    <LinkMenuItem icon="new-object" to="/groups/new" text="Tạo mới nhóm" />
                 </Menu>
             </div>
         )

@@ -1,83 +1,152 @@
-import React from 'react';
-import axios from 'axios';
-import { H3, H6, Button, Intent, MenuItem, Divider, InputGroup, Classes } from "@blueprintjs/core"
-import AddDeputy from './AddDeputy';
+import React, { useState, useEffect } from 'react'
+import { H6, Card, InputGroup, Button } from '@blueprintjs/core'
+import { ItemSuggest } from '../../../components'
 
-class ShowDeputies extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            deputyList: []
+export default function ShowDeputies({users, onChange, deputies }) {
+
+    const [state, setState] = useState({
+        deputies: deputies ? deputies : [],
+        create: {
+            user: {
+                id: 0,
+            },
+            mission: ''
         }
+    })
+
+    useEffect(() => {
+
+    })
+
+    const editOnClick = (index) => {
+        setState({
+            ...state,
+            deputies: state.deputies.map((u, i) => index != i ? u : { ...u, editing: !u.editing })
+        })
+        if (onChange) onChange(state.deputies)
     }
 
-    componentDidMount() {
-        // Get pho nhom
-        axios.get('/api/deputies')
-            .then(reponse => {
-                this.setState({ deputyList: reponse.data });
-            })
+    const deleteOnClick = (index) => {
+        state.deputies.splice(index, 1)
+
+        setState({
+            ...state,
+            deputies: state.deputies
+        })
+        if (onChange) onChange(state.deputies)
     }
 
-    handleSubmitDeputy = data => {
-        this.setState({
-            deputyList: [...this.state.deputyList, data]
+    const nameEditOnChange = (v, i) => {
+        state.deputies[i] = { ...state.deputies[i], user: v }
+        setState({
+            ...state,
+            deputies: state.deputies
         })
     }
 
-    render() {
-        return (
-            <div style={{ width: "100%" }}>
-                <AddDeputy onSubmit={this.handleSubmitDeputy} />
-                <table className="table" style={{ width: '100%' }} >
-                    <thead className="thead-light" >
-                        <tr>
-                            <th scope="col">Họ và tên</th>
-                            <th scope="col">Nhiệm vụ</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tran Van Hoang</td>
-                            <td>Doi truong doi mua hoang gia Viet Nhat</td>
-                            <td style={{ textAlign: 'center' }}><a href="" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Chỉnh sửa</a></td>
-                            <td style={{ textAlign: 'center' }}><a href="#" className="text-danger">Xóa</a></td>
-                        </tr>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="recipient-name" class="col-form-label"><strong>Phó nhóm</strong></label>
-                                                <input type="text" class="form-control" id="recipient-name" value="Tran Van Hoang"/>
-                                            </div>
-                                                <div class="form-group">
-                                                    <label for="message-text" class="col-form-label"><strong>Nhiệm vụ</strong></label>
-                                                    <textarea class="form-control" id="message-text"></textarea>
-                                                </div>
-                                        </form>
-                                    </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                            <button type="button" class="btn btn-primary">Lưu</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </tbody>
-                </table>
+    const missionEditOnChange = (e, i) => {
+        state.deputies[i].mission = e.target.value
+        setState({
+            ...state,
+            deputies: state.deputies
+        })
+    }
+
+    return (
+        <div className="flex-fill bd-highlight">
+            <div className="p-2">
+                <H6>Phó đơn vị</H6>
+                <Card elevation={0}>
+                    <div className="">
+                        <table className="table">
+                            <thead className="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Họ và tên</th>
+                                    <th scope="col">Nhiệm vụ</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {
+                                    state.deputies.map((u, i) => (
+                                        u.editing ?
+                                            <tr key={i}>
+                                                <th scope="row">{i + 1}</th>
+                                                <td><ItemSuggest onChange={v => nameEditOnChange(v, i)} selected={u.user} fill /></td>
+                                                <td><InputGroup onChange={e => missionEditOnChange(e, i)} value={state.mission} /></td>
+                                                <td>
+                                                    <Button onClick={(e) => editOnClick(i)} intent="warning" minimal>xong</Button>
+                                                    <Button onClick={(e) => deleteOnClick(i)} intent="danger" minimal>xoá</Button>
+                                                </td>
+                                            </tr>
+                                            :
+                                            <tr key={i}>
+                                                <th scope="row">{i + 1}</th>
+                                                <td>{u.user.title}</td>
+                                                <td>{u.mission}</td>
+                                                <td>
+                                                    <Button onClick={(e) => editOnClick(i)} intent="warning" minimal>sửa</Button>
+                                                    <Button onClick={(e) => deleteOnClick(i)} intent="danger" minimal>xoá</Button>
+                                                </td>
+                                            </tr>
+                                    ))
+                                }
+                                <tr>
+                                    <th scope="row">{state.deputies.length + 1}</th>
+                                    <td>
+                                        <ItemSuggest
+                                            items={users}
+                                            selected={state.create.user}
+                                            onChange={v => {
+                                                setState({
+                                                    ...state,
+                                                    create: { ...state.create, user: v }
+                                                })
+                                            }}
+                                            fill />
+                                    </td>
+                                    <td>
+                                        <InputGroup fill
+                                            value={state.create.mission}
+                                            onChange={e => {
+                                                setState({
+                                                    ...state,
+                                                    create: {
+                                                        ...state.create,
+                                                        mission: e.target.value
+                                                    }
+                                                })
+                                            }}
+                                        />
+                                    </td>
+                                    <td>
+                                        <Button text="thêm" intent="success" minimal fill
+                                            onClick={e => {
+                                                if (state.create.user.id != 0) {
+                                                    state.deputies.push(state.create)
+                                                    setState({
+                                                        ...state,
+                                                        deputies: state.deputies,
+                                                        create: {
+                                                            user: {
+                                                                id: 0,
+                                                                title: ''
+                                                            }, mission: ''
+                                                        }
+                                                    })
+                                                    if (onChange) onChange(state.deputies)
+                                                }
+                                            }}
+                                        />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </Card>
             </div>
-                )
-            }
-        }
-        
-        export default ShowDeputies
+        </div>
+    )
+}
