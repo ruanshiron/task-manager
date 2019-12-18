@@ -18,7 +18,7 @@ export class Units extends React.Component {
                         maxWidth: "285px",
                         height: "100vh",
                         paddingTop: "28px"
-                    }}>
+                    }} className="overflow-auto" >
                         <Route exact path="/units" > <UnitsTree/> </Route>
                         <Route exact path="/units/:unitId">  <UnitsTree/> </Route>
                     </div>

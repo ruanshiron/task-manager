@@ -8,6 +8,8 @@ export default function ProcessTasksContent(prop) {
 
     let params = useParams()
 
+    const [name, setName] = useState()
+
     useEffect(() => {
         axios({
             method: 'get',
@@ -15,6 +17,7 @@ export default function ProcessTasksContent(prop) {
         })
             .then(response => {
                 console.log(response);
+                setName(response.data.name)
             });
     }, [])
 
@@ -23,13 +26,10 @@ export default function ProcessTasksContent(prop) {
 
             <div className="p-2">
                 <H3>
-                    <EditableText value="Được của ló đấy" />
+                    <EditableText multiline value={name} />
                 </H3>
-
-                <EditableText multiline disabled value="User interfaces that enable people to interact smoothly with data, ask better questions, and make better decisions." />
-
                 <br /><br />
-                <p>Thự hiện bởi <Tag>Tôi</Tag> phê duyệt bởi <Tag>Công việc 1</Tag></p>
+                <p>Thực hiện bởi <Tag>Tôi</Tag> phê duyệt bởi <Tag>Công việc 1</Tag></p>
             </div>
             <Divider />
 
@@ -108,6 +108,7 @@ function ActionsPanel(props) {
             {
                 [1, 2, 3].map((u, i) => (
                     <Card
+                        key={i}
                         style={{ marginBottom: '1em' }}
                         elevation={0}
                     >
@@ -150,6 +151,7 @@ function ChatPanel(props) {
             {
                 [1, 2, 3].map((u, i) => (
                     <Card
+                        key={i}
                         style={{ marginBottom: '1em' }}
                         elevation={0}
                     >
