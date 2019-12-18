@@ -33,10 +33,7 @@ export function DeputiesTable({ users, onChange, deputies }) {
 
     const missionEditOnChange = (e, i) => {
         deputies[i].mission = e.target.value
-        setState({
-            ...state,
-            deputies: deputies
-        })
+        onChange(deputies)
     }
 
     return (

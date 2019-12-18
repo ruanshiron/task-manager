@@ -27,19 +27,13 @@ export function MembersTable({ users, onChange, members }) {
     }
 
     const nameEditOnChange = (v, i) => {
-        members[i] = { ...members[i], user: v }
-        setState({
-            ...state,
-            members: members
-        })
+        members[i] = { ...v, mission: members[i].mission}
+        onChange(members)
     }
 
     const missionEditOnChange = (e, i) => {
         members[i].mission = e.target.value
-        setState({
-            ...state,
-            members: members
-        })
+        onChange(members)
     }
 
     return (

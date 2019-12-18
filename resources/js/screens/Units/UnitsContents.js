@@ -30,9 +30,9 @@ export default function UnitsContent() {
         })
             .then(response => {
                 response.data.captain.title = response.data.captain.name
+                response.data.deputies = response.data.deputies.map(u => { return { ...u, mission: u.pivot.mission ,title: u.name }})
 
-                console.log(response.data);
-
+                response.data.members = response.data.members.map(u => { return { ...u, mission: u.pivot.mission ,title: u.name }})
 
                 setState({
                     ...state,
@@ -51,22 +51,39 @@ export default function UnitsContent() {
     }, [params])
 
     function deputiesOnChange(v) {
-        state.unit.deputies = v.map(u => ({ user_id: u.user.id, mission: u.mission }))
+        setState({
+            unit: {
+                ...state.unit,
+                deputies: v
+            }
+        })
     }
 
     function membersOnChange(v) {
-        state.unit.members = v.map(u => ({ user_id: u.user.id, mission: u.mission }))
+        setState({
+            unit: {
+                ...state.unit,
+                members: v
+            }
+        })
     }
 
     function onSubmit() {
 
+        let request = {
+            ...state.unit,
+            deputies: state.unit.deputies.map(u=> ({user_id: u.id, mission: u.mission})),
+            members: state.unit.members.map(u=> ({user_id: u.id, mission: u.mission})),
+            captain_id: state.unit.captain.id
+        }
+
+        console.log(state.unit)
+
+
         axios({
             method: 'put',
             url: 'http://localhost:8000/api/units/' + params.unitId,
-            data: {
-                ...state.unit,
-                captain_id: state.unit.captain.id
-            }
+            data: request
         })
             .then(response => {
                 console.log(response.data);
@@ -96,7 +113,7 @@ export default function UnitsContent() {
                         })
                     }}
                 />
-                <TextArea rows="3" growVertically large fill
+                <TextArea growVertically large fill
                     value={state.unit.description ? state.unit.description : ''}
                     onChange={(e) => {
                         setState({
@@ -139,5 +156,3 @@ export default function UnitsContent() {
         </div>
     )
 }
-
-
