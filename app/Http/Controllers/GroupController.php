@@ -28,17 +28,42 @@ class GroupController extends Controller
             "captain_id" => "required"
         ])->validate();
 
-        Group::create($validator);
+        $validator_2 = Validator::make($request->all(), [
+            "deputies" => "array",
+            "deputies.*.user_id" => "required",
+            "deputies.*.mission" => "nullable",
+        ])->validate();
 
-        return response()->json([
-            "succeed" => true,
-        ]);
+        $validator_3 = Validator::make($request->all(), [
+            "members" => "array",
+            "members.*.user_id" => "required",
+            "members.*.mission" => "nullable",
+        ])->validate();
+
+
+        $group = Group::create($validator);
+
+        $deputies = array();
+        $members = array();
+
+        foreach ($validator_2["deputies"] as $value) {
+            array_push($deputies, ["user_id" => $value["user_id"], "group_id" => $group->id, "mission" => $value["mission"]]);
+        }
+
+        foreach ($validator_3["members"] as $member) {
+            array_push($members, ["user_id" => $value["user_id"], "group_id" => $group->id, "mission" => $value["mission"]]);
+        }
+
+        DB::table('deputies')->insert($deputies);
+        DB::table('members')->insert($members);
+
+        return response()->json($group);
     }
 
     public function show($id)
     {
-        $group = Group::find($id);
-        return response()->json($group  );
+        $group = Group::with('deputies', 'members', 'captain')->find($id);
+        return response()->json($group);
     }
 
     public function edit(Request $request)
@@ -53,49 +78,56 @@ class GroupController extends Controller
             "name" => "nullable",
             "description" => "nullable",
             "captain_id" => "nullable",
-            "members_id" => "nullable|array",
-            "deputies_id" => "nullable|array",
-            "members_mission" => "nullable|array",
-            "deputies_mission" => "nullable|array"
+            "members" => "nullable|array",
+            "deputies" => "nullable|array",
+        ])->validate();
+
+        $validator_2 = Validator::make($request->all(), [
+            "members" => "nullable|array",
+            "members.*.user_id" => "nullable",
+            "members.*.mission" => "nullable"
         ])->validate();
 
         $members = array();
         $deputies = array();
 
-        $group = Group::find($id);
+        $unit = Group::find($id);
 
-        if ($group == null) {
-            return response()->json(["error" => "Group ID is not existed"]);
+        if ($unit == null) {
+            return response()->json(["error" => "group ID is not existed"]);
         }
 
-        if ($validator["name"] && $group->name != "" && $group->name != null) {
-            $group->name = $validator["name"];
+        if ($validator["name"] && $unit->name != "" && $unit->name != null) {
+            $unit->name = $validator["name"];
         }
-        if ($validator["description"] && $group->description != "" && $group->description != null) {
-            $group->description = $validator["description"];
+        if ($validator["description"] && $unit->description != "" && $unit->description != null) {
+            $unit->description = $validator["description"];
         }
-        if ($validator["captain_id"] && $group->captain_id != "" && $group->captain_id != null) {
-            $group->captain_id = $validator["captain_id"];
+        if ($validator["captain_id"] && $unit->captain_id != "" && $unit->captain_id != null) {
+            $unit->captain_id = $validator["captain_id"];
         }
 
-        $group->save();
-
-        if ($validator["members_id"]) {
-            foreach ($validator["members_id"] as $value) {
-                array_push($members, ["user_id" => $value, "group_id" => $id]);
+        if ($validator["members"]) {
+            foreach ($validator["members"] as $value) {
+                array_push($members, ["user_id" => $value["user_id"], "group_id" => $id, "mission" => $value["mission"]]);
             }
         }
 
-        if ($validator["deputies_id"]) {
-            foreach ($validator["deputies_id"] as $value) {
-                array_push($deputies, ["user_id" => $value, "group_id" => $id]);
+        if ($validator["deputies"]) {
+            foreach ($validator["deputies"] as $value) {
+                array_push($deputies, ["user_id" => $value["user_id"], "group_id" => $id, "mission" => $value["mission"]]);
             }
         }
+
+        $unit->save();
+
+        DB::table('deputies')->where('group_id', $unit->id)->delete();
+        DB::table('members')->where('group_id', $unit->id)->delete();
 
         DB::table('deputies')->insert($deputies);
         DB::table('members')->insert($members);
 
-        return response()->json(["succeed" => true]);
+        return response()->json($unit);
     }
 
     public function destroy($id)

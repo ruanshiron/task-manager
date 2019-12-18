@@ -45,7 +45,7 @@ class ListGroup extends React.Component {
         return (
             <div style={{ paddingTop: '28px' }} className="container-fluid">
 
-                <table className="table1" >
+                <table className="table" >
                     <thead className="thead-light">
                         <tr>
                             <th scope="col">Tên nhóm</th>
@@ -53,7 +53,7 @@ class ListGroup extends React.Component {
                             <th scope="col">Trưởng nhóm</th>
                             <th scope="col" style={{ width: '8%' }}>Số thành viên</th>
                             <th scope="col" style={{ width: '8%' }}>Số công việc thực hiện</th>
-                            <th scope="col" style={{ width: '8%' }}>Chỉnh sửa</th>
+                            <th scope="col" style={{ width: '8%' }}>Sửa</th>
                             <th scope="col" style={{ width: '8%' }}>Xóa</th>
                         </tr>
                     </thead>
@@ -68,9 +68,9 @@ class ListGroup extends React.Component {
                                         <td style={{ textAlign: 'center' }}>4</td>
                                         <td style={{ textAlign: 'center' }}>20</td>
                                         <td style={{ textAlign: 'center' }}>
-                                            <Link to={"/groups/" + record.id}>Chỉnh sửa</Link>
+                                            <Link to={"/groups/" + record.id}><Button icon='edit' intent='warning' minimal/></Link>
                                         </td>
-                                        <td style={{ textAlign: 'center' }}><a href="#" className="text-danger" onClick={this.onDelete.bind(this, record.id)}>Xóa</a></td>
+                                        <td style={{ textAlign: 'center' }}><Button icon='delete' intent='danger' minimal onClick={this.onDelete.bind(this, record.id)} /></td>
                                     </tr>
                                 )
                             })

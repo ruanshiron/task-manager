@@ -2,53 +2,43 @@ import React, { useState, useEffect } from 'react'
 import { H6, Card, InputGroup, Button } from '@blueprintjs/core'
 import { ItemSuggest } from '../../../components'
 
-export default function ShowMembers({users, onChange, members }) {
+export default function ShowMembers({ users, onChange, members }) {
 
     const [state, setState] = useState({
-        deputies: members ? members : [],
         create: {
-            user: {
-                id: 0,
-            },
+            id: 0,
             mission: ''
         }
     })
 
     useEffect(() => {
 
+
     })
 
-    const editOnClick = (index) => {
-        setState({
-            ...state,
-            deputies: state.deputies.map((u, i) => index != i ? u : { ...u, editing: !u.editing })
-        })
-        if (onChange) onChange(state.deputies)
-    }
-
     const deleteOnClick = (index) => {
-        state.deputies.splice(index, 1)
+        members.splice(index, 1)
 
         setState({
             ...state,
-            deputies: state.deputies
+            members: members
         })
-        if (onChange) onChange(state.deputies)
+        if (onChange) onChange(members)
     }
 
     const nameEditOnChange = (v, i) => {
-        state.deputies[i] = { ...state.deputies[i], user: v }
+        members[i] = { ...members[i], user: v }
         setState({
             ...state,
-            deputies: state.deputies
+            members: members
         })
     }
 
     const missionEditOnChange = (e, i) => {
-        state.deputies[i].mission = e.target.value
+        members[i].mission = e.target.value
         setState({
             ...state,
-            deputies: state.deputies
+            members: members
         })
     }
 
@@ -70,39 +60,27 @@ export default function ShowMembers({users, onChange, members }) {
 
                             <tbody>
                                 {
-                                    state.deputies.map((u, i) => (
-                                        u.editing ?
-                                            <tr key={i}>
-                                                <th scope="row">{i + 1}</th>
-                                                <td><ItemSuggest onChange={v => nameEditOnChange(v, i)} selected={u.user} fill /></td>
-                                                <td><InputGroup onChange={e => missionEditOnChange(e, i)} value={state.mission} /></td>
-                                                <td>
-                                                    <Button onClick={(e) => editOnClick(i)} intent="warning" minimal>xong</Button>
-                                                    <Button onClick={(e) => deleteOnClick(i)} intent="danger" minimal>xoá</Button>
-                                                </td>
-                                            </tr>
-                                            :
-                                            <tr key={i}>
-                                                <th scope="row">{i + 1}</th>
-                                                <td>{u.user.title}</td>
-                                                <td>{u.mission}</td>
-                                                <td>
-                                                    <Button onClick={(e) => editOnClick(i)} intent="warning" minimal>sửa</Button>
-                                                    <Button onClick={(e) => deleteOnClick(i)} intent="danger" minimal>xoá</Button>
-                                                </td>
-                                            </tr>
+                                    members.map((u, i) => (
+                                        <tr key={i}>
+                                            <th scope="row">{i + 1}</th>
+                                            <td><ItemSuggest onChange={v => nameEditOnChange(v, i)} selected={u} items={users} fill /></td>
+                                            <td><InputGroup onChange={e => missionEditOnChange(e, i)} value={u.mission ? u.mission : ''} /></td>
+                                            <td>
+                                                <Button onClick={(e) => deleteOnClick(i)} intent="danger" minimal icon='delete'></Button>
+                                            </td>
+                                        </tr>
                                     ))
                                 }
                                 <tr>
-                                    <th scope="row">{state.deputies.length + 1}</th>
+                                    <th scope="row">{members.length + 1}</th>
                                     <td>
                                         <ItemSuggest
                                             items={users}
-                                            selected={state.create.user}
+                                            selected={state.create}
                                             onChange={v => {
                                                 setState({
                                                     ...state,
-                                                    create: { ...state.create, user: v }
+                                                    create: { ...state.create, ...v}
                                                 })
                                             }}
                                             fill />
@@ -122,21 +100,20 @@ export default function ShowMembers({users, onChange, members }) {
                                         />
                                     </td>
                                     <td>
-                                        <Button text="thêm" intent="success" minimal fill
+                                        <Button icon='add' intent="success" minimal
                                             onClick={e => {
-                                                if (state.create.user.id != 0) {
-                                                    state.deputies.push(state.create)
+                                                if (state.create.id != 0) {
+                                                    members.push(state.create)
                                                     setState({
                                                         ...state,
-                                                        deputies: state.deputies,
+                                                        members: members,
                                                         create: {
-                                                            user: {
-                                                                id: 0,
-                                                                title: ''
-                                                            }, mission: ''
+                                                            id: 0,
+                                                            title: ''
+                                                            , mission: ''
                                                         }
                                                     })
-                                                    if (onChange) onChange(state.deputies)
+                                                    if (onChange) onChange(members)
                                                 }
                                             }}
                                         />

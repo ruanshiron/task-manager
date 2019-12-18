@@ -25,9 +25,9 @@ class GroupContent extends React.Component {
                 <Route exact path="/groups/">
                     <ListGroup/>
                 </Route>
-                {/* <Route path="/groups/:groupID">
+                <Route path="/groups/:groupId">
                     <EditGroup/>
-                </Route> */}
+                </Route>
                 <Route path="/groups/new">
                     <CreateNewGroup/>
                 </Route>

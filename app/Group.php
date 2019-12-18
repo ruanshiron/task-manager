@@ -15,11 +15,11 @@ class Group extends Model
 
     public function deputies()
     {
-        return $this->belongsToMany('App\User', 'deputies', 'user_id', 'group_id');
+        return $this->belongsToMany('App\User', 'deputies', 'group_id', 'user_id')->withPivot('mission');
     }
 
     public function members()
     {
-        return $this->belongsToMany('App\User', 'members', 'user_id', 'group_id');
+        return $this->belongsToMany('App\User', 'members', 'group_id', 'user_id')->withPivot('mission');
     }
 }

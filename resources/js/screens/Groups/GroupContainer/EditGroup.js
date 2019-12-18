@@ -1,104 +1,165 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { H1, InputGroup, Button, Icon, Card, EditableText, TextArea } from '@blueprintjs/core';
-import { ItemSelect, ItemMultiSelect } from '../../../components';
-import ShowDeputies from './ShowDeputies';
-import ShowMembers from './ShowMembers';
+import { H1, InputGroup, Button, Icon, Card, H6, H3, Classes, EditableText, TextArea, Divider, ProgressBar } from '@blueprintjs/core';
+import { ItemSelect, ItemMultiSelect, NameDescriptionEditable, ItemSuggest } from '../../../components';
+import { useParams, useHistory } from 'react-router-dom';
+import DeputiesTable from './ShowDeputies'
+import MembersTable from './ShowMembers'
 
-class EditGroup extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            groupList: [],
-            deputyList: [],
-            memberList: []
+export default function EditGroup() {
+
+    const params = useParams()
+
+    const [state, setState] = useState({
+        unit: {
+            id: params.groupId,
+            name: '',
+            description: '',
+            captain: '',
+            deputies: [],
+            members: []
         }
+    })
+
+    const [users, setUsers] = useState()
+
+    const history = useHistory()
+
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/groups/' + params.groupId,
+        })
+            .then(response => {
+                console.log(response.data);
+
+                response.data.captain.title = response.data.captain.name
+                response.data.deputies = response.data.deputies.map(u => { return { ...u, mission: u.pivot.mission ,title: u.name }})
+
+                response.data.members = response.data.members.map(u => { return { ...u, mission: u.pivot.mission ,title: u.name }})
+
+                setState({
+                    ...state,
+                    unit: response.data
+                })
+            });
+
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/users/',
+        })
+            .then(response => {
+                setUsers(response.data.map(u => { return { ...u, title: u.name } }))
+            });
+
+    }, [params])
+
+    function deputiesOnChange(v) {
+        setState({
+            unit: {
+                ...state.unit,
+                deputies: v
+            }
+        })
     }
 
-    componentDidMount() {
-        // Get nhom
-        axios.get('/api/groups')
-            .then(reponse => {
-                this.setState({ groupList: reponse.data });
-                console.log(reponse.data);
+    function membersOnChange(v) {
+        setState({
+            unit: {
+                ...state.unit,
+                members: v
+            }
+        })
+    }
+
+    function onSubmit() {
+
+        let request = {
+            ...state.unit,
+            deputies: state.unit.deputies.map(u=> ({user_id: u.id, mission: u.mission})),
+            members: state.unit.members.map(u=> ({user_id: u.id, mission: u.mission})),
+            captain_id: state.unit.captain.id
+        }
+
+        console.log(state.unit)
+
+
+        axios({
+            method: 'put',
+            url: 'http://localhost:8000/api/groups/' + params.groupId,
+            data: request
+        })
+            .then(response => {
+                console.log(response.data);
+                history.push('/groups')
 
             })
-        axios.get('/api/deputies')
-            .then(reponse => {
-                this.setState({ groupList: reponse.data });
-                console.log(reponse.data);
-
-            })
-        axios.get('/api/groups')
-            .then(reponse => {
-                this.setState({ groupList: reponse.data });
-                console.log(reponse.data);
-
+            .catch(error => {
+                console.log(error);
             })
     }
 
-    onDelete(group_id) {
-        axios.delete('/api/groups/delete/' + group_id)
-            .then(reponse => {
-                var groupList = this.state.groupList;
-
-                for (var i = 0; i < groupList.length; i++) {
-                    if (groupList[i].id == group_id) {
-                        groupList.splice(i, 1);
-                        this.setState({ groupList: groupList });
-                    }
-                }
-            })
-    }
-
-    render() {
-        return (
-            <div style={{ paddingBottom: '28px', paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
-                <div className="unit-name">
-                    <label ><strong><font size="3" >Tên nhóm</font></strong></label><br></br>
-                    <InputGroup name="name" leftIcon="layers" value="" />
-                </div>
-                <br></br>
-                <div className="Desciption">
-                    <label ><strong><font size="3" >Mô tả</font></strong></label><br></br>
-                    <TextArea className="form-control" rows="5" id="describe-unit" name="description" value="aa" />
-                </div>
-                <br></br>
-                <div className="unit-leader">
-                    <label ><strong><font size="3" >Trưởng nhóm</font></strong></label><br></br>
-                    <div style={{ width: "500px" }}><InputGroup name="captain" /></div>
-                </div>
-                <br></br>
-
-                <label ><strong><font size="3" >Phó nhóm</font></strong></label><br></br>
-
-                <div className="flex-fill bd-highlight">
-                    <div>
-                        <Card elevation={0} style={{ width: "100%" }}>
-                            <br></br>
-                            <div className="row " style={{ margin: '15px' }}>
-                                <ShowDeputies />
-                            </div>
-                        </Card>
-                    </div>
-                </div>
-
-                <br></br>
-                <label ><strong><font size="3" >Thành viên</font></strong></label><br></br>
-
-                <div className="flex-fill bd-highlight">
-                    <div>
-                        <Card elevation={0}>
-                            <br></br>
-                            <div className="row " style={{ margin: '15px' }}>
-                                <ShowMembers />
-                            </div>
-                        </Card>
-                    </div>
-                </div>
+    return (
+        <div style={{ paddingBottom: '50vh', paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
+            <div className="p-2">
+                <H3>Đơn vị</H3>
             </div>
-        )
-    }
+            <Divider />
+            <div className="p-2">
+                <InputGroup large className='mb-2'
+                    value={state.unit.name}
+                    onChange={(e) => {
+                        setState({
+                            ...state,
+                            unit: {
+                                ...state.unit,
+                                name: e.target.value
+                            }
+                        })
+                    }}
+                />
+                <TextArea growVertically large fill
+                    value={state.unit.description ? state.unit.description : ''}
+                    onChange={(e) => {
+                        setState({
+                            ...state,
+                            unit: {
+                                ...state.unit,
+                                description: e.target.value
+                            }
+                        })
+                    }}
+                />
+            </div>
+            <Divider />
+            <div className="p-2">
+                <H6>Trưởng đơn vị</H6>
+                {users && <ItemSuggest items={users} selected={state.unit.captain} fill />}
+            </div>
+
+            {users && <DeputiesTable
+                users={users}
+                onChange={deputiesOnChange}
+                deputies={state.unit.deputies}
+            />}
+
+            {users && <MembersTable
+                users={users}
+                onChange={membersOnChange}
+                members={state.unit.members}
+            />}
+
+            <Divider/>
+
+            <Button
+                intent='success'
+                className="m-2"
+                text="Lưu"
+                large
+                onClick={onSubmit}
+            />
+        </div>
+    )
 }
 
-export default EditGroup
+

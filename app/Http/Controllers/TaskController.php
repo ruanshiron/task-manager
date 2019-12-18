@@ -13,9 +13,10 @@ class TaskController extends Controller
     private function findChild($tasks)
     {
         foreach ($tasks as $task) {
+            $task->priority;
             foreach ($task->children as $child) {
-                $child->with('children')->get();
-
+                // $child->with('priority', 'children', 'parent')->get();
+                $child->priority;
                 $this->findChild($child->children);
             }
         }
