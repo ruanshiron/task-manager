@@ -102,7 +102,7 @@ export default function EditGroup() {
     return (
         <div style={{ paddingBottom: '50vh', paddingTop: '28px', paddingLeft: '40px', maxWidth: '700px' }} className="container-fluid ">
             <div className="p-2">
-                <H3>Đơn vị</H3>
+                <H3>Nhóm</H3>
             </div>
             <Divider />
             <div className="p-2">
@@ -118,7 +118,7 @@ export default function EditGroup() {
                         })
                     }}
                 />
-                <TextArea growVertically large fill
+                <TextArea rows="3" growVertically large fill
                     value={state.unit.description ? state.unit.description : ''}
                     onChange={(e) => {
                         setState({

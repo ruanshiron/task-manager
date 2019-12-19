@@ -48,13 +48,13 @@ class ListGroup extends React.Component {
                 <table className="table" >
                     <thead className="thead-light">
                         <tr>
-                            <th scope="col">Tên nhóm</th>
-                            <th scope="col" style={{ width: '40%' }}>Mô tả</th>
+                            <th scope="col" style={{ width: '15%' }}>Tên nhóm</th>
+                            <th scope="col" style={{ width: '32%' }}>Mô tả</th>
                             <th scope="col">Trưởng nhóm</th>
-                            <th scope="col" style={{ width: '8%' }}>Số thành viên</th>
-                            <th scope="col" style={{ width: '8%' }}>Số công việc thực hiện</th>
-                            <th scope="col" style={{ width: '8%' }}>Sửa</th>
-                            <th scope="col" style={{ width: '8%' }}>Xóa</th>
+                            <th scope="col" style={{ width: '15%' }}>Số thành viên</th>
+                            <th scope="col" style={{ textAlign: 'center' }}>Số công việc thực hiện</th>
+                            <th scope="col" style={{ textAlign: 'center' }}>Sửa</th>
+                            <th scope="col" style={{ textAlign: 'center' }}>Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,9 +62,9 @@ class ListGroup extends React.Component {
                             this.state.groupList.map((record, id) => {
                                 return (
                                     <tr key={id}>
-                                        <td style={{ padding: '30px 0px' }}>{record.name}</td>
+                                        <th style={{ padding: '30px 0px' }}>{record.name}</th>
                                         <td>{record.description}</td>
-                                        <td>{record.captain.name}</td>
+                                        <td style={{ textAlign: 'center' }}>{record.captain.name}</td>
                                         <td style={{ textAlign: 'center' }}>4</td>
                                         <td style={{ textAlign: 'center' }}>20</td>
                                         <td style={{ textAlign: 'center' }}>
