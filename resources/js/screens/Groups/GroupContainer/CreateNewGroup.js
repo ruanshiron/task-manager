@@ -80,7 +80,7 @@ export default function CreateNewGroup(props) {
             <Divider />
 
             <div className="p-2">
-                <H6>Trưởng đơn vị</H6>
+                <H6>Trưởng nhóm</H6>
                 {users && <ItemSuggest items={users} selected={captain} onChange={v => setCaptain(v)} fill />}
             </div>
 
