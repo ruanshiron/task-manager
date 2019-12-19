@@ -71,6 +71,7 @@ export default function CreateNewGroup(props) {
                 />
 
                 <TextArea
+                    rows="3"
                     fill
                     placeholder="Mô tả"
                     value={description}

@@ -113,7 +113,7 @@ export default function UnitsContent() {
                         })
                     }}
                 />
-                <TextArea growVertically large fill
+                <TextArea rows="3" growVertically large fill
                     value={state.unit.description ? state.unit.description : ''}
                     onChange={(e) => {
                         setState({
