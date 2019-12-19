@@ -152,7 +152,7 @@ class NewTasksTemplateContent extends React.Component {
             .then(response => {
                 console.log(response);
 
-                this.props.history.push(`/templates`)
+                this.props.history.push(`/tasks/template`)
             })
             .catch(error => {
                 console.log(error);
