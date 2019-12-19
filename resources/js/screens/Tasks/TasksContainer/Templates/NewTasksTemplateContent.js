@@ -152,7 +152,7 @@ class NewTasksTemplateContent extends React.Component {
             .then(response => {
                 console.log(response);
 
-                // this.props.history.push(`/templates/${response.data.id}`)
+                this.props.history.push(`/templates`)
             })
             .catch(error => {
                 console.log(error);
@@ -249,15 +249,12 @@ class NewTasksTemplateContent extends React.Component {
                 <Divider />
                 <div className="d-flex flex-row bd-highlight mb-3">
                     <div className="p-2">
-                        <a href="http://localhost:8000/tasks/template" style={{ color: "white" }}>
-                            <Button intent="success" large>Tạo công việc </Button>
-                        </a>
-                        {/* <Button
+                        <Button
                             onClick={this.onSubmit}
                             intent="success" large
                         >
                             Tạo công việc
-                        </Button> */}
+                        </Button>
                     </div>
                 </div>
             </div>
